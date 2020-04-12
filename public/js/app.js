@@ -1911,6 +1911,70 @@ module.exports = {
 
 /***/ }),
 
+/***/ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/Join.vue?vue&type=script&lang=js&":
+/*!***************************************************************************************************************************************************************!*\
+  !*** ./node_modules/babel-loader/lib??ref--4-0!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/components/Join.vue?vue&type=script&lang=js& ***!
+  \***************************************************************************************************************************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+/* harmony default export */ __webpack_exports__["default"] = ({
+  name: "Join",
+  props: {
+    api: {
+      type: Object
+    },
+    roomid: {
+      type: String
+    }
+  },
+  data: function data() {
+    return {
+      username: "",
+      msg: ""
+    };
+  },
+  methods: {
+    join: function join(type) {
+      var _this = this;
+
+      this.api.join(this.username, type, this.roomid).then(function (data) {
+        _this.$emit("joined", data);
+      });
+    }
+  }
+});
+
+/***/ }),
+
 /***/ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/Room.vue?vue&type=script&lang=js&":
 /*!***************************************************************************************************************************************************************!*\
   !*** ./node_modules/babel-loader/lib??ref--4-0!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/components/Room.vue?vue&type=script&lang=js& ***!
@@ -1921,37 +1985,7 @@ module.exports = {
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _support_api__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../support/api */ "./resources/js/support/api.js");
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
+/* harmony import */ var _Join_vue__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./Join.vue */ "./resources/js/components/Join.vue");
 //
 //
 //
@@ -2004,39 +2038,58 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 
+
 /* harmony default export */ __webpack_exports__["default"] = ({
-  props: ["roomid", "routes"],
+  name: "Room",
+  components: {
+    Join: _Join_vue__WEBPACK_IMPORTED_MODULE_1__["default"]
+  },
+  props: {
+    roomid: {
+      type: String
+    },
+    routes: {
+      type: String
+    }
+  },
   data: function data() {
     return {
       hasJoined: false,
-      username: "",
-      msg: "",
       players: [],
       observers: [],
       api: null
     };
   },
-  mounted: function mounted() {
-    console.log(this.roomid);
+  created: function created() {
     this.api = new _support_api__WEBPACK_IMPORTED_MODULE_0__["default"](this.routes);
   },
+  mounted: function mounted() {// console.log(this.roomid);
+  },
   methods: {
-    join: function join(playerType) {
-      //   console.log("Player: " + playerType);
-      //   const api = new Api(this.routes);
-      this.api.join().then(function (data) {
-        console.log(data);
-      }); //   console.log(player.join());
-      //   axios
-      //     .put(this.routes.player_join)
-      //     .then(response => (this.info = response.data.bpi))
-      //     .catch(error => console.log(error));
-      //   if (this.username.length == 0) {
-      //     this.msg = "A username is required";
-      //     return;
-      //   }
-      //   this.hasJoined = true;
-    }
+    handleJoin: function handleJoin(data) {
+      this.hasJoined = true;
+      this.getPlayers();
+    },
+    getPlayers: function getPlayers() {
+      var players = this.api.getPlayers(this.roomid);
+      console.log(players);
+    } // join: function(playerType) {
+    //   //   console.log("Player: " + playerType);
+    //   //   const api = new Api(this.routes);
+    //   this.api.join().then(data => {
+    //     console.log(data);
+    //   });
+    //   console.log(player.join());
+    //   axios
+    //     .put(this.routes.player_join)
+    //     .then(response => (this.info = response.data.bpi))
+    //     .catch(error => console.log(error));
+    //   if (this.username.length == 0) {
+    //     this.msg = "A username is required";
+    //     return;
+    //   }
+    //   this.hasJoined = true;
+
   }
 });
 
@@ -20366,6 +20419,104 @@ exports.clearImmediate = (typeof self !== "undefined" && self.clearImmediate) ||
 
 /***/ }),
 
+/***/ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/Join.vue?vue&type=template&id=5012af15&":
+/*!*******************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/components/Join.vue?vue&type=template&id=5012af15& ***!
+  \*******************************************************************************************************************************************************************************************************/
+/*! exports provided: render, staticRenderFns */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "render", function() { return render; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return staticRenderFns; });
+var render = function() {
+  var _vm = this
+  var _h = _vm.$createElement
+  var _c = _vm._self._c || _h
+  return _c("div", { staticClass: "row justify-content-center" }, [
+    _c("div", { staticClass: "col-4" }, [
+      _c("div", { staticClass: "card" }, [
+        _c("div", { staticClass: "card-header" }, [
+          _vm._v("Register for room")
+        ]),
+        _vm._v(" "),
+        _c("div", { staticClass: "card-body" }, [
+          _c("div", { staticClass: "form-group" }, [
+            _c("label", { attrs: { for: "room_name" } }, [
+              _vm._v("Enter your name")
+            ]),
+            _vm._v(" "),
+            _c("input", {
+              directives: [
+                {
+                  name: "model",
+                  rawName: "v-model",
+                  value: _vm.username,
+                  expression: "username"
+                }
+              ],
+              staticClass: "form-control",
+              attrs: { type: "text", required: "" },
+              domProps: { value: _vm.username },
+              on: {
+                input: function($event) {
+                  if ($event.target.composing) {
+                    return
+                  }
+                  _vm.username = $event.target.value
+                }
+              }
+            }),
+            _vm._v(" "),
+            _vm.msg ? _c("span", [_vm._v(_vm._s(_vm.msg))]) : _vm._e()
+          ]),
+          _vm._v(" "),
+          _c("p", { staticClass: "text-center" }, [_vm._v("Enter room as:")]),
+          _vm._v(" "),
+          _c("div", { staticClass: "row" }, [
+            _c("div", { staticClass: "col-6 text-center" }, [
+              _c(
+                "button",
+                {
+                  staticClass: "btn btn-primary",
+                  on: {
+                    click: function($event) {
+                      return _vm.join(1)
+                    }
+                  }
+                },
+                [_vm._v("Player")]
+              )
+            ]),
+            _vm._v(" "),
+            _c("div", { staticClass: "col-6 text-center" }, [
+              _c(
+                "button",
+                {
+                  staticClass: "btn btn-primary",
+                  on: {
+                    click: function($event) {
+                      return _vm.join(0)
+                    }
+                  }
+                },
+                [_vm._v("Observer")]
+              )
+            ])
+          ])
+        ])
+      ])
+    ])
+  ])
+}
+var staticRenderFns = []
+render._withStripped = true
+
+
+
+/***/ }),
+
 /***/ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/Room.vue?vue&type=template&id=cd69db74&":
 /*!*******************************************************************************************************************************************************************************************************!*\
   !*** ./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/components/Room.vue?vue&type=template&id=cd69db74& ***!
@@ -20383,91 +20534,46 @@ var render = function() {
   var _c = _vm._self._c || _h
   return _c("div", { staticClass: "container" }, [
     _vm.hasJoined
-      ? _c("div", [_vm._m(0)])
-      : _c("div", [
+      ? _c("div", [
           _c("div", { staticClass: "row justify-content-center" }, [
-            _c("div", { staticClass: "col-4" }, [
+            _c("div", { staticClass: "col-2" }, [
+              _vm._m(0),
+              _vm._v(" "),
               _c("div", { staticClass: "card" }, [
-                _c("div", { staticClass: "card-header" }, [
-                  _vm._v("Register for room")
+                _c("div", { staticClass: "card-header text-center" }, [
+                  _vm._v("Observers")
                 ]),
                 _vm._v(" "),
                 _c("div", { staticClass: "card-body" }, [
-                  _c("div", { staticClass: "form-group" }, [
-                    _c("label", { attrs: { for: "room_name" } }, [
-                      _vm._v("Enter your name")
-                    ]),
-                    _vm._v(" "),
-                    _c("input", {
-                      directives: [
-                        {
-                          name: "model",
-                          rawName: "v-model",
-                          value: _vm.username,
-                          expression: "username"
-                        }
-                      ],
-                      staticClass: "form-control",
-                      attrs: {
-                        type: "text",
-                        name: "username",
-                        id: "username",
-                        required: ""
-                      },
-                      domProps: { value: _vm.username },
-                      on: {
-                        input: function($event) {
-                          if ($event.target.composing) {
-                            return
-                          }
-                          _vm.username = $event.target.value
-                        }
-                      }
+                  _c(
+                    "ul",
+                    { staticClass: "list-group list-group-flush" },
+                    _vm._l(this.observers, function(observer) {
+                      return _c(
+                        "li",
+                        { key: observer, staticClass: "list-group-item" },
+                        [_vm._v(_vm._s(observer))]
+                      )
                     }),
-                    _vm._v(" "),
-                    _vm.msg ? _c("span", [_vm._v(_vm._s(_vm.msg))]) : _vm._e()
-                  ]),
-                  _vm._v(" "),
-                  _c("p", { staticClass: "text-center" }, [
-                    _vm._v("Enter room as:")
-                  ]),
-                  _vm._v(" "),
-                  _c("div", { staticClass: "row" }, [
-                    _c("div", { staticClass: "col-6 text-center" }, [
-                      _c(
-                        "button",
-                        {
-                          staticClass: "btn btn-primary",
-                          on: {
-                            click: function($event) {
-                              return _vm.join(1)
-                            }
-                          }
-                        },
-                        [_vm._v("Player")]
-                      )
-                    ]),
-                    _vm._v(" "),
-                    _c("div", { staticClass: "col-6 text-center" }, [
-                      _c(
-                        "button",
-                        {
-                          staticClass: "btn btn-primary",
-                          on: {
-                            click: function($event) {
-                              return _vm.join(0)
-                            }
-                          }
-                        },
-                        [_vm._v("Observer")]
-                      )
-                    ])
-                  ])
+                    0
+                  )
                 ])
               ])
-            ])
+            ]),
+            _vm._v(" "),
+            _vm._m(1)
           ])
         ])
+      : _c(
+          "div",
+          [
+            _c("join", {
+              attrs: { api: this.api, roomid: this.roomid },
+              on: { joined: _vm.handleJoin }
+            })
+          ],
+          1
+        )
   ])
 }
 var staticRenderFns = [
@@ -20475,64 +20581,38 @@ var staticRenderFns = [
     var _vm = this
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "row justify-content-center" }, [
-      _c("div", { staticClass: "col-3" }, [
-        _c("div", { staticClass: "card" }, [
-          _c("div", { staticClass: "card-header text-center" }, [
-            _vm._v("Players")
-          ]),
-          _vm._v(" "),
-          _c("div", { staticClass: "card-body" }, [
-            _c("ul", { staticClass: "list-group list-group-flush" }, [
-              _c("li", { staticClass: "list-group-item" }, [_vm._v("Bob")]),
-              _vm._v(" "),
-              _c("li", { staticClass: "list-group-item" }, [_vm._v("Tom")]),
-              _vm._v(" "),
-              _c("li", { staticClass: "list-group-item" }, [_vm._v("Pat")]),
-              _vm._v(" "),
-              _c("li", { staticClass: "list-group-item" }, [_vm._v("Kelly")]),
-              _vm._v(" "),
-              _c("li", { staticClass: "list-group-item" }, [_vm._v("Vikki")])
+    return _c("div", { staticClass: "card" }, [
+      _c("div", { staticClass: "card-header text-center" }, [
+        _vm._v("Players")
+      ]),
+      _vm._v(" "),
+      _c("div", { staticClass: "card-body" }, [
+        _c("ul", { staticClass: "list-group list-group-flush" }, [
+          _c("li", { staticClass: "list-group-item" }, [_vm._v("Bob")])
+        ])
+      ])
+    ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("div", { staticClass: "col-2" }, [
+      _c("div", { staticClass: "card" }, [
+        _c("div", { staticClass: "card-header text-center" }, [
+          _vm._v("Votes")
+        ]),
+        _vm._v(" "),
+        _c("div", { staticClass: "card-body" }, [
+          _c("ul", { staticClass: "list-group" }, [
+            _c("li", { staticClass: "list-group-item text-center" }, [
+              _vm._v("3")
             ])
           ])
         ]),
         _vm._v(" "),
-        _c("div", { staticClass: "card" }, [
-          _c("div", { staticClass: "card-header text-center" }, [
-            _vm._v("Observers")
-          ]),
-          _vm._v(" "),
-          _c("div", { staticClass: "card-body" }, [
-            _c("ul", { staticClass: "list-group list-group-flush" }, [
-              _c("li", { staticClass: "list-group-item" }, [_vm._v("Jenn")]),
-              _vm._v(" "),
-              _c("li", { staticClass: "list-group-item" }, [_vm._v("Pete")])
-            ])
-          ])
-        ])
-      ]),
-      _vm._v(" "),
-      _c("div", { staticClass: "col-2" }, [
-        _c("div", { staticClass: "card" }, [
-          _c("div", { staticClass: "card-header text-center" }, [
-            _vm._v("Votes")
-          ]),
-          _vm._v(" "),
-          _c("div", { staticClass: "card-body" }, [
-            _c("ul", { staticClass: "list-group" }, [
-              _c("li", { staticClass: "list-group-item text-center" }, [
-                _vm._v("3")
-              ]),
-              _vm._v(" "),
-              _c("li", { staticClass: "list-group-item text-center" }, [
-                _vm._v("8")
-              ])
-            ])
-          ]),
-          _vm._v(" "),
-          _c("div", { staticClass: "card-footer text-center" }, [
-            _vm._v("4.3 Average")
-          ])
+        _c("div", { staticClass: "card-footer text-center" }, [
+          _vm._v("4.3 Average")
         ])
       ])
     ])
@@ -32783,6 +32863,75 @@ window.axios.defaults.headers.common['X-Requested-With'] = 'XMLHttpRequest';
 
 /***/ }),
 
+/***/ "./resources/js/components/Join.vue":
+/*!******************************************!*\
+  !*** ./resources/js/components/Join.vue ***!
+  \******************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _Join_vue_vue_type_template_id_5012af15___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./Join.vue?vue&type=template&id=5012af15& */ "./resources/js/components/Join.vue?vue&type=template&id=5012af15&");
+/* harmony import */ var _Join_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./Join.vue?vue&type=script&lang=js& */ "./resources/js/components/Join.vue?vue&type=script&lang=js&");
+/* empty/unused harmony star reexport *//* harmony import */ var _node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../../node_modules/vue-loader/lib/runtime/componentNormalizer.js */ "./node_modules/vue-loader/lib/runtime/componentNormalizer.js");
+
+
+
+
+
+/* normalize component */
+
+var component = Object(_node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__["default"])(
+  _Join_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__["default"],
+  _Join_vue_vue_type_template_id_5012af15___WEBPACK_IMPORTED_MODULE_0__["render"],
+  _Join_vue_vue_type_template_id_5012af15___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"],
+  false,
+  null,
+  null,
+  null
+  
+)
+
+/* hot reload */
+if (false) { var api; }
+component.options.__file = "resources/js/components/Join.vue"
+/* harmony default export */ __webpack_exports__["default"] = (component.exports);
+
+/***/ }),
+
+/***/ "./resources/js/components/Join.vue?vue&type=script&lang=js&":
+/*!*******************************************************************!*\
+  !*** ./resources/js/components/Join.vue?vue&type=script&lang=js& ***!
+  \*******************************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_Join_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../node_modules/babel-loader/lib??ref--4-0!../../../node_modules/vue-loader/lib??vue-loader-options!./Join.vue?vue&type=script&lang=js& */ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/Join.vue?vue&type=script&lang=js&");
+/* empty/unused harmony star reexport */ /* harmony default export */ __webpack_exports__["default"] = (_node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_Join_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__["default"]); 
+
+/***/ }),
+
+/***/ "./resources/js/components/Join.vue?vue&type=template&id=5012af15&":
+/*!*************************************************************************!*\
+  !*** ./resources/js/components/Join.vue?vue&type=template&id=5012af15& ***!
+  \*************************************************************************/
+/*! exports provided: render, staticRenderFns */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_Join_vue_vue_type_template_id_5012af15___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!../../../node_modules/vue-loader/lib??vue-loader-options!./Join.vue?vue&type=template&id=5012af15& */ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/Join.vue?vue&type=template&id=5012af15&");
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "render", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_Join_vue_vue_type_template_id_5012af15___WEBPACK_IMPORTED_MODULE_0__["render"]; });
+
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_Join_vue_vue_type_template_id_5012af15___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"]; });
+
+
+
+/***/ }),
+
 /***/ "./resources/js/components/Room.vue":
 /*!******************************************!*\
   !*** ./resources/js/components/Room.vue ***!
@@ -32894,38 +33043,86 @@ var _default = /*#__PURE__*/function () {
   _createClass(_default, [{
     key: "join",
     value: function () {
-      var _join = _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee() {
-        var response;
+      var _join = _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee(name, type, roomId) {
+        var data, response;
         return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee$(_context) {
           while (1) {
             switch (_context.prev = _context.next) {
               case 0:
-                _context.prev = 0;
-                _context.next = 3;
-                return axios__WEBPACK_IMPORTED_MODULE_1___default.a.put(this.routes.player_join);
+                data = {
+                  name: name,
+                  type: type,
+                  roomid: roomId
+                };
+                _context.prev = 1;
+                _context.next = 4;
+                return axios__WEBPACK_IMPORTED_MODULE_1___default.a.put(this.routes.player_join, data);
 
-              case 3:
+              case 4:
                 response = _context.sent;
                 return _context.abrupt("return", response.data);
 
-              case 7:
-                _context.prev = 7;
-                _context.t0 = _context["catch"](0);
+              case 8:
+                _context.prev = 8;
+                _context.t0 = _context["catch"](1);
                 console.log(_context.t0.message); //   return error;
 
-              case 10:
+              case 11:
               case "end":
                 return _context.stop();
             }
           }
-        }, _callee, this, [[0, 7]]);
+        }, _callee, this, [[1, 8]]);
       }));
 
-      function join() {
+      function join(_x, _x2, _x3) {
         return _join.apply(this, arguments);
       }
 
       return join;
+    }()
+    /**
+     * Join a player to a room
+     */
+
+  }, {
+    key: "getPlayers",
+    value: function () {
+      var _getPlayers = _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee2(roomid) {
+        var response;
+        return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee2$(_context2) {
+          while (1) {
+            switch (_context2.prev = _context2.next) {
+              case 0:
+                data = {
+                  roomid: roomid
+                };
+                _context2.prev = 1;
+                _context2.next = 4;
+                return axios__WEBPACK_IMPORTED_MODULE_1___default.a.put(this.routes.player_list, data);
+
+              case 4:
+                response = _context2.sent;
+                return _context2.abrupt("return", response.data);
+
+              case 8:
+                _context2.prev = 8;
+                _context2.t0 = _context2["catch"](1);
+                console.log(_context2.t0.message); //   return error;
+
+              case 11:
+              case "end":
+                return _context2.stop();
+            }
+          }
+        }, _callee2, this, [[1, 8]]);
+      }));
+
+      function getPlayers(_x4) {
+        return _getPlayers.apply(this, arguments);
+      }
+
+      return getPlayers;
     }()
   }]);
 
