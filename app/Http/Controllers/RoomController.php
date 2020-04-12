@@ -20,15 +20,11 @@ class RoomController extends Controller
         $roomUuid = Uuid::uuid1()->toString();
 
         // Add the new room
-        $room = new Room;
-
-        $room->uuid = $roomUuid;
-
-        $room->name = $request->name;
-
-        $room->card_id = $request->card_set;
-
-        $room->save();
+        Room::create([
+            'uuid' => $roomUuid,
+            'name' => $request->name,
+            'card_id'=> $request->card_set,
+        ]);
 
         // Redirect to the created room
         return redirect()->route('room', ['roomId' => $roomUuid]);
@@ -45,6 +41,7 @@ class RoomController extends Controller
 
         $routes = collect([
             'player_join' => route('player_join'),
+            'player_list' => route('player_list'),
         ]);
 
         return view('room', ['name' => $room->name, 'id' => $roomId, 'routes' => $routes]);

@@ -12,6 +12,7 @@ class Player extends Model
 
     protected $casts = [
         'uuid' => EfficientUuid::class,
+        'room_id' => EfficientUuid::class,
     ];
 
     /**

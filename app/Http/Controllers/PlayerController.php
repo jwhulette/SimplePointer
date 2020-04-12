@@ -12,9 +12,9 @@ class PlayerController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
-        //
+        return Player::where('room_id', $request->roomid)->toJson();
     }
 
     /**
@@ -25,7 +25,6 @@ class PlayerController extends Controller
     public function create()
     {
         //
-        return response('hit', 405);
     }
 
     /**
@@ -36,16 +35,26 @@ class PlayerController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        try {
+            $player = Player::create([
+                'name' => $request->name,
+                'type' => $request->type,
+                'room_id' => $request->roomid,
+            ]);
+        } catch (\Throwable $th) {
+            return response('Unable to create player!', 500);
+        }
+
+        return response($player->toJson());
     }
 
     /**
      * Display the specified resource.
      *
-     * @param  \App\Votes  $votes
+     * @param  \App\Player  $player
      * @return \Illuminate\Http\Response
      */
-    public function show(Player $votes)
+    public function show(Player $player)
     {
         //
     }
@@ -53,10 +62,10 @@ class PlayerController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  \App\Votes  $votes
+     * @param  \App\Player  $player
      * @return \Illuminate\Http\Response
      */
-    public function edit(Player $votes)
+    public function edit(Player $player)
     {
         //
     }
@@ -65,10 +74,10 @@ class PlayerController extends Controller
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Votes  $votes
+     * @param  \App\Player  $player
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Player $votes)
+    public function update(Request $request, Player $player)
     {
         //
     }
@@ -76,10 +85,10 @@ class PlayerController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\Votes  $votes
+     * @param  \App\Votes  $player
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Player $votes)
+    public function destroy(Player $player)
     {
         //
     }

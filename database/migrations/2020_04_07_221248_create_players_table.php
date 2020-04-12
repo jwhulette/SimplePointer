@@ -17,6 +17,7 @@ class CreatePlayersTable extends Migration
             $table->efficientUuid('uuid')->primary();
             $table->string('name')->comment('The players name');
             $table->smallInteger('type')->comment('The user type 0 - Observer / 1 - Player');
+            $table->efficientUuid('room_id')->index()->comment('The room id the player is in');
             $table->dateTime('created_at')->useCurrent()->comment('The datetime the player was created');
         });
     }
