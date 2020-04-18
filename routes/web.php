@@ -3,6 +3,7 @@
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\RoomController;
+use App\Http\Controllers\PlayerController;
 
 /*
 |--------------------------------------------------------------------------
@@ -20,3 +21,5 @@ Route::get('/', [HomeController::class, 'index'])->name('home');
 Route::post('/room', [RoomController::class, 'index'])->name('rooms_index');
 
 Route::get('/{roomId}/room', [RoomController::class, 'room'])->name('room');
+
+Route::put('/join', [PlayerController::class, 'store'])->name('join');

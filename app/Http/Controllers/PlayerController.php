@@ -2,31 +2,14 @@
 
 namespace App\Http\Controllers;
 
-use App\Player;
+use App\User;
+use App\Events\UserJoined;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Log;
+use Illuminate\Support\Facades\Auth;
 
 class PlayerController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function index(Request $request)
-    {
-        return Player::where('room_id', $request->roomid)->toJson();
-    }
-
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
-    {
-        //
-    }
-
     /**
      * Store a newly created resource in storage.
      *
@@ -36,60 +19,22 @@ class PlayerController extends Controller
     public function store(Request $request)
     {
         try {
-            $player = Player::create([
+            $user = User::create([
                 'name' => $request->name,
-                'type' => $request->type,
+                'type' => (int) $request->type,
                 'room_id' => $request->roomid,
             ]);
         } catch (\Throwable $th) {
+            Log::error($th->getMessage());
+
             return response('Unable to create player!', 500);
         }
 
-        return response($player->toJson());
-    }
+        // Auth::login($user);
 
-    /**
-     * Display the specified resource.
-     *
-     * @param  \App\Player  $player
-     * @return \Illuminate\Http\Response
-     */
-    public function show(Player $player)
-    {
-        //
-    }
+        // Dispatch the user joined event
+        event(new UserJoined($request->roomid));
 
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  \App\Player  $player
-     * @return \Illuminate\Http\Response
-     */
-    public function edit(Player $player)
-    {
-        //
-    }
-
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Player  $player
-     * @return \Illuminate\Http\Response
-     */
-    public function update(Request $request, Player $player)
-    {
-        //
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  \App\Votes  $player
-     * @return \Illuminate\Http\Response
-     */
-    public function destroy(Player $player)
-    {
-        //
+        return response('success');
     }
 }

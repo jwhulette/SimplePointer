@@ -20,10 +20,14 @@
     <header><a href="{{ route('home') }}">HOME</a></header>
     <div class="flex-center position-ref full-height">
 
-        @yield('content')
+        <div id="app">
+            @yield('content')
+        </div>
 
     </div>
     <footer>Footer</footer>
+    <script type="text/javascript" src="{{ mix('js/manifest.js') }}"></script>
+    <script type="text/javascript" src="{{ mix('js/vendor.js') }}"></script>
     <script type="text/javascript" src="{{ mix('js/app.js') }}"></script>
 </body>
 
