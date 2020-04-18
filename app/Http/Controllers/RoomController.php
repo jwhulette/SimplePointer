@@ -41,7 +41,6 @@ class RoomController extends Controller
 
         $routes = collect([
             'player_join' => route('player_join'),
-            'player_list' => route('player_list'),
         ]);
 
         return view('room', ['name' => $room->name, 'id' => $roomId, 'routes' => $routes]);

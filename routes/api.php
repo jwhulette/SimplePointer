@@ -19,6 +19,5 @@ Route::middleware('throttle:20,1')->prefix('v1')->group(function () {
     // Player routes
     Route::namespace('Player')->group(function () {
         Route::put('/player/join', [PlayerController::class, 'store'])->name('player_join');
-        Route::get('/player/list', [PlayerController::class, 'index'])->name('player_list');
     });
 });

@@ -1,0 +1,43 @@
+<?php
+
+namespace App\Events;
+
+use App\Player;
+use Illuminate\Broadcasting\Channel;
+use Illuminate\Queue\SerializesModels;
+use Illuminate\Broadcasting\PrivateChannel;
+use Illuminate\Broadcasting\PresenceChannel;
+use Illuminate\Database\Eloquent\Collection;
+use Illuminate\Foundation\Events\Dispatchable;
+use Illuminate\Broadcasting\InteractsWithSockets;
+use Illuminate\Contracts\Broadcasting\ShouldBroadcast;
+use Illuminate\Contracts\Broadcasting\ShouldBroadcastNow;
+
+class UserJoined implements ShouldBroadcastNow
+{
+    use Dispatchable, InteractsWithSockets, SerializesModels;
+
+    public array $players;
+    public string $roomid;
+
+    /**
+     * Create a new event instance.
+     *
+     * @return void
+     */
+    public function __construct(string $roomid)
+    {
+        $this->roomid = $roomid;
+        $this->players = Player::whereUuid($roomid, 'room_id')->get(['uuid', 'name', 'type'])->toArray();
+    }
+
+    /**
+     * Get the channels the event should broadcast on.
+     *
+     * @return \Illuminate\Broadcasting\Channel|array
+     */
+    public function broadcastOn()
+    {
+        return new Channel('room');
+    }
+}

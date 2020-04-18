@@ -49,4 +49,14 @@ class Player extends Model
      * @var array
      */
     protected $guarded = [];
+
+    /**
+     * Set the uuid columns.
+     *
+     * @return array
+     */
+    public function uuidColumns(): array
+    {
+        return ['uuid', 'room_id'];
+    }
 }

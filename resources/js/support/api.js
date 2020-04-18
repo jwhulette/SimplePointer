@@ -41,8 +41,8 @@ export default class {
               return response.data;
           }
           catch (error) {
-              console.log(error.message);
-            //   return error;
+            //   console.log(error.message);
+              return 'error';
           }
       }
 
