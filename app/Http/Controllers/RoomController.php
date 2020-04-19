@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Room;
 use Ramsey\Uuid\Uuid;
 use App\Http\Requests\RoomRequest;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Http\RedirectResponse;
 
 class RoomController extends Controller
@@ -40,7 +41,7 @@ class RoomController extends Controller
         $room = Room::whereUuid($roomId)->first();
 
         $routes = collect([
-            'player_join' => route('player_join'),
+            'join' => route('join'),
         ]);
 
         return view('room', ['name' => $room->name, 'id' => $roomId, 'routes' => $routes]);

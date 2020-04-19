@@ -3,16 +3,18 @@
 namespace App\Http\Controllers;
 
 use App\Card;
-use Illuminate\View\View;
-use Illuminate\Support\Facades\Cache;
+use Illuminate\Http\Request;
 
 class HomeController extends Controller
 {
-    public function index(): View
+    /**
+     * Show the application dashboard.
+     *
+     * @return \Illuminate\Contracts\Support\Renderable
+     */
+    public function index()
     {
-        $cards = Cache::rememberForever('card_sets', function () {
-            return Card::all();
-        });
+        $cards = Card::all();
 
         return view('home', ['cards' => $cards]);
     }

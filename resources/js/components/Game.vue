@@ -49,47 +49,26 @@ export default {
     },
     roomid: {
       type: String
+    },
+    players: {
+      type: Array,
+      default: () => []
+    },
+    observers: {
+      type: Array,
+      default: () => []
     }
   },
-  created() {
-    Echo.channel("room").listen("UserJoined", function(e) {
-      console.log("join");
-      //   e.players.forEach(player => {
-      //     if (player.type === 0) {
-      //       players.push(player.name);
-      //     }
-      //     if (player.type === 1) {
-      //       observers.push(player.name);
-      //     }
-      //   });
-    });
+  watch: {
+    players() {
+      console.log("The players has changed!");
+    }
   },
-  computed: {
-    // channel() {
-    //     return window.Echo.channel("room");
-    // }
-  },
-  mounted() {
-    // Echo.join("room." + this.roomid).here(players => {
-    //   console.log("here");
-    //   console.table(players);
-    // });
-    // Echo.channel("room").listen("UserJoined", function(e) {
-    //   console.log("join");
-    //   e.players.forEach(player => {
-    //     if (player.type === 0) {
-    //       players.push(player.name);
-    //     }
-    //     if (player.type === 1) {
-    //       observers.push(player.name);
-    //     }
-    //   });
-    // });
-  },
+  created() {},
+  computed: {},
+  mounted() {},
   data: function() {
     return {
-      players: [],
-      observers: [],
       votes: []
     };
   }

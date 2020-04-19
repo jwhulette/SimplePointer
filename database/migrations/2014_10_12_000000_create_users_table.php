@@ -13,15 +13,13 @@ class CreateUsersTable extends Migration
      */
     public function up()
     {
-        // Schema::create('users', function (Blueprint $table) {
-        //     $table->id();
-        //     $table->string('name');
-        //     $table->string('email')->unique();
-        //     $table->timestamp('email_verified_at')->nullable();
-        //     $table->string('password');
-        //     $table->rememberToken();
-        //     $table->timestamps();
-        // });
+        Schema::create('users', function (Blueprint $table) {
+            $table->efficientUuid('id')->primary();
+            $table->string('name')->comment('The players name');
+            $table->smallInteger('type')->comment('The user type 0 - Observer / 1 - Player');
+            $table->efficientUuid('room_id')->index()->comment('The room id the player is in');
+            $table->dateTime('created_at')->useCurrent()->comment('The datetime the player was created');
+        });
     }
 
     /**
@@ -31,6 +29,6 @@ class CreateUsersTable extends Migration
      */
     public function down()
     {
-        // Schema::dropIfExists('users');
+        Schema::dropIfExists('players');
     }
 }

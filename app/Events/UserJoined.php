@@ -2,7 +2,7 @@
 
 namespace App\Events;
 
-use App\Player;
+use App\User;
 use Illuminate\Broadcasting\Channel;
 use Illuminate\Queue\SerializesModels;
 use Illuminate\Broadcasting\PrivateChannel;
@@ -17,7 +17,7 @@ class UserJoined implements ShouldBroadcastNow
 {
     use Dispatchable, InteractsWithSockets, SerializesModels;
 
-    public array $players;
+    public array $users;
     public string $roomid;
 
     /**
@@ -28,7 +28,7 @@ class UserJoined implements ShouldBroadcastNow
     public function __construct(string $roomid)
     {
         $this->roomid = $roomid;
-        $this->players = Player::whereUuid($roomid, 'room_id')->get(['uuid', 'name', 'type'])->toArray();
+        $this->users = User::whereUuid($roomid, 'room_id')->get(['id', 'name', 'type'])->toArray();
     }
 
     /**
@@ -38,6 +38,6 @@ class UserJoined implements ShouldBroadcastNow
      */
     public function broadcastOn()
     {
-        return new Channel('room');
+        return new PresenceChannel('room'.$this->roomid);
     }
 }
