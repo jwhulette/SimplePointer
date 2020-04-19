@@ -49,13 +49,7 @@
       </div>
     </div>
     <div v-else>
-      <join
-        :api="api"
-        :players="players"
-        :observers="observers"
-        :roomid="roomid"
-        @joined="handleJoin"
-      ></join>
+      <join :api="api" :roomid="roomid" @joined="handleJoin"></join>
     </div>
   </div>
 </template>
@@ -90,10 +84,10 @@ export default {
   },
   created() {
     this.api = new Api(this.routes);
-    let vm = this;
-    Echo.join("room" + this.roomid).here("UserJoined", function(e) {
-      vm.handleUserJoin(e.users);
-    });
+    // let vm = this;
+    // Echo.join("room" + this.roomid).here("UserJoined", function(e) {
+    //   vm.handleUserJoin(e.users);
+    // });
   },
   mounted() {},
   computed: {
@@ -102,12 +96,12 @@ export default {
     }
   },
   methods: {
-    // monitor: function() {
-    //   let vm = this;
-    //   Echo.join("room" + this.roomid).here("UserJoined", function(e) {
-    //     vm.handleUserJoin(e.users);
-    //   });
-    // },
+    monitor: function() {
+      let vm = this;
+      Echo.join("room" + this.roomid).here("UserJoined", function(e) {
+        vm.handleUserJoin(e.users);
+      });
+    },
 
     handleUserJoin: function(users) {
       this.players = users.filter(user => {
@@ -122,10 +116,11 @@ export default {
         }
       });
     },
+
     handleJoin: function(data) {
-      if (data !== "error") {
-        // this.monitor();
-        return true;
+      if (data === "success") {
+        this.monitor();
+        this.hasJoined = true;
       }
       console.log("Error creating users!");
     }

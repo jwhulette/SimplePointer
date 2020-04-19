@@ -18,7 +18,7 @@ export default class {
 
         try {
               const response = await axios
-                  .put(this.routes.player_join, data);
+                  .put(this.routes.join, data);
               return response.data;
           }
           catch (error) {

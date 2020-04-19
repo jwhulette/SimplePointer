@@ -22,4 +22,4 @@ Route::post('/room', [RoomController::class, 'index'])->name('rooms_index');
 
 Route::get('/{roomId}/room', [RoomController::class, 'room'])->name('room');
 
-Route::post('/{roomId}/join', [PlayerController::class, 'store'])->name('join');
+Route::put('/join', [PlayerController::class, 'store'])->name('join');

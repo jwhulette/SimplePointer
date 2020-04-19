@@ -30,11 +30,11 @@ class PlayerController extends Controller
             return response('Unable to create player!', 500);
         }
 
-        // Auth::login($user);
+        Auth::login($user);
 
         // Dispatch the user joined event
         event(new UserJoined($request->roomid));
 
-        return redirect()->route('room', ['roomId' => $request->roomid]);
+        return response('success');
     }
 }
