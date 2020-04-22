@@ -7,6 +7,7 @@ use Ramsey\Uuid\Uuid;
 use App\Http\Requests\RoomRequest;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Http\RedirectResponse;
+use Illuminate\Support\Facades\Session;
 
 class RoomController extends Controller
 {

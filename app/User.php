@@ -11,7 +11,7 @@ class User extends Athenticatable
     use GeneratesUuid;
 
     protected $casts = [
-        'id' => EfficientUuid::class,
+        'uuid' => EfficientUuid::class,
         'room_id' => EfficientUuid::class,
     ];
 
@@ -21,27 +21,6 @@ class User extends Athenticatable
      * @var string
      */
     protected $table = 'users';
-
-    /**
-     * The primary key associated with the table.
-     *
-     * @var string
-     */
-    protected $primaryKey = 'id';
-
-    /**
-     * Indicates if the IDs are auto-incrementing.
-     *
-     * @var bool
-     */
-    public $incrementing = false;
-
-    /**
-     * Indicates if the model should be timestamped.
-     *
-     * @var bool
-     */
-    public $timestamps = false;
 
     /**
      * The attributes that aren't mass assignable.
@@ -57,6 +36,6 @@ class User extends Athenticatable
      */
     public function uuidColumns(): array
     {
-        return ['id', 'room_id'];
+        return ['uuid', 'room_id'];
     }
 }

@@ -264,7 +264,7 @@ __webpack_require__.r(__webpack_exports__);
     monitor: function monitor() {
       var vm = this;
       Echo.join("room" + this.roomid).here("UserJoined", function (e) {
-        vm.handleUserJoin(e.users);
+        console.log(e); // vm.handleUserJoin(e.users);
       });
     },
     handleUserJoin: function handleUserJoin(users) {
@@ -283,9 +283,8 @@ __webpack_require__.r(__webpack_exports__);
       if (data === "success") {
         this.monitor();
         this.hasJoined = true;
-      }
+      } //   console.log("Error creating users!");
 
-      console.log("Error creating users!");
     }
   }
 });
