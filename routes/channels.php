@@ -15,28 +15,8 @@ use Illuminate\Support\Facades\Broadcast;
 |
 */
 
-    /*
-        * Authenticate the user's personal channel...
-        */
-    Broadcast::channel('App.User.*', function ($user, $userId) {
-        return true; // (int) $user->id === (int) $userId
-    });
-
-// Route::post('/guest/broadcast/auth/route', function () {
-//     $user = new GenericUser(['id' => microtime()]);
-
-//     request()->setUserResolver(function () use ($user) {
-//         return $user;
-//     });
-
-//     return Broadcast::auth(request());
-// });
-
-// Broadcast::channel('room{id}', function ($user, $id) {
-//     // return (int) $user->id === (int) $id;
-//     return true;
-// });
-
-// Broadcast::channel('room.{roomId}', function ($user, $roomId) {
-//     return ['user' => 'pointer'];
-// });
+Broadcast::channel('room{id}', function ($user, $id) {
+    if ($user->room_id === $id) {
+        return ['userid' => $user->id, 'name' => $user->name, 'type' => $user->type, 'voted' => false, 'vote' => null];
+    }
+});

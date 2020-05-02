@@ -43,10 +43,10 @@ class CardsSeeder extends Seeder
                 'desc' => 'Card set used to estimate hours as different fractions and multiples of a working day',
                 'set' => ['1', '2', '4', '8', '12', '16', '24', '32', '40'],
             ],
-            [
-                'desc' => 'T-shirt Size',
-                'set' => ['XXS', 'XS', 'S', 'M', 'L', 'XL', 'XXL', '?'],
-            ],
+            // [
+            //     'desc' => 'T-shirt Size',
+            //     'set' => ['XXS', 'XS', 'S', 'M', 'L', 'XL', 'XXL', '?'],
+            // ],
         ];
     }
 }

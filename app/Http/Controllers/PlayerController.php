@@ -3,7 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\User;
-use App\Events\UserJoined;
+use Ramsey\Uuid\Uuid;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Auth;
@@ -11,30 +11,32 @@ use Illuminate\Support\Facades\Auth;
 class PlayerController extends Controller
 {
     /**
-     * Store a newly created resource in storage.
+     * Create or update the user.
      *
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
     public function store(Request $request)
     {
+        // Create or update the user based on the user uuid
         try {
-            $user = User::create([
-                'name' => $request->name,
-                'type' => (int) $request->type,
-                'room_id' => $request->roomid,
-            ]);
+            $user = User::updateOrCreate(
+                ['id' => $request->userid],
+                [
+                    'name' => $request->name,
+                    'type' => $request->type,
+                    'room_id' => Uuid::fromString($request->roomid),
+                ]
+            );
         } catch (\Throwable $th) {
             Log::error($th->getMessage());
 
             return response('Unable to create player!', 500);
         }
 
-        // Auth::login($user);
+        // Automatically log the user in
+        Auth::login($user);
 
-        // Dispatch the user joined event
-        event(new UserJoined($request->roomid));
-
-        return response('success');
+        return response()->json(['user' => $user]);
     }
 }

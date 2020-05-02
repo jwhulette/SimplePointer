@@ -13,19 +13,29 @@
     <link href="https://fonts.googleapis.com/css?family=Nunito:200,600" rel="stylesheet">
     <link rel="stylesheet" type="text/css" href="{{ mix('css/app.css') }}">
 
-
 </head>
 
-<body>
-    <header><a href="{{ route('home') }}">HOME</a></header>
-    <div class="flex-center position-ref full-height">
+<body class="d-flex flex-column">
+    <div class="page-content">
 
-        <div id="app">
-            @yield('content')
+        <header><a href="{{ route('home') }}">HOME</a></header>
+
+        <div class="flex-center position-ref full-height">
+
+            <div id="app">
+                @yield('content')
+            </div>
+
         </div>
 
     </div>
-    <footer>Footer</footer>
+
+    <footer class="footer">
+        <div class="container text-center">
+            <small>Copyright &copy; {{ date('Y') }} Simple Pointer</small>
+        </div>
+    </footer>
+
     <script type="text/javascript" src="{{ mix('js/manifest.js') }}"></script>
     <script type="text/javascript" src="{{ mix('js/vendor.js') }}"></script>
     <script type="text/javascript" src="{{ mix('js/app.js') }}"></script>

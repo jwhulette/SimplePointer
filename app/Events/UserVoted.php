@@ -2,33 +2,36 @@
 
 namespace App\Events;
 
-use App\User;
-use Illuminate\Broadcasting\Channel;
+use App\Vote;
+use stdClass;
 use Illuminate\Queue\SerializesModels;
-use Illuminate\Broadcasting\PrivateChannel;
+use Illuminate\Console\Scheduling\Event;
 use Illuminate\Broadcasting\PresenceChannel;
-use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Foundation\Events\Dispatchable;
 use Illuminate\Broadcasting\InteractsWithSockets;
 use Illuminate\Contracts\Broadcasting\ShouldBroadcast;
 use Illuminate\Contracts\Broadcasting\ShouldBroadcastNow;
 
-class UserJoined implements ShouldBroadcastNow
+class UserVoted extends Event implements ShouldBroadcastNow
 {
     use Dispatchable, InteractsWithSockets, SerializesModels;
 
-    public array $users;
-    public string $roomid;
+    public array $vote;
+    public string $roomId;
 
     /**
      * Create a new event instance.
      *
      * @return void
      */
-    public function __construct(string $roomid)
+    public function __construct(string $roomId, int $userid, int $vote)
     {
-        $this->roomid = $roomid;
-        $this->users = User::whereUuid($roomid, 'room_id')->get(['id', 'name', 'type'])->toArray();
+        $this->roomId = $roomId;
+
+        $this->vote = [
+            'userid' => $userid,
+            'vote'=> $vote,
+        ];
     }
 
     /**
@@ -38,6 +41,6 @@ class UserJoined implements ShouldBroadcastNow
      */
     public function broadcastOn()
     {
-        return new PresenceChannel('room'.$this->roomid);
+        return new PresenceChannel('room'.$this->roomId);
     }
 }

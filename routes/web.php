@@ -3,6 +3,7 @@
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\RoomController;
+use App\Http\Controllers\VotesController;
 use App\Http\Controllers\PlayerController;
 
 /*
@@ -23,3 +24,11 @@ Route::post('/room', [RoomController::class, 'index'])->name('rooms_index');
 Route::get('/{roomId}/room', [RoomController::class, 'room'])->name('room');
 
 Route::put('/join', [PlayerController::class, 'store'])->name('join');
+
+Route::get('/list/{roomid?}', [PlayerController::class, 'list'])->name('player_list');
+
+Route::put('/vote', [VotesController::class, 'vote'])->name('vote');
+
+Route::put('/show', [VotesController::class, 'show'])->name('show');
+
+Route::put('/clear', [VotesController::class, 'clear'])->name('clear');

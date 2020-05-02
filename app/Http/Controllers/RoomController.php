@@ -5,9 +5,7 @@ namespace App\Http\Controllers;
 use App\Room;
 use Ramsey\Uuid\Uuid;
 use App\Http\Requests\RoomRequest;
-use Illuminate\Support\Facades\Auth;
 use Illuminate\Http\RedirectResponse;
-use Illuminate\Support\Facades\Session;
 
 class RoomController extends Controller
 {
@@ -39,12 +37,16 @@ class RoomController extends Controller
      */
     public function room(string $roomId)
     {
-        $room = Room::whereUuid($roomId)->first();
+        $room = Room::whereUuid($roomId)->with('cardSet')->first();
 
         $routes = collect([
             'join' => route('join'),
+            'player_list' => route('player_list'),
+            'vote' => route('vote'),
+            'show' => route('show'),
+            'clear' => route('clear'),
         ]);
 
-        return view('room', ['name' => $room->name, 'id' => $roomId, 'routes' => $routes]);
+        return view('room', ['name' => $room->name, 'cardset'=> $room->cardSet->card_set, 'id' => $roomId, 'routes' => $routes]);
     }
 }

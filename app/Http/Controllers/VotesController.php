@@ -2,84 +2,46 @@
 
 namespace App\Http\Controllers;
 
-use App\Votes;
+use App\Events\UserVoted;
 use Illuminate\Http\Request;
+use App\Events\ShowVotesEvent;
+use App\Events\ClearVotesEvent;
 
 class VotesController extends Controller
 {
     /**
-     * Display a listing of the resource.
+     * Record a user vote.
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function vote(Request $request)
     {
-        //
+        event(new UserVoted($request->roomid, $request->userid, (int) $request->vote));
+
+        return response()->json(['success']);
     }
 
     /**
-     * Show the form for creating a new resource.
+     * Show the votes.
      *
-     * @return \Illuminate\Http\Response
+     * @param \Illuminate\Http\Request $request
      */
-    public function create()
+    public function show(Request $request)
     {
-        //
+        event(new ShowVotesEvent($request->roomid));
+
+        return response()->json(['success']);
     }
 
     /**
-     * Store a newly created resource in storage.
+     * Clear the user votes.
      *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
+     * @param \Illuminate\Http\Request $request
      */
-    public function store(Request $request)
+    public function clear(Request $request)
     {
-        //
-    }
+        event(new ClearVotesEvent($request->roomid));
 
-    /**
-     * Display the specified resource.
-     *
-     * @param  \App\Votes  $votes
-     * @return \Illuminate\Http\Response
-     */
-    public function show(Votes $votes)
-    {
-        //
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  \App\Votes  $votes
-     * @return \Illuminate\Http\Response
-     */
-    public function edit(Votes $votes)
-    {
-        //
-    }
-
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Votes  $votes
-     * @return \Illuminate\Http\Response
-     */
-    public function update(Request $request, Votes $votes)
-    {
-        //
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  \App\Votes  $votes
-     * @return \Illuminate\Http\Response
-     */
-    public function destroy(Votes $votes)
-    {
-        //
+        return response()->json(['success']);
     }
 }

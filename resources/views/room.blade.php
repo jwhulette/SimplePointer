@@ -8,7 +8,8 @@
 
     <h1 class="text-center">{{ $name }} Room</h1>
 
-    <room roomid="{{ $id }}" routes=@json($routes)></room>
+    <room cardset=@json($cardset) roomid="{{ $id }}" routes=@json($routes)>
+    </room>
 
 </div>
 
