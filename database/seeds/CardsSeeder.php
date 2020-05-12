@@ -25,7 +25,7 @@ class CardsSeeder extends Seeder
         return [
             [
                 'desc' => 'Fibonacci Short',
-                'set' => ['1', '2', '3', '5', '8'],
+                'set' => ['1', '2', '3', '5', '8', '13'],
             ],
             [
                 'desc' => 'Standard Fibonacci ',
@@ -40,7 +40,7 @@ class CardsSeeder extends Seeder
                 'set' => ['0', '1', '2', '4', '8', '16', '32', '64'],
             ],
             [
-                'desc' => 'Card set used to estimate hours as different fractions and multiples of a working day',
+                'desc' => 'Estimate hours',
                 'set' => ['1', '2', '4', '8', '12', '16', '24', '32', '40'],
             ],
             // [

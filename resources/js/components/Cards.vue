@@ -1,11 +1,11 @@
 <template>
-  <div class="col-12 vote-btns">
-    <div class="row justify-content-center">
-      <div class="row btn-row">
-        <div col v-for="card in this.cards" :key="card">
-          <button type="button" class="btn btn-outline-info btn-sm" @click="vote(card)">{{ card }}</button>
-        </div>
-      </div>
+  <div class="flex justify-center">
+    <div class="inline w-auto pr-4" col v-for="card in this.cards" :key="card">
+      <button
+        type="button"
+        class="w-16 px-1 py-1 font-semibold text-green-700 bg-transparent border border-green-500 rounded hover:bg-green-500 hover:text-white hover:border-transparent"
+        @click="vote(card)"
+      >{{ card }}</button>
     </div>
   </div>
 </template>

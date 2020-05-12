@@ -9,22 +9,16 @@
         :api="this.api"
       ></Cards>
 
-      <div class="row justify-content-center">
-        <Players
-          :clearVote="clearVote"
-          :showVote="showVote"
-          :api="api"
-          :roomid="roomid"
-          :users="users"
-          :vote="this.vote"
-        ></Players>
-      </div>
+      <Players
+        :clearVote="clearVote"
+        :showVote="showVote"
+        :api="api"
+        :roomid="roomid"
+        :users="users"
+        :vote="this.vote"
+      ></Players>
 
-      <div class="row justify-content-center">
-        <div class="col-6">
-          <Observers :users="users"></Observers>
-        </div>
-      </div>
+      <Observers :users="users"></Observers>
     </div>
 
     <div v-else>
@@ -94,10 +88,10 @@ export default {
           this.vote = e.vote;
         })
         .listen("ShowVotesEvent", e => {
-          this.showVote = true;
+          this.showVote = !this.showVote;
         })
         .listen("ClearVotesEvent", e => {
-          this.clearVote = true;
+          this.clearVote = !this.clearVote;
         });
     }
   }

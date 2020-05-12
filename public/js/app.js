@@ -109,6 +109,51 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
   name: "Join",
   props: {
@@ -160,6 +205,8 @@ __webpack_require__.r(__webpack_exports__);
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
+//
+//
 //
 //
 //
@@ -247,6 +294,37 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
   name: "Players",
   props: {
@@ -274,7 +352,9 @@ __webpack_require__.r(__webpack_exports__);
   data: function data() {
     return {
       players: [],
-      votetotal: 0
+      votetotal: 0,
+      uservotecount: 0,
+      shouldShowVote: this.showVote
     };
   },
   watch: {
@@ -298,17 +378,32 @@ __webpack_require__.r(__webpack_exports__);
         return user;
       });
       this.players = voters;
-      this.votetotal = this.votetotal + data.vote;
+      var vote = data.vote;
+
+      if (isNaN(data.vote) === true) {
+        vote = 0;
+      }
+
+      this.votetotal = this.votetotal + vote; // Check if all users have voted
+
+      this.uservotecount++;
+
+      if (this.uservotecount === this.players.length) {
+        this.showVotes();
+        this.shouldShowVote = true;
+      }
     },
     clearVote: function clearVote() {
       var voters = this.players.map(function (user) {
         user.vote = null;
         user.voted = false;
         return user;
-      });
+      }); // reset values
+
       this.players = voters;
       this.votetotal = 0;
-      this.showVote = false;
+      this.uservotecount = 0;
+      this.shouldShowVote = false;
     }
   },
   computed: {
@@ -346,12 +441,6 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _Players__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./Players */ "./resources/js/components/Players.vue");
 /* harmony import */ var _Observers__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./Observers */ "./resources/js/components/Observers.vue");
 /* harmony import */ var _Cards__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./Cards */ "./resources/js/components/Cards.vue");
-//
-//
-//
-//
-//
-//
 //
 //
 //
@@ -442,9 +531,9 @@ __webpack_require__.r(__webpack_exports__);
       }).listen("UserVoted", function (e) {
         _this.vote = e.vote;
       }).listen("ShowVotesEvent", function (e) {
-        _this.showVote = true;
+        _this.showVote = !_this.showVote;
       }).listen("ClearVotesEvent", function (e) {
-        _this.clearVote = true;
+        _this.clearVote = !_this.clearVote;
       });
     }
   }
@@ -467,32 +556,33 @@ var render = function() {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  return _c("div", { staticClass: "col-12 vote-btns" }, [
-    _c("div", { staticClass: "row justify-content-center" }, [
-      _c(
+  return _c(
+    "div",
+    { staticClass: "flex justify-center" },
+    _vm._l(this.cards, function(card) {
+      return _c(
         "div",
-        { staticClass: "row btn-row" },
-        _vm._l(this.cards, function(card) {
-          return _c("div", { key: card, attrs: { col: "" } }, [
-            _c(
-              "button",
-              {
-                staticClass: "btn btn-outline-info btn-sm",
-                attrs: { type: "button" },
-                on: {
-                  click: function($event) {
-                    return _vm.vote(card)
-                  }
+        { key: card, staticClass: "inline w-auto pr-4", attrs: { col: "" } },
+        [
+          _c(
+            "button",
+            {
+              staticClass:
+                "w-16 px-1 py-1 font-semibold text-green-700 bg-transparent border border-green-500 rounded hover:bg-green-500 hover:text-white hover:border-transparent",
+              attrs: { type: "button" },
+              on: {
+                click: function($event) {
+                  return _vm.vote(card)
                 }
-              },
-              [_vm._v(_vm._s(card))]
-            )
-          ])
-        }),
-        0
+              }
+            },
+            [_vm._v(_vm._s(card))]
+          )
+        ]
       )
-    ])
-  ])
+    }),
+    0
+  )
 }
 var staticRenderFns = []
 render._withStripped = true
@@ -516,121 +606,112 @@ var render = function() {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  return _c("div", { staticClass: "row justify-content-center" }, [
-    _c("div", { staticClass: "col-4" }, [
-      _c("div", { staticClass: "card" }, [
-        _c("div", { staticClass: "card-header" }, [
-          _vm._v("Register for room")
-        ]),
-        _vm._v(" "),
-        _c("div", { staticClass: "card-body" }, [
-          _c("div", { staticClass: "form-group" }, [
-            _c("label", { attrs: { for: "room_name" } }, [
-              _vm._v("Enter your name")
-            ]),
-            _vm._v(" "),
-            _c("input", {
-              directives: [
-                {
-                  name: "model",
-                  rawName: "v-model",
-                  value: _vm.username,
-                  expression: "username"
-                }
-              ],
-              staticClass: "form-control",
-              attrs: { type: "text", required: "" },
-              domProps: { value: _vm.username },
-              on: {
-                input: function($event) {
-                  if ($event.target.composing) {
-                    return
-                  }
-                  _vm.username = $event.target.value
-                }
+  return _c("div", { staticClass: "w-full max-w-xs m-auto" }, [
+    _c("div", { staticClass: "my-10 text-3xl text-center" }, [
+      _vm._v("Register for room")
+    ]),
+    _vm._v(" "),
+    _c("label", { attrs: { for: "room_name" } }, [_vm._v("Enter your name")]),
+    _vm._v(" "),
+    _c("input", {
+      directives: [
+        {
+          name: "model",
+          rawName: "v-model",
+          value: _vm.username,
+          expression: "username"
+        }
+      ],
+      staticClass:
+        "block w-full px-4 py-2 leading-normal bg-white border border-gray-300 rounded-lg appearance-none focus:outline-none focus:shadow-outline",
+      attrs: { type: "text", required: "", name: "name" },
+      domProps: { value: _vm.username },
+      on: {
+        input: function($event) {
+          if ($event.target.composing) {
+            return
+          }
+          _vm.username = $event.target.value
+        }
+      }
+    }),
+    _vm._v(" "),
+    _vm.msg ? _c("span", [_vm._v(_vm._s(_vm.msg))]) : _vm._e(),
+    _vm._v(" "),
+    _c("div", { staticClass: "my-6 text-center" }, [
+      _c("p", { staticClass: "my-4 text-center" }, [_vm._v("Enter room as:")]),
+      _vm._v(" "),
+      _c(
+        "button",
+        {
+          staticClass:
+            "px-4 py-2 font-bold text-white bg-green-600 rounded hover:bg-green-400",
+          attrs: { type: "submit" },
+          on: {
+            click: function($event) {
+              return _vm.join(1)
+            }
+          }
+        },
+        [
+          _vm._v("\n      Player\n      "),
+          _c(
+            "svg",
+            {
+              staticClass: "inline",
+              attrs: {
+                fill: "currentColor",
+                viewBox: "0 0 20 20",
+                width: "22",
+                height: "22"
               }
-            }),
-            _vm._v(" "),
-            _vm.msg ? _c("span", [_vm._v(_vm._s(_vm.msg))]) : _vm._e()
-          ]),
-          _vm._v(" "),
-          _c("p", { staticClass: "text-center" }, [_vm._v("Enter room as:")]),
-          _vm._v(" "),
-          _c("div", { staticClass: "row" }, [
-            _c("div", { staticClass: "col-6 text-center" }, [
-              _c(
-                "button",
-                {
-                  staticClass: "btn btn-primary",
-                  on: {
-                    click: function($event) {
-                      return _vm.join(1)
-                    }
-                  }
-                },
-                [
-                  _vm._v("\n              Player\n              "),
-                  _c(
-                    "svg",
-                    {
-                      attrs: {
-                        fill: "currentColor",
-                        viewBox: "0 0 20 20",
-                        width: "22"
-                      }
-                    },
-                    [
-                      _c("path", {
-                        attrs: {
-                          d:
-                            "M10 9a3 3 0 100-6 3 3 0 000 6zm-7 9a7 7 0 1114 0H3z",
-                          "clip-rule": "evenodd",
-                          "fill-rule": "evenodd"
-                        }
-                      })
-                    ]
-                  )
-                ]
-              )
-            ]),
-            _vm._v(" "),
-            _c("div", { staticClass: "col-6 text-center" }, [
-              _c(
-                "button",
-                {
-                  staticClass: "btn btn-primary",
-                  on: {
-                    click: function($event) {
-                      return _vm.join(0)
-                    }
-                  }
-                },
-                [
-                  _vm._v("\n              Observer\n              "),
-                  _c(
-                    "svg",
-                    {
-                      attrs: {
-                        fill: "currentColor",
-                        viewBox: "0 0 20 20",
-                        width: "22"
-                      }
-                    },
-                    [
-                      _c("path", {
-                        attrs: {
-                          d:
-                            "M13 6a3 3 0 11-6 0 3 3 0 016 0zM18 8a2 2 0 11-4 0 2 2 0 014 0zM14 15a4 4 0 00-8 0v3h8v-3zM6 8a2 2 0 11-4 0 2 2 0 014 0zM16 18v-3a5.972 5.972 0 00-.75-2.906A3.005 3.005 0 0119 15v3h-3zM4.75 12.094A5.973 5.973 0 004 15v3H1v-3a3 3 0 013.75-2.906z"
-                        }
-                      })
-                    ]
-                  )
-                ]
-              )
-            ])
-          ])
-        ])
-      ])
+            },
+            [
+              _c("path", {
+                attrs: {
+                  d: "M10 9a3 3 0 100-6 3 3 0 000 6zm-7 9a7 7 0 1114 0H3z",
+                  "clip-rule": "evenodd",
+                  "fill-rule": "evenodd"
+                }
+              })
+            ]
+          )
+        ]
+      ),
+      _vm._v(" "),
+      _c("span", { staticClass: "inline-block w-12" }),
+      _vm._v(" "),
+      _c(
+        "button",
+        {
+          staticClass:
+            "px-4 py-2 font-bold text-white bg-green-600 rounded hover:bg-green-400",
+          attrs: { type: "submit" },
+          on: {
+            click: function($event) {
+              return _vm.join(0)
+            }
+          }
+        },
+        [
+          _vm._v("\n      Observer\n      "),
+          _c(
+            "svg",
+            {
+              staticClass: "inline",
+              attrs: { fill: "currentColor", viewBox: "0 0 20 20", width: "22" }
+            },
+            [
+              _c("path", {
+                attrs: {
+                  d:
+                    "M13 6a3 3 0 11-6 0 3 3 0 016 0zM18 8a2 2 0 11-4 0 2 2 0 014 0zM14 15a4 4 0 00-8 0v3h8v-3zM6 8a2 2 0 11-4 0 2 2 0 014 0zM16 18v-3a5.972 5.972 0 00-.75-2.906A3.005 3.005 0 0119 15v3h-3zM4.75 12.094A5.973 5.973 0 004 15v3H1v-3a3 3 0 013.75-2.906z"
+                }
+              })
+            ]
+          )
+        ]
+      )
     ])
   ])
 }
@@ -658,30 +739,43 @@ var render = function() {
   var _c = _vm._self._c || _h
   return this.observers.length > 0
     ? _c("div", [
-        _c("div", { staticClass: "card" }, [
-          _c("div", { staticClass: "card-header text-center" }, [
-            _vm._v("Observers")
-          ]),
-          _vm._v(" "),
-          _c(
-            "div",
-            { staticClass: "card-body" },
-            _vm._l(this.observers, function(observer, index) {
-              return _c("span", _vm._b({}, "span", index, false), [
-                _c("span", [_vm._v(_vm._s(observer.name))]),
-                _vm._v(" "),
-                index + 1 < _vm.observers.length
-                  ? _c("span", [_vm._v(",")])
-                  : _vm._e()
-              ])
-            }),
-            0
-          )
-        ])
+        _c(
+          "div",
+          { staticClass: "mt-6 overflow-hidden rounded rounded-lg shadow-lg" },
+          [
+            _vm._m(0),
+            _vm._v(" "),
+            _c(
+              "div",
+              { staticClass: "p-2" },
+              _vm._l(this.observers, function(observer, index) {
+                return _c("span", _vm._b({}, "span", index, false), [
+                  _c("span", [_vm._v(_vm._s(observer.name))]),
+                  _vm._v(" "),
+                  index + 1 < _vm.observers.length
+                    ? _c("span", [_vm._v(",")])
+                    : _vm._e()
+                ])
+              }),
+              0
+            )
+          ]
+        )
       ])
     : _vm._e()
 }
-var staticRenderFns = []
+var staticRenderFns = [
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("div", { staticClass: "w-full border-b border-gray-400" }, [
+      _c("div", { staticClass: "mb-2 text-lg text-center" }, [
+        _vm._v("Observers")
+      ])
+    ])
+  }
+]
 render._withStripped = true
 
 
@@ -703,76 +797,130 @@ var render = function() {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  return _c("div", { staticClass: "col-6" }, [
-    _c("div", { staticClass: "col align-right" }, [
-      _c("input", {
-        staticClass: "btn btn-sm btn-primary",
-        attrs: { type: "button", value: "Clear Votes" },
-        on: { click: _vm.clearVotes }
-      }),
+  return _c("div", [
+    _c("div", { staticClass: "grid grid-cols-2 gap-2" }, [
+      _c("div", { staticClass: "py-2 pr-3" }, [
+        _c(
+          "button",
+          {
+            staticClass:
+              "float-right px-1 py-1 font-semibold text-green-700 bg-transparent border border-green-500 rounded w-22 hover:bg-green-500 hover:text-white hover:border-transparent",
+            attrs: { type: "button" },
+            on: { click: _vm.clearVotes }
+          },
+          [_vm._v("Clear Votes")]
+        )
+      ]),
       _vm._v(" "),
-      _c("input", {
-        staticClass: "btn btn-sm btn-primary",
-        attrs: { type: "button", value: "Show Votes" },
-        on: { click: _vm.showVotes }
-      })
+      _c("div", { staticClass: "py-2 pl-3" }, [
+        _c(
+          "button",
+          {
+            staticClass:
+              "px-1 py-1 font-semibold text-green-700 bg-transparent border border-green-500 rounded w-22 hover:bg-green-500 hover:text-white hover:border-transparent",
+            attrs: { type: "button" },
+            on: { click: _vm.showVotes }
+          },
+          [_vm._v("Show Votes")]
+        )
+      ])
     ]),
     _vm._v(" "),
-    _c("table", { staticClass: "table" }, [
-      _vm._m(0),
-      _vm._v(" "),
+    _c("div", { staticClass: "grid grid-cols-1" }, [
       _c(
-        "tbody",
+        "table",
+        { staticClass: "w-full p-6 border table-fixed border-grey-300" },
         [
-          _vm._l(this.players, function(player) {
-            return _c("tr", { key: player.userid }, [
-              _c("td", [_vm._v(_vm._s(player.name))]),
-              _vm._v(" "),
-              _c("td", { staticClass: "text-center" }, [
-                player.voted === false ? _c("span", [_vm._v("---")]) : _vm._e(),
-                _vm._v(" "),
-                player.voted === true && _vm.showVote === false
-                  ? _c("span", [
-                      _c(
-                        "svg",
-                        {
-                          attrs: {
-                            fill: "currentColor",
-                            viewBox: "0 0 20 20",
-                            width: "20",
-                            color: "green"
-                          }
-                        },
-                        [
-                          _c("path", {
-                            attrs: {
-                              d:
-                                "M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z",
-                              "clip-rule": "evenodd",
-                              "fill-rule": "evenodd"
-                            }
-                          })
-                        ]
-                      )
-                    ])
-                  : _vm._e(),
-                _vm._v(" "),
-                _vm.showVote
-                  ? _c("span", [_vm._v(_vm._s(player.vote))])
-                  : _vm._e()
-              ])
-            ])
-          }),
+          _vm._m(0),
           _vm._v(" "),
-          this.showVote
-            ? _c("tr", { staticClass: "text-right" }, [
-                _c("td", { attrs: { colspan: "2" } }, [
-                  _vm._v("Average: " + _vm._s(_vm.averageVotes))
-                ])
-              ])
-            : _vm._e()
-        ],
-        2
+          _c(
+            "tbody",
+            [
+              _vm._l(this.players, function(player) {
+                return _c(
+                  "tr",
+                  { key: player.userid, staticClass: "leading-tight" },
+                  [
+                    _c(
+                      "td",
+                      { staticClass: "px-4 py-2 border-b border-grey-light" },
+                      [_vm._v(_vm._s(player.name))]
+                    ),
+                    _vm._v(" "),
+                    _c(
+                      "td",
+                      {
+                        staticClass:
+                          "px-4 py-2 text-center border-b border-grey-light"
+                      },
+                      [
+                        player.voted === false
+                          ? _c("span", [_vm._v("---")])
+                          : _vm._e(),
+                        _vm._v(" "),
+                        player.voted === true && _vm.shouldShowVote === false
+                          ? _c(
+                              "span",
+                              {
+                                staticClass:
+                                  "inline-block mt-1 text-center border-b border-grey-light"
+                              },
+                              [
+                                _c(
+                                  "svg",
+                                  {
+                                    staticClass: "inline",
+                                    attrs: {
+                                      fill: "currentColor",
+                                      viewBox: "0 0 20 20",
+                                      width: "20",
+                                      color: "green"
+                                    }
+                                  },
+                                  [
+                                    _c("path", {
+                                      attrs: {
+                                        d:
+                                          "M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z",
+                                        "clip-rule": "evenodd",
+                                        "fill-rule": "evenodd"
+                                      }
+                                    })
+                                  ]
+                                )
+                              ]
+                            )
+                          : _vm._e(),
+                        _vm._v(" "),
+                        _vm.shouldShowVote
+                          ? _c("span", [_vm._v(_vm._s(player.vote))])
+                          : _vm._e()
+                      ]
+                    )
+                  ]
+                )
+              }),
+              _vm._v(" "),
+              this.shouldShowVote
+                ? _c("tr", { staticClass: "text-right" }, [
+                    _c(
+                      "td",
+                      { staticClass: "pr-12", attrs: { colspan: "2" } },
+                      [
+                        _c("b", [_vm._v("Average:")]),
+                        _vm._v(
+                          "\n            " +
+                            _vm._s(_vm.averageVotes) +
+                            "\n          "
+                        )
+                      ]
+                    )
+                  ])
+                : _vm._e()
+            ],
+            2
+          )
+        ]
       )
     ])
   ])
@@ -783,14 +931,24 @@ var staticRenderFns = [
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
     return _c("thead", [
-      _c("tr", [
-        _c("th", { staticClass: "col-8", attrs: { scope: "col" } }, [
-          _vm._v("Player")
-        ]),
+      _c("tr", { staticClass: "leading-tight" }, [
+        _c(
+          "th",
+          {
+            staticClass:
+              "w-1/2 px-4 py-2 font-bold uppercase bg-gray-300 border-b border-grey-300",
+            attrs: { scope: "col" }
+          },
+          [_vm._v("Player")]
+        ),
         _vm._v(" "),
         _c(
           "th",
-          { staticClass: "col-4 text-center", attrs: { scope: "col" } },
+          {
+            staticClass:
+              "w-1/4 px-4 py-2 font-bold text-center uppercase bg-gray-300 border-b border-grey-300",
+            attrs: { scope: "col" }
+          },
           [_vm._v("Vote")]
         )
       ])
@@ -834,32 +992,18 @@ var render = function() {
                 })
               : _vm._e(),
             _vm._v(" "),
-            _c(
-              "div",
-              { staticClass: "row justify-content-center" },
-              [
-                _c("Players", {
-                  attrs: {
-                    clearVote: _vm.clearVote,
-                    showVote: _vm.showVote,
-                    api: _vm.api,
-                    roomid: _vm.roomid,
-                    users: _vm.users,
-                    vote: this.vote
-                  }
-                })
-              ],
-              1
-            ),
+            _c("Players", {
+              attrs: {
+                clearVote: _vm.clearVote,
+                showVote: _vm.showVote,
+                api: _vm.api,
+                roomid: _vm.roomid,
+                users: _vm.users,
+                vote: this.vote
+              }
+            }),
             _vm._v(" "),
-            _c("div", { staticClass: "row justify-content-center" }, [
-              _c(
-                "div",
-                { staticClass: "col-6" },
-                [_c("Observers", { attrs: { users: _vm.users } })],
-                1
-              )
-            ])
+            _c("Observers", { attrs: { users: _vm.users } })
           ],
           1
         )

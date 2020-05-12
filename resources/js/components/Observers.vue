@@ -1,8 +1,10 @@
 <template>
   <div v-if="this.observers.length > 0">
-    <div class="card">
-      <div class="card-header text-center">Observers</div>
-      <div class="card-body">
+    <div class="mt-6 overflow-hidden rounded rounded-lg shadow-lg">
+      <div class="w-full border-b border-gray-400">
+        <div class="mb-2 text-lg text-center">Observers</div>
+      </div>
+      <div class="p-2">
         <span v-for="(observer, index) in this.observers" v-bind="index">
           <span>{{observer.name}}</span>
           <span v-if="index+1 < observers.length">,</span>
