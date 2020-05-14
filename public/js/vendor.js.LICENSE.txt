@@ -1,16 +1,9 @@
 /*!
- * Pusher JavaScript Library v5.1.1
+ * Pusher JavaScript Library v6.0.3
  * https://pusher.com/
  *
- * Copyright 2017, Pusher
+ * Copyright 2020, Pusher
  * Released under the MIT licence.
- */
-
-/*!
- * The buffer module from node.js, for the browser.
- *
- * @author   Feross Aboukhadijeh <http://feross.org>
- * @license  MIT
  */
 
 /*!
