@@ -16,7 +16,7 @@ class VotesController extends Controller
      */
     public function vote(Request $request)
     {
-        event(new UserVoted($request->roomid, $request->userid, (int) $request->vote));
+        event(new UserVoted($request->roomid, $request->userid, $request->vote));
 
         return response()->json(['success']);
     }

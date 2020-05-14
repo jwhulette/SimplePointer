@@ -4,8 +4,7 @@
 @tailwind components;
 /* purgecss end ignore */
 @tailwind utilities;
-// Variables
-@import 'variables';
+
 
 /* Sticky footer styles
 -------------------------------------------------- */
@@ -14,10 +13,12 @@ html {
     min-height: 100%;
     font-family: 'Roboto', sans-serif;
 }
+
 body {
     /* Margin bottom by footer height */
     margin-bottom: 60px;
 }
+
 .footer {
     position: absolute;
     bottom: 0;
@@ -32,4 +33,11 @@ select optgroup{
     color:#000;
     font-style:normal;
     font-weight:normal;
+}
+
+.w-300 {
+    width: 300px;
+}
+.h-250 {
+    height: 250px;
 }

@@ -1,28 +1,31 @@
 <template>
   <div class="container">
-    <div v-if="hasJoined">
-      <Cards
-        v-if="this.user.type == 1"
-        :roomid="this.roomid"
-        :user="this.user"
-        :cardset="this.cardset"
-        :api="this.api"
-      ></Cards>
+    <div class="flex flex-col mx-auto">
+      <div v-if="hasJoined" class="mb-10">
+        <Cards
+          v-if="this.user.type == 1"
+          :roomid="this.roomid"
+          :user="this.user"
+          :cardset="this.cardset"
+          :api="this.api"
+        ></Cards>
+      </div>
 
-      <Players
-        :clearVote="clearVote"
-        :showVote="showVote"
-        :api="api"
-        :roomid="roomid"
-        :users="users"
-        :vote="this.vote"
-      ></Players>
+      <div class="grid grid-cols-3 gap-2">
+        <div class="m-auto bg-blue-300 w-300 h-250">ad</div>
 
-      <Observers :users="users"></Observers>
-    </div>
+        <div v-if="hasJoined">
+          <Players :api="api" :roomid="roomid" :users="users" :channel="this.channel"></Players>
 
-    <div v-else>
-      <join :api="api" :roomid="roomid" @joined="handleJoin"></join>
+          <Observers :users="users"></Observers>
+        </div>
+
+        <div v-else>
+          <join :api="api" :roomid="roomid" @joined="handleJoin"></join>
+        </div>
+
+        <div class="m-auto bg-blue-300 w-300 h-250">ad</div>
+      </div>
     </div>
   </div>
 </template>
@@ -61,15 +64,12 @@ export default {
       users: [],
       vote: null,
       cards: [],
-      user: {},
-      showVote: false,
-      clearVote: false
+      user: {}
     };
   },
   created() {
     this.api = new Api(this.routes);
   },
-  mounted() {},
   methods: {
     handleJoin: function(user) {
       this.user = user;
@@ -83,16 +83,7 @@ export default {
         .leaving(
           user =>
             (this.users = this.users.filter(u => u.userid !== user.userid))
-        )
-        .listen("UserVoted", e => {
-          this.vote = e.vote;
-        })
-        .listen("ShowVotesEvent", e => {
-          this.showVote = !this.showVote;
-        })
-        .listen("ClearVotesEvent", e => {
-          this.clearVote = !this.clearVote;
-        });
+        );
     }
   }
 };

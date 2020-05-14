@@ -24,7 +24,7 @@ class UserVoted extends Event implements ShouldBroadcastNow
      *
      * @return void
      */
-    public function __construct(string $roomId, int $userid, int $vote)
+    public function __construct(string $roomId, int $userid, string $vote)
     {
         $this->roomId = $roomId;
 

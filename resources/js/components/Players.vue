@@ -19,25 +19,23 @@
     <div class="grid grid-cols-1">
       <table class="w-full p-6 border table-fixed border-grey-300">
         <thead>
-          <tr class="leading-tight">
+          <tr class="h-12">
             <th
-              scope="col"
               class="w-1/2 px-4 py-2 font-bold uppercase bg-gray-300 border-b border-grey-300"
             >Player</th>
             <th
-              scope="col"
               class="w-1/4 px-4 py-2 font-bold text-center uppercase bg-gray-300 border-b border-grey-300"
             >Vote</th>
           </tr>
         </thead>
         <tbody>
-          <tr class="leading-tight" v-for="player in this.players" :key="player.userid">
+          <tr v-for="player in this.players" :key="player.userid">
             <td class="px-4 py-2 border-b border-grey-light">{{ player.name }}</td>
             <td class="px-4 py-2 text-center border-b border-grey-light">
               <span v-if="player.voted === false">---</span>
               <span
                 class="inline-block mt-1 text-center border-b border-grey-light"
-                v-if="player.voted === true && shouldShowVote === false"
+                v-if="player.voted === true && showVote === false"
               >
                 <svg
                   class="inline"
@@ -53,16 +51,19 @@
                   />
                 </svg>
               </span>
-              <span v-if="shouldShowVote">{{ player.vote }}</span>
-            </td>
-          </tr>
-          <tr v-if="this.shouldShowVote" class="text-right">
-            <td class="pr-12" colspan="2">
-              <b>Average:</b>
-              {{ averageVotes }}
+              <span v-if="showVote">{{ player.vote }}</span>
             </td>
           </tr>
         </tbody>
+        <tfoot>
+          <tr class="text-right">
+            <td class="py-2 pr-12" colspan="2">
+              <b>Vote Average:</b>
+              <span v-if="showVote">{{ averageVotes }}</span>
+              <span v-else>-----</span>
+            </td>
+          </tr>
+        </tfoot>
       </table>
     </div>
   </div>
@@ -75,37 +76,29 @@ export default {
     users: {
       type: Array
     },
-    vote: {
-      type: Object
-    },
     api: {
       type: Object
     },
     roomid: {
       type: String
     },
-    showVote: {
-      type: Boolean,
-      default: false
-    },
-    clearVote: {
-      type: Boolean,
-      default: false
+    channel: {
+      type: Object
     }
   },
   data() {
     return {
       players: [],
-      votetotal: 0,
-      uservotecount: 0,
-      shouldShowVote: this.showVote
+      vote: {},
+      showVote: false,
+      clearVote: false
     };
   },
   watch: {
     users: function(users) {
       // Only keep players
       this.players = users.filter(user => {
-        if (user.type === "1") {
+        if (Number(user.type) === 1) {
           return user;
         }
       });
@@ -113,27 +106,24 @@ export default {
     vote: function(data) {
       // Register a players vote
       let voters = this.players.map(user => {
-        if (user.userid === data.userid) {
+        // Only allow voting once
+        if (user.userid === data.userid && user.voted === false) {
           user.vote = data.vote;
           user.voted = true;
-          return user;
         }
         return user;
       });
 
       this.players = voters;
 
-      let vote = data.vote;
-      if (isNaN(data.vote) === true) {
-        vote = 0;
-      }
-      this.votetotal = this.votetotal + vote;
-
       // Check if all users have voted
-      this.uservotecount++;
-      if (this.uservotecount === this.players.length) {
+      let allUsersVoted = this.players.filter(player => {
+        return player.voted === false;
+      });
+
+      if (allUsersVoted.length === 0) {
         this.showVotes();
-        this.shouldShowVote = true;
+        this.showVote = true;
       }
     },
     clearVote: function() {
@@ -144,18 +134,42 @@ export default {
       });
 
       // reset values
-      this.players = voters;
-      this.votetotal = 0;
-      this.uservotecount = 0;
-      this.shouldShowVote = false;
+      this.resetBoard(voters);
     }
+  },
+  mounted() {
+    this.channel
+      .listen("UserVoted", e => {
+        this.vote = e.vote;
+      })
+      .listen("ShowVotesEvent", e => {
+        this.showVote = !this.showVote;
+      })
+      .listen("ClearVotesEvent", e => {
+        this.clearVote = !this.clearVote;
+      });
   },
   computed: {
     averageVotes: function() {
-      if (this.votetotal > 0) {
-        return this.votetotal / this.players.length;
-      }
-      return "";
+      // Get the player votes
+      let votetotal = this.players.map(player => {
+        let vote = player.vote;
+        // Check to see if vote is question mark
+        if (isNaN(player.vote) === true) {
+          vote = 0;
+        }
+        return vote.toLocaleString(
+          undefined, // leave undefined to use the browser's locale,
+          // or use a string like 'en-US' to override it.
+          { minimumFractionDigits: 1 }
+        );
+      });
+      // Add up the number of votes
+      let total = votetotal.reduce(function(total, vote) {
+        return Number(total) + Number(vote);
+      });
+
+      return total / this.players.length;
     }
   },
   methods: {
@@ -164,6 +178,10 @@ export default {
     },
     clearVotes: function() {
       this.api.clear(this.roomid);
+    },
+    resetBoard: function(voters) {
+      this.players = voters;
+      this.showVote = false;
     }
   }
 };

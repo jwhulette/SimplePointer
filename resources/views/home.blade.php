@@ -9,7 +9,9 @@
 <div class="container">
     <div class="flex flex-col mx-auto xl:mt-8 md:mt-4 sm:mt-2 ">
         <div class="grid grid-cols-4 gap-2">
-            <div class="m-auto">Ad left</div>
+
+            <div class="m-auto w-300 h-250">&nbsp;</div>
+
             <div class="p-3">
                 <h1 class="text-2xl underline">Welcome to Simple Pointer</h1>
 
@@ -23,7 +25,12 @@
                 <p class="mt-4 text-sm">
                     Create a room and then share the room link with your team.
                     Each member can log in as a player or an observer.
-                    You can reuse the room link as it does not expire.
+                    You can reuse the room link.
+                </p>
+
+                <p class="mt-4 text-sm">
+                    The site is currently not responsive, so it works best on a larger
+                    screen. I do have plans to update the site to be mobile responsive.
                 </p>
 
                 <div class="mt-4">
@@ -87,7 +94,9 @@
                 @endif
 
             </div>
-            <div class="m-auto">Ad left</div>
+
+            <div class="m-auto w-300 h-250">&nbsp;</div>
+
         </div>
     </div>
 </div>
