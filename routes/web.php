@@ -19,9 +19,9 @@ use App\Http\Controllers\PlayerController;
 
 Route::get('/', [HomeController::class, 'index'])->name('home');
 
-Route::get('/terms', function () {
-    return view('terms');
-})->name('terms');
+// Route::get('/terms', function () {
+//     return view('terms');
+// })->name('terms');
 
 Route::post('/room', [RoomController::class, 'index'])->name('rooms_index');
 
