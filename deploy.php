@@ -4,6 +4,10 @@ namespace Deployer;
 
 require 'recipe/laravel.php';
 
+set('keep_releases', 3);
+
+set('branch', 'master');
+
 // Project name
 set('application', 'simplepointer.com');
 
@@ -14,19 +18,25 @@ set('repository', 'https://github.com/jwhulette/SimplePointer');
 set('git_tty', true);
 
 // Shared files/dirs between deploys
-add('shared_files', []);
-add('shared_dirs', []);
+set('shared_files', ['.env']);
+
+// Laravel shared dirs
+set('shared_dirs', [
+    'storage/app',
+    'storage/framework/cache',
+    'storage/framework/sessions',
+    'storage/framework/views',
+    'storage/logs',
+]);
 
 // Writable dirs by web server
-add('writable_dirs', []);
+set('writable_dirs', ['storage', 'vendor'])
 
 // Hosts
-
 host('simplepointer.com')
     ->set('deploy_path', '/usr/local/www/{{application}}/html');
 
 // Tasks
-
 task('build', function () {
     run('cd {{release_path}} && build');
 });
