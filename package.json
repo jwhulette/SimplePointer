@@ -20,6 +20,7 @@
         "vue-template-compiler": "^2.6.10"
     },
     "dependencies": {
+        "eslint": "^7.0.0",
         "laravel-echo": "^1.7.0",
         "pusher-js": "^6.0.3",
         "tailwindcss": "^1.4.6"
