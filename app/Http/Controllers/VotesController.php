@@ -25,7 +25,7 @@ class VotesController extends Controller
             Log::error($th->getMessage());
         }
 
-        return response()->json(['error']);
+        return response()->json(['error'], 500);
     }
 
     /**
@@ -43,7 +43,7 @@ class VotesController extends Controller
             Log::error($th->getMessage());
         }
 
-        return response()->json(['error']);
+        return response()->json(['error'], 500);
     }
 
     /**
@@ -61,6 +61,6 @@ class VotesController extends Controller
             Log::error($th->getMessage());
         }
 
-        return response()->json(['error']);
+        return response()->json(['error'], 500);
     }
 }

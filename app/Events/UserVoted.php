@@ -2,8 +2,6 @@
 
 namespace App\Events;
 
-use App\Vote;
-use stdClass;
 use Illuminate\Queue\SerializesModels;
 use Illuminate\Console\Scheduling\Event;
 use Illuminate\Broadcasting\PresenceChannel;
