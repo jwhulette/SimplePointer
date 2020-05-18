@@ -18,7 +18,7 @@ set('repository', 'https://github.com/jwhulette/SimplePointer');
 set('git_tty', true);
 
 // Shared files/dirs between deploys
-set('shared_files', ['.env']);
+set('shared_files', ['.env', 'storage/database.sqlite']);
 
 // Laravel shared dirs
 set('shared_dirs', [
@@ -27,10 +27,11 @@ set('shared_dirs', [
     'storage/framework/sessions',
     'storage/framework/views',
     'storage/logs',
+    'storage/database',
 ]);
 
 // Writable dirs by web server
-set('writable_dirs', ['storage', 'vendor'])
+set('writable_dirs', ['storage', 'vendor']);
 
 // Hosts
 host('simplepointer.com')

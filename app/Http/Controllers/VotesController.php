@@ -6,6 +6,7 @@ use App\Events\UserVoted;
 use Illuminate\Http\Request;
 use App\Events\ShowVotesEvent;
 use App\Events\ClearVotesEvent;
+use Illuminate\Support\Facades\Log;
 
 class VotesController extends Controller
 {
@@ -16,9 +17,15 @@ class VotesController extends Controller
      */
     public function vote(Request $request)
     {
-        event(new UserVoted($request->roomid, $request->userid, $request->vote));
+        try {
+            event(new UserVoted($request->roomid, $request->userid, $request->vote));
 
-        return response()->json(['success']);
+            return response()->json(['success']);
+        } catch (\Throwable $th) {
+            Log::error($th->getMessage());
+        }
+
+        return response()->json(['error']);
     }
 
     /**
@@ -28,9 +35,15 @@ class VotesController extends Controller
      */
     public function show(Request $request)
     {
-        event(new ShowVotesEvent($request->roomid));
+        try {
+            event(new ShowVotesEvent($request->roomid));
 
-        return response()->json(['success']);
+            return response()->json(['success']);
+        } catch (\Throwable $th) {
+            Log::error($th->getMessage());
+        }
+
+        return response()->json(['error']);
     }
 
     /**
@@ -40,8 +53,14 @@ class VotesController extends Controller
      */
     public function clear(Request $request)
     {
-        event(new ClearVotesEvent($request->roomid));
+        try {
+            event(new ClearVotesEvent($request->roomid));
 
-        return response()->json(['success']);
+            return response()->json(['success']);
+        } catch (\Throwable $th) {
+            Log::error($th->getMessage());
+        }
+
+        return response()->json(['error']);
     }
 }
