@@ -22,7 +22,7 @@ class VotesController extends Controller
 
             return response()->json(['success']);
         } catch (\Throwable $th) {
-            Log::error($th->getMessage());
+            Log::error($th->getTrace());
         }
 
         return response()->json(['error'], 500);

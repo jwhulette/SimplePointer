@@ -6,7 +6,7 @@ require 'recipe/laravel.php';
 
 set('keep_releases', 3);
 
-set('branch', 'master');
+set('branch', 'deployer');
 
 // Project name
 set('application', 'simplepointer.com');
