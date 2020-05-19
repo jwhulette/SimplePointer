@@ -1,7 +1,5 @@
 <?php
 
-use Illuminate\Auth\GenericUser;
-use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Broadcast;
 
 /*
