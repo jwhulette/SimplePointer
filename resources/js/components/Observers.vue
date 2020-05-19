@@ -1,6 +1,6 @@
 <template>
   <div v-if="this.observers.length > 0">
-    <div class="mt-6 overflow-hidden rounded rounded-lg shadow-lg">
+    <div class="mt-6 overflow-hidden rounded rounded-lg">
       <div class="w-full border-b border-gray-400">
         <div class="mb-2 text-lg text-center">Observers</div>
       </div>

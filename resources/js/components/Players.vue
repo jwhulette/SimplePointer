@@ -151,11 +151,15 @@ export default {
   },
   computed: {
     averageVotes: function() {
-      // Get the player votes
+      // Get the player votesnp
       let votetotal = this.players.map(player => {
         let vote = player.vote;
         // Check to see if vote is question mark
         if (isNaN(player.vote) === true) {
+          vote = 0;
+        }
+
+        if (player.vote === null) {
           vote = 0;
         }
         return vote.toLocaleString(
@@ -164,6 +168,7 @@ export default {
           { minimumFractionDigits: 1 }
         );
       });
+
       // Add up the number of votes
       let total = votetotal.reduce(function(total, vote) {
         return Number(total) + Number(vote);

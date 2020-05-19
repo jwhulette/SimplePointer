@@ -12,7 +12,7 @@
       </div>
 
       <div class="grid grid-cols-3 gap-2">
-        <div class="m-auto bg-blue-300 w-300 h-250">ad</div>
+        <div class="m-auto w-300 h-250">&nbsp;</div>
 
         <div v-if="hasJoined">
           <Players :api="api" :roomid="roomid" :users="users" :channel="this.channel"></Players>
@@ -24,7 +24,7 @@
           <join :api="api" :roomid="roomid" @joined="handleJoin"></join>
         </div>
 
-        <div class="m-auto bg-blue-300 w-300 h-250">ad</div>
+        <div class="m-auto w-300 h-250">&nbsp;</div>
       </div>
     </div>
   </div>
