@@ -114,14 +114,12 @@ export default {
         return user;
       });
 
-      this.players = voters;
-
       // Check if all users have voted
-      let allUsersVoted = this.players.filter(player => {
+      let allUsersVoted = voters.filter(player => {
         return player.voted === false;
       });
 
-      if (allUsersVoted.length === 0) {
+      if (voters > 1 && allUsersVoted.length === 0) {
         this.showVotes();
         this.showVote = true;
       }
