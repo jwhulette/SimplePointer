@@ -29,15 +29,15 @@ set('shared_files', [
     'storage/database.sqlite',
 ]);
 
-// // Laravel shared dirs
-// set('shared_dirs', [
-//     'storage/app',
-//     'storage/framework/cache',
-//     'storage/framework/sessions',
-//     'storage/framework/views',
-//     'storage/logs',
-//     'storage/database',
-// ]);
+// Laravel shared dirs
+set('shared_dirs', [
+    'storage/app',
+    'storage/framework/cache',
+    'storage/framework/sessions',
+    'storage/framework/views',
+    'storage/logs',
+    'storage/database',
+]);
 
 // Writable dirs by web server
 set('writable_dirs', [
