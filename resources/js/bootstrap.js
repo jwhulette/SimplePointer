@@ -38,10 +38,9 @@ window.Echo = new Echo({
     key: process.env.MIX_PUSHER_APP_KEY,
     wsHost: window.location.hostname,
     wsPort: 6001,
+    wsPath: "/ws",
     disableStats: true,
     encrypted: true,
-    forceTLS: false,
+    forceTLS: true,
     enabledTransports: ["ws", "wss"]
 });
-
-console.log(window.Echo.connector.pusher.connection.timeline.events);
