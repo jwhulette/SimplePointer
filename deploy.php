@@ -89,5 +89,3 @@ before('deploy:symlink', 'artisan:migrate');
 
 // Restart FPM after deploy
 after('deploy:symlink', 'web:reloads');
-
-after('success', 'notify');
