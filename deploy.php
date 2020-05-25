@@ -76,7 +76,7 @@ task('php-fpm:restart', function () {
 });
 
 task('web:reloads', [
-    'build:assets',
+    // 'build:assets',
     'supervisor:restart',
     'php-fpm:restart',
 ]);
