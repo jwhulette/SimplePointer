@@ -22,7 +22,7 @@
     "dependencies": {
         "eslint": "^7.0.0",
         "laravel-echo": "^1.7.0",
-        "pusher-js": "^6.0.3",
+        "pusher-js": "^4.3.0",
         "tailwindcss": "^1.4.6"
     }
 }
