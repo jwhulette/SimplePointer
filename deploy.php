@@ -26,7 +26,7 @@ set('ssh_multiplexing', true);
 // Shared files/dirs between deploys
 set('shared_files', [
     '.env',
-    'storage/database.sqlite',
+    'database.sqlite',
 ]);
 
 // Laravel shared dirs
@@ -36,7 +36,6 @@ set('shared_dirs', [
     'storage/framework/sessions',
     'storage/framework/views',
     'storage/logs',
-    'storage/database',
 ]);
 
 // Writable dirs by web server
@@ -54,11 +53,6 @@ task('build', function () {
     run('cd {{release_path}} && build');
 });
 
-// task('build:assets', function () {
-//     run('npm:install');
-//     run('cd {{release_path}} npm run prod');
-// });
-
 task('npm', function () {
     if (has('previous_release')) {
         run('cp -R {{previous_release}}/node_modules {{release_path}}/node_modules');
@@ -75,8 +69,8 @@ task('php-fpm:restart', function () {
     run('sudo service php-fpm restart');
 });
 
-task('web:reloads', [
-    // 'build:assets',
+task('web', [
+    'npm',
     'supervisor:restart',
     'php-fpm:restart',
 ]);
@@ -88,4 +82,4 @@ after('deploy:failed', 'deploy:unlock');
 before('deploy:symlink', 'artisan:migrate');
 
 // Restart FPM after deploy
-after('deploy:symlink', 'web:reloads');
+after('deploy:symlink', 'web');
