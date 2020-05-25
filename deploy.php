@@ -3,13 +3,12 @@
 namespace Deployer;
 
 require 'recipe/laravel.php';
-require 'vendor/deployer/recipes/recipe/npm.php';
 
 // Releases to keep
 set('keep_releases', 3);
 
 // Branch to deploy
-set('branch', 'master');
+set('branch', 'deploy');
 
 // Project name
 set('application', 'simplepointer.com');
@@ -19,6 +18,9 @@ set('repository', 'https://github.com/jwhulette/SimplePointer');
 
 // Allocate tty for git clone.
 set('git_tty', true);
+
+// Speedup the native ssh client.
+set('ssh_multiplexing', true);
 
 // Shared files/dirs between deploys
 set('shared_files', [
@@ -33,7 +35,7 @@ set('shared_dirs', [
     'storage/framework/sessions',
     'storage/framework/views',
     'storage/logs',
-    'storage/database',
+    'storage/storage',
 ]);
 
 // Writable dirs by web server
@@ -51,11 +53,6 @@ task('build', function () {
     run('cd {{release_path}} && build');
 });
 
-task('build:assets', function () {
-    run('npm:install');
-    run('cd {{release_path}} npm run prod');
-});
-
 task('supervisor:restart', function () {
     run('sudo service supervisord restart');
 });
@@ -64,8 +61,7 @@ task('php-fpm:restart', function () {
     run('sudo service php-fpm restart');
 });
 
-task('web:reloads', [
-    'build:assets',
+task('web', [
     'supervisor:restart',
     'php-fpm:restart',
 ]);
@@ -77,4 +73,4 @@ after('deploy:failed', 'deploy:unlock');
 before('deploy:symlink', 'artisan:migrate');
 
 // Restart FPM after deploy
-after('deploy:symlink', 'web:reloads');
+after('deploy:symlink', 'web');
