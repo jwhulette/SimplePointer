@@ -53,14 +53,6 @@ task('build', function () {
     run('cd {{release_path}} && build');
 });
 
-task('npm', function () {
-    if (has('previous_release')) {
-        run('cp -R {{previous_release}}/node_modules {{release_path}}/node_modules');
-    }
-
-    run('cd {{release_path}} && npm install && run production');
-});
-
 task('supervisor:restart', function () {
     run('sudo service supervisord restart');
 });
@@ -70,7 +62,6 @@ task('php-fpm:restart', function () {
 });
 
 task('web', [
-    'npm',
     'supervisor:restart',
     'php-fpm:restart',
 ]);
