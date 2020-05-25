@@ -3,7 +3,6 @@
 namespace Deployer;
 
 require 'recipe/laravel.php';
-require './vendor/deployer/recipes/recipe/npm.php';
 
 // Releases to keep
 set('keep_releases', 3);
