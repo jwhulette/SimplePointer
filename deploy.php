@@ -26,7 +26,7 @@ set('ssh_multiplexing', true);
 // Shared files/dirs between deploys
 set('shared_files', [
     '.env',
-    'database.sqlite',
+    'storage/database.sqlite',
 ]);
 
 // Laravel shared dirs
@@ -36,6 +36,7 @@ set('shared_dirs', [
     'storage/framework/sessions',
     'storage/framework/views',
     'storage/logs',
+    'storage/storage',
 ]);
 
 // Writable dirs by web server
