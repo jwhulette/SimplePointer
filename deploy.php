@@ -39,11 +39,11 @@ set('shared_files', [
 //     'storage/database',
 // ]);
 
-// // Writable dirs by web server
-// set('writable_dirs', [
-//     'storage',
-//     'vendor',
-// ]);
+// Writable dirs by web server
+set('writable_dirs', [
+    'storage',
+    'vendor',
+]);
 
 // Hosts
 host('simplepointer.com')
