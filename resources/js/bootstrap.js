@@ -37,10 +37,11 @@ window.Echo = new Echo({
     broadcaster: "pusher",
     key: process.env.MIX_PUSHER_APP_KEY,
     wsHost: window.location.hostname,
-    wsPort: 443,
+    wsPort: 6001,
     disableStats: true,
     encrypted: true,
-    forceTLS: false
+    forceTLS: false,
+    enabledTransports: ["ws", "wss"]
 });
 
 console.log(window.Echo.connector.pusher.connection.timeline.events);
