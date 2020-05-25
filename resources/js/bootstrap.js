@@ -40,6 +40,6 @@ window.Echo = new Echo({
     wsPort: 6001,
     disableStats: true,
     encrypted: true,
-    forceTLS: false,
+    // forceTLS: false,
     enabledTransports: ["ws", "wss"]
 });

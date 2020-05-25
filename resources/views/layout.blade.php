@@ -12,6 +12,8 @@
     <link rel="mask-icon" href="/safari-pinned-tab.svg" color="#48bb78">
     <meta name="msapplication-TileColor" content="#00a300">
     <meta name="theme-color" content="#48bb78">
+    <meta name="Description" content="A free online agile pointing poker application">
+    <meta name="Keywords" content="agile, pointing, pointing poker, free">
 
     <title>Simple Pointer - @yield('title')</title>
     <link rel="stylesheet" type="text/css" href="{{ mix('css/app.css') }}">
