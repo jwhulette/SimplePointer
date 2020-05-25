@@ -9,7 +9,7 @@ require './vendor/deployer/recipes/recipe/npm.php';
 set('keep_releases', 3);
 
 // Branch to deploy
-set('branch', 'master');
+set('branch', 'deploy');
 
 // Project name
 set('application', 'simplepointer.com');
@@ -19,6 +19,9 @@ set('repository', 'https://github.com/jwhulette/SimplePointer');
 
 // Allocate tty for git clone.
 set('git_tty', true);
+
+// Speedup the native ssh client.
+set('ssh_multiplexing', true);
 
 // Shared files/dirs between deploys
 set('shared_files', [
@@ -51,9 +54,17 @@ task('build', function () {
     run('cd {{release_path}} && build');
 });
 
-task('build:assets', function () {
-    run('npm:install');
-    run('cd {{release_path}} npm run prod');
+// task('build:assets', function () {
+//     run('npm:install');
+//     run('cd {{release_path}} npm run prod');
+// });
+
+task('npm', function () {
+    if (has('previous_release')) {
+        run('cp -R {{previous_release}}/node_modules {{release_path}}/node_modules');
+    }
+
+    run('cd {{release_path}} && npm install && run production');
 });
 
 task('supervisor:restart', function () {
@@ -78,3 +89,5 @@ before('deploy:symlink', 'artisan:migrate');
 
 // Restart FPM after deploy
 after('deploy:symlink', 'web:reloads');
+
+after('success', 'notify');
