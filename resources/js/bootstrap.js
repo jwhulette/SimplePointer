@@ -36,11 +36,12 @@ window.Pusher = require("pusher-js");
 window.Echo = new Echo({
     broadcaster: "pusher",
     key: process.env.MIX_PUSHER_APP_KEY,
-    wsHost: window.location.hostname,
+    // wsHost: window.location.hostname,
+    wsPath: window.location.hostname + "/ws",
     wsPort: 443,
     disableStats: true,
     encrypted: true,
     forceTLS: false
 });
 
-window.Echo.connector.pusher.connection.timeline.events;
+console.log(window.Echo.connector.pusher.connection.timeline.events);
