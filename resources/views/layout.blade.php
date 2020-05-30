@@ -2,6 +2,8 @@
 <html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
 
 <head>
+    <script data-ad-client="ca-pub-1366286408678477" async
+        src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="csrf-token" content="{{ csrf_token() }}">
@@ -12,9 +14,13 @@
     <link rel="mask-icon" href="/safari-pinned-tab.svg" color="#48bb78">
     <meta name="msapplication-TileColor" content="#00a300">
     <meta name="theme-color" content="#48bb78">
-    <meta name="Description" content="A free online agile pointing poker application">
-    <meta name="Keywords" content="agile, pointing, pointing poker, free">
-
+    <meta name="description" content="A free online agile pointing poker application">
+    <meta name="keywords" content="agile, pointing, pointing poker, free">
+    <meta name="author" content="Wes Hulette">
+    <meta property="og:url" content="https://simplepointer.com" />
+    <meta property="og:type" content="website" />
+    <meta property="og:title" content="A free online agile pointing poker application" />
+    <meta property="og:description" content="A free online agile pointing poker application" />
     <title>Simple Pointer - @yield('title')</title>
     <link rel="stylesheet" type="text/css" href="{{ mix('css/app.css') }}">
 
@@ -55,7 +61,7 @@
     <footer class="footer">
         <div class="container mx-auto font-light text-center">
             <small>Copyright &copy; {{ date('Y') }} Simple Pointer</small>
-            {{-- <small class="ml-12"><a href="{{ route('terms') }}">Terms & Conditions</a></small> --}}
+            <small class="ml-12"><a href="{{ route('terms') }}">Terms & Conditions</a></small>
         </div>
     </footer>
 

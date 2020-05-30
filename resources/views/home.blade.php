@@ -39,7 +39,7 @@
                     </p>
                     <p class="text-sm">
                         The ads are used to pay for hosting costs and
-                        incentive for me to continue improving the app.
+                        incentive for me to continue improving the site.
                     </p>
                 </div>
 
