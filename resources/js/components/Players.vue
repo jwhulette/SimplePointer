@@ -119,9 +119,8 @@ export default {
         return player.voted === false;
       });
 
-      if (voters > 1 && allUsersVoted.length === 0) {
+      if (voters.length > 1 && allUsersVoted.length === 0) {
         this.showVotes();
-        this.showVote = true;
       }
     },
     clearVote: function() {
@@ -178,6 +177,7 @@ export default {
   methods: {
     showVotes: function() {
       this.api.show(this.roomid);
+      this.showVote = true;
     },
     clearVotes: function() {
       this.api.clear(this.roomid);

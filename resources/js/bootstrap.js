@@ -39,7 +39,7 @@ window.Echo = new Echo({
     wsHost: window.location.hostname,
     wsPort: 6001,
     disableStats: true,
-    encrypted: true,
-    // forceTLS: false,
-    enabledTransports: ["ws", "wss"]
+    encrypted: process.env.MIX_USE_LOCAL ? false : true,
+    enabledTransports: ["ws", "wss"],
+    forceTLS: false
 });
