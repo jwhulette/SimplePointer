@@ -58,7 +58,7 @@
         <tfoot>
           <tr class="text-right">
             <td class="py-2 pr-12" colspan="2">
-              <b>Vote Average:</b>
+              <b class="vote-average">Vote Average:</b>
               <span v-if="showVote">{{ averageVotes }}</span>
               <span v-else>-----</span>
             </td>
@@ -140,10 +140,10 @@ export default {
         this.vote = e.vote;
       })
       .listen("ShowVotesEvent", e => {
-        this.showVote = !this.showVote;
+        this.showVote = true;
       })
       .listen("ClearVotesEvent", e => {
-        this.clearVote = !this.clearVote;
+        this.clearVote = true;
       });
   },
   computed: {
@@ -185,6 +185,7 @@ export default {
     resetBoard: function(voters) {
       this.players = voters;
       this.showVote = false;
+      this.clearVote = false;
     }
   }
 };
