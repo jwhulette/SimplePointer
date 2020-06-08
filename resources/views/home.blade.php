@@ -28,21 +28,6 @@
                     You can reuse the room link.
                 </p>
 
-                <p class="mt-4 text-sm">
-                    The site is currently not responsive, so it works best on a larger
-                    screen. I do have plans to update the site to be mobile responsive.
-                </p>
-
-                <div class="mt-4">
-                    <p class="text-sm font-bold">
-                        Why Ads?
-                    </p>
-                    <p class="text-sm">
-                        The ads are used to pay for hosting costs and
-                        incentive for me to continue improving the site.
-                    </p>
-                </div>
-
             </div>
 
             <div class="p-6 border-2 border-green-300 rounded-md">

@@ -19,7 +19,13 @@ use App\Http\Controllers\PlayerController;
 
 Route::get('/', [HomeController::class, 'index'])->name('home');
 
-Route::get('/terms', [HomeController::class, 'terms'])->name('terms');
+Route::view('/about', 'about')->name('about');
+
+Route::view('/what-is-planning-poker', 'what')->name('what');
+
+Route::view('/terms', 'terms')->name('terms');
+
+Route::view('/why-ads', 'ads')->name('ads');
 
 Route::post('/room', [RoomController::class, 'index'])->name('rooms_index');
 
