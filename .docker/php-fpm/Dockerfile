@@ -11,3 +11,5 @@ RUN apk --update add curl \
 
 RUN rm /var/cache/apk/* && \
     mkdir -p /var/www
+
+COPY --from=composer /usr/bin/composer /usr/bin/composer
