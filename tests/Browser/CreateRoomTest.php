@@ -4,13 +4,10 @@ namespace Tests\Browser;
 
 use Tests\DuskTestCase;
 use Laravel\Dusk\Browser;
-use Illuminate\Foundation\Testing\DatabaseMigrations;
 
 class CreateRoomTest extends DuskTestCase
 {
-    use DatabaseMigrations;
-
-    public function user_can_create_new_room()
+    public function test_user_can_create_new_room()
     {
         $this->browse(function (Browser $browser) {
             $browser->visit('/')

@@ -37,7 +37,7 @@ class RoomController extends Controller
      */
     public function room(string $roomId)
     {
-        $room = Room::whereUuid($roomId)->with('cardSet')->first();
+        $room = Room::whereUuid($roomId)->with('cardSet')->firstOrFail();
 
         $routes = collect([
             'join' => route('join'),
@@ -47,6 +47,11 @@ class RoomController extends Controller
             'clear' => route('clear'),
         ]);
 
-        return view('room', ['name' => $room->name, 'cardset'=> $room->cardSet->card_set, 'id' => $roomId, 'routes' => $routes]);
+        return view('room', [
+            'name' => $room->name,
+            'cardset'=> $room->cardSet->card_set,
+            'id' => $roomId,
+            'routes' => $routes,
+        ]);
     }
 }
