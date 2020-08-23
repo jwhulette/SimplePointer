@@ -74,38 +74,38 @@ export default {
   name: "Players",
   props: {
     users: {
-      type: Array
+      type: Array,
     },
     api: {
-      type: Object
+      type: Object,
     },
     roomid: {
-      type: String
+      type: String,
     },
     channel: {
-      type: Object
-    }
+      type: Object,
+    },
   },
   data() {
     return {
       players: [],
       vote: {},
       showVote: false,
-      clearVote: false
+      clearVote: false,
     };
   },
   watch: {
-    users: function(users) {
+    users: function (users) {
       // Only keep players
-      this.players = users.filter(user => {
+      this.players = users.filter((user) => {
         if (Number(user.type) === 1) {
           return user;
         }
       });
     },
-    vote: function(data) {
+    vote: function (data) {
       // Register a players vote
-      let voters = this.players.map(user => {
+      let voters = this.players.map((user) => {
         // Only allow voting once
         if (user.userid === data.userid && user.voted === false) {
           user.vote = data.vote;
@@ -115,7 +115,7 @@ export default {
       });
 
       // Check if all users have voted
-      let allUsersVoted = voters.filter(player => {
+      let allUsersVoted = voters.filter((player) => {
         return player.voted === false;
       });
 
@@ -123,8 +123,8 @@ export default {
         this.showVotes();
       }
     },
-    clearVote: function() {
-      let voters = this.players.map(user => {
+    clearVote: function () {
+      let voters = this.players.map((user) => {
         user.vote = null;
         user.voted = false;
         return user;
@@ -132,24 +132,24 @@ export default {
 
       // reset values
       this.resetBoard(voters);
-    }
+    },
   },
   mounted() {
     this.channel
-      .listen("UserVoted", e => {
+      .listen("UserVoted", (e) => {
         this.vote = e.vote;
       })
-      .listen("ShowVotesEvent", e => {
+      .listen("ShowVotesEvent", (e) => {
         this.showVote = true;
       })
-      .listen("ClearVotesEvent", e => {
+      .listen("ClearVotesEvent", (e) => {
         this.clearVote = true;
       });
   },
   computed: {
-    averageVotes: function() {
+    averageVotes: function () {
       // Get the player votesnp
-      let votetotal = this.players.map(player => {
+      let votetotal = this.players.map((player) => {
         let vote = player.vote;
         // Check to see if vote is question mark
         if (isNaN(player.vote) === true) {
@@ -167,26 +167,26 @@ export default {
       });
 
       // Add up the number of votes
-      let total = votetotal.reduce(function(total, vote) {
+      let total = votetotal.reduce(function (total, vote) {
         return Number(total) + Number(vote);
       });
 
-      return total / this.players.length;
-    }
+      return (total / this.players.length).toFixed(3);
+    },
   },
   methods: {
-    showVotes: function() {
+    showVotes: function () {
       this.api.show(this.roomid);
       this.showVote = true;
     },
-    clearVotes: function() {
+    clearVotes: function () {
       this.api.clear(this.roomid);
     },
-    resetBoard: function(voters) {
+    resetBoard: function (voters) {
       this.players = voters;
       this.showVote = false;
       this.clearVote = false;
-    }
-  }
+    },
+  },
 };
 </script>
