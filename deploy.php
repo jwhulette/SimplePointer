@@ -7,8 +7,8 @@ require 'recipe/laravel.php';
 // Releases to keep
 set('keep_releases', 3);
 
-// Branch to master
-set('branch', 'master');
+// Branch to main
+set('branch', 'main');
 
 // Project name
 set('application', 'simplepointer.com');
