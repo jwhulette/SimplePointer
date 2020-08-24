@@ -22,14 +22,4 @@ class HomeController extends Controller
 
         return view('home', ['cards' => $cards]);
     }
-
-    /**
-     * Undocumented function.
-     *
-     * @return \Illuminate\View\View
-     */
-    public function terms(): View
-    {
-        return view('terms');
-    }
 }

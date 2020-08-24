@@ -21,7 +21,9 @@ class PlayerController extends Controller
         // Create or update the user based on the user uuid
         try {
             $user = User::updateOrCreate(
-                ['id' => $request->userid],
+                [
+                    'id' => $request->userid,
+                ],
                 [
                     'name' => $request->name,
                     'type' => $request->type,

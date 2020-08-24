@@ -70,6 +70,10 @@
 </template>
 
 <script>
+import VueConfetti from "vue-confetti";
+
+Vue.use(VueConfetti);
+
 export default {
   name: "Players",
   props: {
@@ -103,6 +107,7 @@ export default {
         }
       });
     },
+
     vote: function (data) {
       // Register a players vote
       let voters = this.players.map((user) => {
@@ -120,9 +125,23 @@ export default {
       });
 
       if (voters.length > 1 && allUsersVoted.length === 0) {
+        let equal = voters.every(function (val, i, arr) {
+          return val.vote === arr[0].vote;
+        });
+
+        if (equal) {
+          this.$confetti.start();
+
+          var self = this;
+          setTimeout(function () {
+            self.$confetti.stop();
+          }, 2000);
+        }
+
         this.showVotes();
       }
     },
+
     clearVote: function () {
       let voters = this.players.map((user) => {
         user.vote = null;
@@ -159,6 +178,7 @@ export default {
         if (player.vote === null) {
           vote = 0;
         }
+
         return vote.toLocaleString(
           undefined, // leave undefined to use the browser's locale,
           // or use a string like 'en-US' to override it.
@@ -171,7 +191,7 @@ export default {
         return Number(total) + Number(vote);
       });
 
-      return (total / this.players.length).toFixed(3);
+      return (total / this.players.length).toFixed(1);
     },
   },
   methods: {
@@ -179,9 +199,11 @@ export default {
       this.api.show(this.roomid);
       this.showVote = true;
     },
+
     clearVotes: function () {
       this.api.clear(this.roomid);
     },
+
     resetBoard: function (voters) {
       this.players = voters;
       this.showVote = false;
