@@ -72,6 +72,16 @@
         ],
         "post-create-project-cmd": [
             "@php artisan key:generate --ansi"
+        ],
+        "phpunit": [
+            "./vendor/bin/phpunit --color=always"
+        ],
+        "dusk": [
+            "@php artisan dusk"
+        ],
+        "test": [
+            "./vendor/bin/phpunit --color=always",
+            "@php artisan dusk"
         ]
     }
 }

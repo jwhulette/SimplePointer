@@ -7,6 +7,7 @@ use App\Events\UserVoted;
 use Illuminate\Http\Request;
 use App\Events\ShowVotesEvent;
 use App\Events\ClearVotesEvent;
+use Illuminate\Http\JsonResponse;
 use Illuminate\Support\Facades\Log;
 
 class VotesController extends Controller
@@ -15,9 +16,9 @@ class VotesController extends Controller
      * Record a user vote.
      *
      * @param \Illuminate\Http\Request
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\Http\JsonResponse
      */
-    public function vote(Request $request): Response
+    public function vote(Request $request): JsonResponse
     {
         try {
             event(new UserVoted($request->roomid, $request->userid, $request->vote));
@@ -34,9 +35,9 @@ class VotesController extends Controller
      * Show the votes.
      *
      * @param \Illuminate\Http\Request $request
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\Http\JsonResponse
      */
-    public function show(Request $request): Response
+    public function show(Request $request): JsonResponse
     {
         try {
             event(new ShowVotesEvent($request->roomid));
@@ -53,9 +54,9 @@ class VotesController extends Controller
      * Clear the user votes.
      *
      * @param \Illuminate\Http\Request $request
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\Http\JsonResponse
      */
-    public function clear(Request $request): Response
+    public function clear(Request $request): JsonResponse
     {
         try {
             event(new ClearVotesEvent($request->roomid));

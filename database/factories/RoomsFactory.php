@@ -2,11 +2,13 @@
 
 /** @var \Illuminate\Database\Eloquent\Factory $factory */
 
-use App\rooms;
+use App\Room;
 use Faker\Generator as Faker;
 
-$factory->define(rooms::class, function (Faker $faker) {
+$factory->define(Room::class, function (Faker $faker) {
     return [
-        //
+        'uuid' => $faker->uuid,
+        'name' => $faker->name,
+        'card_id'=> 1,
     ];
 });

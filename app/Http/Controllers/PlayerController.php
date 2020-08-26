@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\User;
 use Ramsey\Uuid\Uuid;
 use Illuminate\Http\Request;
+use Illuminate\Http\JsonResponse;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Auth;
 
@@ -14,14 +15,16 @@ class PlayerController extends Controller
      * Create or update the user.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\Http\JsonResponse
      */
-    public function store(Request $request)
+    public function store(Request $request): JsonResponse
     {
         // Create or update the user based on the user uuid
         try {
             $user = User::updateOrCreate(
-                ['id' => $request->userid],
+                [
+                    'id' => $request->userid,
+                ],
                 [
                     'name' => $request->name,
                     'type' => $request->type,
