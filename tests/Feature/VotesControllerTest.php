@@ -18,9 +18,9 @@ class VotesControllerTest extends TestCase
 
     public function test_user_votes_route()
     {
-        $room = factory(Room::class)->create();
+        $room = Room::factory()->create();
 
-        $user = factory(User::class)->create([
+        $user = User::factory()->create([
             'room_id' => $room->uuid,
         ]);
 

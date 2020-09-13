@@ -19,9 +19,9 @@ class PlayerControllerTest extends TestCase
      */
     public function test_new_player_join()
     {
-        $room = factory(Room::class)->create();
+        $room = Room::factory()->create();
 
-        $user = factory(User::class)->make([
+        $user = User::factory()->make([
             'room_id' => $room->uuid,
         ]);
 
@@ -40,9 +40,9 @@ class PlayerControllerTest extends TestCase
 
     public function test_existing_player_join()
     {
-        $room = factory(Room::class)->create();
+        $room = Room::factory()->create();
 
-        $user = factory(User::class)->create([
+        $user = User::factory()->create([
             'room_id' => $room->uuid,
         ]);
 

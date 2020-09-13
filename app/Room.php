@@ -5,10 +5,11 @@ namespace App;
 use Illuminate\Database\Eloquent\Model;
 use Dyrynda\Database\Casts\EfficientUuid;
 use Dyrynda\Database\Support\GeneratesUuid;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 
 class Room extends Model
 {
-    use GeneratesUuid;
+    use GeneratesUuid, HasFactory;
 
     protected $casts = [
         'uuid' => EfficientUuid::class,

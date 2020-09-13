@@ -17,9 +17,9 @@ class MakeRoomTest extends DuskTestCase
     {
         parent::setUp();
 
-        $this->room = factory(Room::class)->create();
+        $this->room = Room::factory()->create();
 
-        $this->user = factory(User::class, 2)->create([
+        $this->user = User::factory(2)->create([
             'room_id' => $this->room->uuid,
         ]);
     }
