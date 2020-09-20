@@ -8,7 +8,10 @@ use Tests\DuskTestCase;
 use Laravel\Dusk\Browser;
 use Illuminate\Support\Collection;
 
-class MakeRoomTest extends DuskTestCase
+/**
+ * @group join
+ */
+class JoinRoomTest extends DuskTestCase
 {
     protected Room $room;
     protected Collection $user;
@@ -19,7 +22,7 @@ class MakeRoomTest extends DuskTestCase
 
         $this->room = Room::factory()->create();
 
-        $this->user = User::factory(2)->create([
+        $this->user = User::factory(3)->create([
             'room_id' => $this->room->uuid,
         ]);
     }
@@ -30,25 +33,33 @@ class MakeRoomTest extends DuskTestCase
 
         $users = $this->user;
 
-        $this->browse(function (Browser $browser1, Browser $browser2) use ($roomUuid, $users) {
+        $this->browse(function (Browser $browser1, Browser $browser2, Browser $browser3) use ($roomUuid, $users) {
             $userOne = $users->get(0);
 
             $userTwo = $users->get(1);
 
+            $observer = $users->get(2);
+
             $browser1->visit("$roomUuid/room")
-                    ->assertSee('Register for room')
                     ->type('name', $userOne->name)
                     ->press('Player')
-                    ->pause(2000)
+                    ->waitForText($userOne->name)
                     ->assertSee($userOne->name);
 
             $browser2->visit("$roomUuid/room")
-                    ->assertSee('Register for room')
                     ->type('name', $userTwo->name)
                     ->press('Player')
-                    ->pause(2000)
+                    ->waitForText($userTwo->name)
                     ->assertSee($userOne->name)
                     ->assertSee($userTwo->name);
+
+            $browser3->visit("$roomUuid/room")
+                    ->type('name', $observer->name)
+                    ->press('Observer')
+                    ->waitForText($observer->name)
+                    ->assertSee($userOne->name)
+                    ->assertSee($userTwo->name)
+                    ->assertSee($observer->name);
         });
     }
 }

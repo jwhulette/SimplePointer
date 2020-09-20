@@ -24,7 +24,7 @@ class RoomFactory extends Factory
     {
         return [
             'uuid' => $this->faker->uuid,
-            'name' => $this->faker->name,
+            'name' => $this->faker->word,
             'card_id'=> 1,
         ];
     }

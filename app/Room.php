@@ -9,7 +9,8 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 
 class Room extends Model
 {
-    use GeneratesUuid, HasFactory;
+    use GeneratesUuid;
+    use HasFactory;
 
     protected $casts = [
         'uuid' => EfficientUuid::class,

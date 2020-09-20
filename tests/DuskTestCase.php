@@ -19,9 +19,7 @@ abstract class DuskTestCase extends BaseTestCase
     {
         parent::setUp();
 
-        $this->artisan('migrate:fresh');
-
-        $this->artisan('db:seed');
+        // $this->artisan('migrate:fresh --seed');
 
         $this->faker = Factory::create(Factory::DEFAULT_LOCALE);
     }
