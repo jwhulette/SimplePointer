@@ -6,6 +6,8 @@ use Illuminate\Foundation\Http\FormRequest;
 
 class RoomRequest extends FormRequest
 {
+    public const ROOM_NAME_LENGTH = 255;
+
     /**
      * Determine if the user is authorized to make this request.
      *
@@ -24,8 +26,8 @@ class RoomRequest extends FormRequest
     public function rules()
     {
         return [
-            'name' => 'required|max:255',
-            'card_set' => 'required',
+            'name' => 'required|string|max:'.self::ROOM_NAME_LENGTH,
+            'card_set' => 'required|string',
         ];
     }
 

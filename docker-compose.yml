@@ -1,15 +1,14 @@
-version: '3'
+version: "3"
 
 networks:
   laravel:
 
 services:
-
   app:
     build:
       context: .
       dockerfile: ./.docker/php-fpm/Dockerfile
-    container_name: app
+    container_name: app_simple_pointer
     volumes:
       - ./:/var/www/html:delegated
     ports:

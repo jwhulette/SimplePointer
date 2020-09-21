@@ -51,7 +51,7 @@
                   />
                 </svg>
               </span>
-              <span v-if="showVote">{{ player.vote }}</span>
+              <span v-if="showVote" dusk="user-vote" >{{ player.vote }}</span>
             </td>
           </tr>
         </tbody>
@@ -59,7 +59,7 @@
           <tr class="text-right">
             <td class="py-2 pr-12" colspan="2">
               <b class="vote-average">Vote Average:</b>
-              <span v-if="showVote">{{ averageVotes }}</span>
+              <span v-if="showVote" dusk="avg-vote">{{ averageVotes }}</span>
               <span v-else>-----</span>
             </td>
           </tr>
