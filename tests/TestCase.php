@@ -16,12 +16,7 @@ abstract class TestCase extends BaseTestCase
         parent::setUp();
 
         if (! static::$setUpHasRunOnce) {
-            Artisan::call('migrate:fresh');
-
-            Artisan::call(
-                'db:seed',
-                ['--class' => 'DatabaseSeeder']
-            );
+            Artisan::call('migrate:fresh --seed');
 
             static::$setUpHasRunOnce = true;
         }
