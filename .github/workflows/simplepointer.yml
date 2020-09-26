@@ -17,9 +17,6 @@ jobs:
       - name: Copy .env
         run: php -r "file_exists('.env') || copy('.env.example', '.env');"
 
-      - name: Generate key
-        run: php artisan key:generate
-
       - name: Setup PHP Action
         uses: shivammathur/setup-php@2.4.0 #https://github.com/shivammathur/setup-php
         with:
@@ -42,6 +39,9 @@ jobs:
       - name: Install Composer dependencies
         run: composer install -q --no-ansi --no-interaction --no-scripts --no-suggest --no-progress --prefer-dist
 
+      - name: Generate key
+        run: php artisan key:generate
+
       - name: OSKAR-PHP-CS-Fixer
         uses: OskarStark/php-cs-fixer-ga@2.16.4
 
@@ -54,8 +54,27 @@ jobs:
           touch database/database.sqlite
           php artisan migrate --seed
 
-      - name: Run test suite
+      - name: Run phpstan
+        run: composer phpstan
+
+      - name: Run phpunit tests
         env:
             DB_CONNECTION: sqlite
             DB_DATABASE: database/database.sqlite
-        run: composer test-all
+        run: composer phpstan
+
+      - name: Upgrade Chrome Driver
+        run: php artisan dusk:chrome-driver `/opt/google/chrome/chrome --version | cut -d " " -f3 | cut -d "." -f1`
+
+      - name: Start Chrome Driver
+        run: ./vendor/laravel/dusk/bin/chromedriver-linux &
+
+      - name: Run Laravel Server
+        run: php artisan serve &
+
+      - name: Run Dusk Tests
+        env:
+          APP_URL: "http://127.0.0.1:8000"
+          DB_CONNECTION: sqlite
+          DB_DATABASE: database/database.sqlite
+        run: php artisan dusk
