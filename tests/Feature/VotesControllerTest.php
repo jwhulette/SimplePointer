@@ -10,11 +10,16 @@ use Illuminate\Support\Str;
 use App\Events\ShowVotesEvent;
 use App\Events\ClearVotesEvent;
 use Illuminate\Support\Facades\Event;
-use Illuminate\Foundation\Testing\RefreshDatabase;
 
+/**
+ * @group votes
+ */
 class VotesControllerTest extends TestCase
 {
-    use RefreshDatabase;
+    public function setUp(): void
+    {
+        parent::setUp();
+    }
 
     public function test_user_votes_route()
     {
@@ -41,8 +46,10 @@ class VotesControllerTest extends TestCase
     {
         Event::fake();
 
+        $room = Room::factory()->create();
+
         $response = $this->put(route('show'), [
-                'roomid'=> Str::uuid(),
+                'roomid'=> $room->uuid,
             ]);
 
         $response->assertStatus(200);
@@ -54,8 +61,10 @@ class VotesControllerTest extends TestCase
     {
         Event::fake();
 
+        $room = Room::factory()->create();
+
         $response = $this->put(route('clear'), [
-                'roomid'=> Str::uuid(),
+                'roomid'=> $room->uuid,
             ]);
 
         $response->assertStatus(200);

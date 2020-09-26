@@ -3,7 +3,6 @@
 namespace Database\Factories;
 
 use App\Room;
-use Illuminate\Support\Str;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 class RoomFactory extends Factory

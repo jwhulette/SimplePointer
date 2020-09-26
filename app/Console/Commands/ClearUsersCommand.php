@@ -2,7 +2,7 @@
 
 namespace App\Console\Commands;
 
-use App\Player;
+use App\User;
 use Carbon\Carbon;
 use Illuminate\Console\Command;
 
@@ -47,6 +47,6 @@ class ClearUsersCommand extends Command
             $days = 0;
         }
 
-        Player::where('created_at', '<', Carbon::now()->subDays($days))->delete();
+        User::where('created_at', '<', Carbon::now()->subDays($days))->delete();
     }
 }

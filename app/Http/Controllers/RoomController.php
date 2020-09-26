@@ -1,9 +1,12 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Http\Controllers;
 
 use App\Room;
 use Ramsey\Uuid\Uuid;
+use Illuminate\View\View;
 use App\Http\Requests\RoomRequest;
 use Illuminate\Http\RedirectResponse;
 
@@ -12,7 +15,7 @@ class RoomController extends Controller
     /**
      * Display a listing of the resource.
      *
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\Http\RedirectResponse
      */
     public function index(RoomRequest $request): RedirectResponse
     {
@@ -34,8 +37,9 @@ class RoomController extends Controller
      * Show the room.
      *
      * @param string $roomId
+     * @return \Illuminate\View\View.
      */
-    public function room(string $roomId)
+    public function room(string $roomId): View
     {
         $room = Room::whereUuid($roomId)->with('cardSet')->firstOrFail();
 

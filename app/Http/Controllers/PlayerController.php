@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Http\Controllers;
 
 use App\User;
@@ -34,7 +36,7 @@ class PlayerController extends Controller
         } catch (\Throwable $th) {
             Log::error($th->getMessage());
 
-            return response('Unable to create player!', 500);
+            return response()->json(['Unable to create player!'], 500);
         }
 
         // Automatically log the user in

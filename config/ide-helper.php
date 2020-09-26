@@ -13,7 +13,6 @@ return [
 
     'filename'  => '_ide_helper',
     'format'    => 'php',
-
     'meta_filename' => '.phpstorm.meta.php',
 
     /*
@@ -37,7 +36,7 @@ return [
     |
     */
 
-    'include_factory_builders' => true,
+    'include_factory_builders' => false,
 
     /*
     |--------------------------------------------------------------------------
@@ -75,7 +74,7 @@ return [
     |
     */
 
-    'include_helpers' => false,
+    'include_helpers' => true,
 
     'helper_files' => [
         base_path().'/vendor/laravel/framework/src/Illuminate/Support/helpers.php',
@@ -216,6 +215,6 @@ return [
     | magic methods and properties.
     |
     */
-    'include_class_docblocks' => false,
+    'include_class_docblocks' => true,
 
 ];

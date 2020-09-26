@@ -4,6 +4,7 @@ namespace Tests;
 
 use Faker\Factory;
 use Faker\Generator;
+use Illuminate\Support\Facades\Artisan;
 use Laravel\Dusk\TestCase as BaseTestCase;
 use Facebook\WebDriver\Chrome\ChromeOptions;
 use Facebook\WebDriver\Remote\RemoteWebDriver;
@@ -19,7 +20,7 @@ abstract class DuskTestCase extends BaseTestCase
     {
         parent::setUp();
 
-        $this->artisan('migrate:fresh --seed');
+        Artisan::call('migrate:fresh --seed');
 
         $this->faker = Factory::create(Factory::DEFAULT_LOCALE);
     }

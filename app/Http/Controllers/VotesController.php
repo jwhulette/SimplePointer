@@ -1,8 +1,9 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Http\Controllers;
 
-use Response;
 use App\Events\UserVoted;
 use Illuminate\Http\Request;
 use App\Events\ShowVotesEvent;
@@ -13,19 +14,20 @@ use Illuminate\Support\Facades\Log;
 class VotesController extends Controller
 {
     /**
-     * Record a user vote.
+     * Record a users vote.
      *
-     * @param \Illuminate\Http\Request
+     * @param \Illuminate\Http\Request $request
+     *
      * @return \Illuminate\Http\JsonResponse
      */
     public function vote(Request $request): JsonResponse
     {
         try {
-            event(new UserVoted($request->roomid, $request->userid, $request->vote));
+            event(new UserVoted($request->roomid, $request->userid, (int) $request->vote));
 
             return response()->json(['success']);
         } catch (\Throwable $th) {
-            Log::error($th);
+            Log::error($th->getMessage());
         }
 
         return response()->json(['error'], 500);

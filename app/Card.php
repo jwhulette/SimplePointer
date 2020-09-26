@@ -1,9 +1,11 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App;
 
-use App\Casts\Json;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 
 class Card extends Model
 {
@@ -53,8 +55,10 @@ class Card extends Model
 
     /**
      * Get the rooms associated to the card set.
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
      */
-    public function rooms()
+    public function rooms(): HasMany
     {
         return $this->hasMany(Room::class, 'card_id', 'id');
     }

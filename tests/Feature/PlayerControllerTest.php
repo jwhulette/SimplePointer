@@ -6,11 +6,13 @@ use App\Room;
 use App\User;
 use Tests\TestCase;
 use Illuminate\Support\Facades\Auth;
-use Illuminate\Foundation\Testing\RefreshDatabase;
 
 class PlayerControllerTest extends TestCase
 {
-    use RefreshDatabase;
+    public function setUp(): void
+    {
+        parent::setUp();
+    }
 
     /**
      * A basic feature test example.

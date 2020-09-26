@@ -1,10 +1,13 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App;
 
 use Illuminate\Database\Eloquent\Model;
 use Dyrynda\Database\Casts\EfficientUuid;
 use Dyrynda\Database\Support\GeneratesUuid;
+use Illuminate\Database\Eloquent\Relations\HasOne;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 
 class Room extends Model
@@ -53,8 +56,9 @@ class Room extends Model
 
     /**
      * Get the cardset record associated with the room.
+     * @return \Illuminate\Database\Eloquent\Relations\HasOne
      */
-    public function cardSet()
+    public function cardSet(): HasOne
     {
         return $this->hasOne(Card::class, 'id', 'card_id');
     }
