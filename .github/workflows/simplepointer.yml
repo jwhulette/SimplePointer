@@ -56,7 +56,7 @@ jobs:
       - name: Run migrations
         env:
           DB_CONNECTION: sqlite
-          DB_DATABASE: storage/database.sqlite
+          DB_DATABASE: database.sqlite
         run: php artisan migrate --seed
 
       - name: Run phpstan
@@ -65,7 +65,7 @@ jobs:
       - name: Run phpunit tests
         env:
             DB_CONNECTION: sqlite
-            DB_DATABASE: database/database.sqlite
+            DB_DATABASE: database.sqlite
         run: composer phpstan
 
       - name: Upgrade Chrome Driver
@@ -81,5 +81,5 @@ jobs:
         env:
           APP_URL: "http://127.0.0.1:8000"
           DB_CONNECTION: sqlite
-          DB_DATABASE: storage/database.sqlite
+          DB_DATABASE: database.sqlite
         run: php artisan dusk
