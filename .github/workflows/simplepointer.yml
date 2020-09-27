@@ -48,17 +48,16 @@ jobs:
       # Add a test script to composer.json, for instance: "test": "vendor/bin/phpunit"
       # Docs: https://getcomposer.org/doc/articles/scripts.md
 
-      - name: Create DB and schemas
+      - name: Create SQLite database
         run: |
           mkdir -p database
           touch database/database.sqlite
 
-      - name: Create DB and schemas
+      - name: Run migrations
         env:
-            DB_CONNECTION: sqlite
-            DB_DATABASE: database/database.sqlite
-        run: |
-          php artisan migrate --seed
+          DB_CONNECTION: sqlite
+          DB_DATABASE: database/database.sqlite
+        run: php artisan migrate
 
       - name: Run phpstan
         run: composer phpstan
