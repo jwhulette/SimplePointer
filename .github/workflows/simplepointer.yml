@@ -49,12 +49,15 @@ jobs:
       # Docs: https://getcomposer.org/doc/articles/scripts.md
 
       - name: Create DB and schemas
+        run: |
+          mkdir -p database
+          touch database/database.sqlite
+
+      - name: Create DB and schemas
         env:
             DB_CONNECTION: sqlite
             DB_DATABASE: database/database.sqlite
         run: |
-          mkdir -p database
-          touch database/database.sqlite
           php artisan migrate --seed
 
       - name: Run phpstan
