@@ -49,6 +49,9 @@ jobs:
       # Docs: https://getcomposer.org/doc/articles/scripts.md
 
       - name: Create DB and schemas
+        env:
+            DB_CONNECTION: sqlite
+            DB_DATABASE: database/database.sqlite
         run: |
           mkdir -p database
           touch database/database.sqlite
