@@ -7,7 +7,10 @@ RUN apk --update add curl \
     libmemcached-dev \
     libmcrypt-dev \
     libxml2-dev \
-    zlib-dev
+    zlib-dev \
+    libzip-dev \
+    zip \
+    && docker-php-ext-install zip
 
 RUN rm /var/cache/apk/* && \
     mkdir -p /var/www
