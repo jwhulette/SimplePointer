@@ -45,8 +45,10 @@ jobs:
       - name: OSKAR-PHP-CS-Fixer
         uses: OskarStark/php-cs-fixer-ga@2.16.4
 
-      # Add a test script to composer.json, for instance: "test": "vendor/bin/phpunit"
-      # Docs: https://getcomposer.org/doc/articles/scripts.md
+      - name: Install front-end dependencies
+        run: |
+          npm install
+          npm run prod
 
       - name: Create SQLite database
         run: |
@@ -67,6 +69,11 @@ jobs:
             DB_CONNECTION: sqlite
             DB_DATABASE: database.sqlite
         run: composer phpstan
+
+      - name: Supervisor
+        run:
+          using: 'docker'
+          image: 'Dockerfile'
 
       - name: Upgrade Chrome Driver
         run: php artisan dusk:chrome-driver `/opt/google/chrome/chrome --version | cut -d " " -f3 | cut -d "." -f1`
