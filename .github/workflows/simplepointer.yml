@@ -75,15 +75,12 @@ jobs:
       - name: Start Chrome Driver
         run: ./vendor/laravel/dusk/bin/chromedriver-linux &
 
-      - name: Run queue
-        run: php artisan queue:work --sleep=3 --tries=3
-
-      - name: Run websockets
-        run: php artisan websockets:serve
-
       - name: Run Dusk Tests
         env:
           APP_URL: "http://127.0.0.1:8000"
           DB_CONNECTION: sqlite
           DB_DATABASE: database.sqlite
-        run: php artisan dusk
+        run: |
+          nohup php artisan queue:work --sleep=3 --tries=3 > /dev/null 2>&1 &
+          nohup php artisan websockets:serve > /dev/null 2>&1 &
+          php artisan dusk
