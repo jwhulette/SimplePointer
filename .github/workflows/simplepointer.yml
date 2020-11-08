@@ -65,22 +65,4 @@ jobs:
         env:
             DB_CONNECTION: sqlite
             DB_DATABASE: database.sqlite
-        run: composer phpstan
-
-      - name: Upgrade Chrome Driver
-        run: php artisan dusk:chrome-driver `/opt/google/chrome/chrome --version | cut -d " " -f3 | cut -d "." -f1`
-
-      - name: Start Chrome Driver
-        run: ./vendor/laravel/dusk/bin/chromedriver-linux &
-
-      - name: Run Dusk Tests
-        env:
-          APP_URL: "http://127.0.0.1:8000"
-          DB_CONNECTION: sqlite
-          DB_DATABASE: database.sqlite
-        run: |
-          # Send processes to background
-          nohup php artisan queue:work --sleep=3 --tries=3 > /dev/null 2>&1 &
-          nohup php artisan websockets:serve > /dev/null 2>&1 &
-          nohup php artisan serve > /dev/null 2>&1 &
-          php artisan dusk
+        run: composer phpunit
