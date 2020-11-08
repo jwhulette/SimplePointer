@@ -1,14 +1,16 @@
 module.exports = {
-    purge: [
-        './resources/**/*.php',
-        './resources/**/*.vue',
-      ],
-  theme: {
-    theme: {
-
+    future: {
+        removeDeprecatedGapUtilities: true,
+        purgeLayersByDefault: true
     },
-    extend: {},
-  },
-  variants: {},
-  plugins: [],
-}
+    purge: {
+        content:
+            ["./resources/**/*.php", "./resources/**/*.vue"]
+    },
+    theme: {
+        theme: {},
+        extend: {}
+    },
+    variants: {},
+    plugins: []
+};

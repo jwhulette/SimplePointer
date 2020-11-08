@@ -25,6 +25,8 @@ class JoinRoomTest extends DuskTestCase
         $this->user = User::factory(3)->create([
             'room_id' => $this->room->uuid,
         ]);
+
+        sleep(1);
     }
 
     public function test_user_can_be_added_to_room()
@@ -43,20 +45,20 @@ class JoinRoomTest extends DuskTestCase
             $browser1->visit("$roomUuid/room")
                     ->type('name', $userOne->name)
                     ->press('Player')
-                    ->waitForText($userOne->name)
+                    ->waitForText($userOne->name, 20)
                     ->assertSee($userOne->name);
 
             $browser2->visit("$roomUuid/room")
                     ->type('name', $userTwo->name)
                     ->press('Player')
-                    ->waitForText($userTwo->name)
+                    ->waitForText($userTwo->name, 20)
                     ->assertSee($userOne->name)
                     ->assertSee($userTwo->name);
 
             $browser3->visit("$roomUuid/room")
                     ->type('name', $observer->name)
                     ->press('Observer')
-                    ->waitForText($observer->name)
+                    ->waitForText($observer->name, 20)
                     ->assertSee($userOne->name)
                     ->assertSee($userTwo->name)
                     ->assertSee($observer->name);

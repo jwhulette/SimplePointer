@@ -15,12 +15,14 @@ jobs:
         uses: actions/checkout@v2
 
       - name: Copy .env
-        run: php -r "file_exists('.env') || copy('.env.example', '.env');"
+        run: cp .env.ci .env
 
       - name: Setup PHP Action
-        uses: shivammathur/setup-php@2.4.0 #https://github.com/shivammathur/setup-php
+        uses: shivammathur/setup-php@2.7.0 #https://github.com/shivammathur/setup-php
         with:
           php-version: ${{ matrix.php-versions }}
+          Extensions: dom, curl, libxml, mbstring, zip, pcntl, pdo, sqlite, pdo_sqlite
+          coverage: none
 
       - name: Get composer cache directory
         id: composercache
@@ -36,50 +38,31 @@ jobs:
           key: ${{ runner.os }}-composer-${{ hashFiles('**/composer.lock') }}
           restore-keys: ${{ runner.os }}-composer-
 
-      - name: Install Composer dependencies
+      - name: Install Dependencies (PHP vendors)
         run: composer install -q --no-ansi --no-interaction --no-scripts --no-suggest --no-progress --prefer-dist
 
       - name: Generate key
         run: php artisan key:generate
 
-      - name: OSKAR-PHP-CS-Fixer
+      - name: Run CS Fixer
         uses: OskarStark/php-cs-fixer-ga@2.16.4
 
-      # Add a test script to composer.json, for instance: "test": "vendor/bin/phpunit"
-      # Docs: https://getcomposer.org/doc/articles/scripts.md
-
-      - name: Create SQLite database
+      - name: Install front-end dependencies
         run: |
-          mkdir -p database
-          touch storage/database.sqlite
+          npm install
+          npm run prod
 
-      - name: Run migrations
-        env:
-          DB_CONNECTION: sqlite
-          DB_DATABASE: database.sqlite
-        run: php artisan migrate --seed
+      - name: Create DB and schemas
+        run: |
+          mkdir -p storage
+          touch storage/database.sqlite
+          php artisan migrate --seed
 
       - name: Run phpstan
         run: composer phpstan
 
-      - name: Run phpunit tests
+      - name: Run PHPUnit tests
         env:
             DB_CONNECTION: sqlite
             DB_DATABASE: database.sqlite
-        run: composer phpstan
-
-      - name: Upgrade Chrome Driver
-        run: php artisan dusk:chrome-driver `/opt/google/chrome/chrome --version | cut -d " " -f3 | cut -d "." -f1`
-
-      - name: Start Chrome Driver
-        run: ./vendor/laravel/dusk/bin/chromedriver-linux &
-
-      - name: Run Laravel Server
-        run: php artisan serve &
-
-      - name: Run Dusk Tests
-        env:
-          APP_URL: "http://127.0.0.1:8000"
-          DB_CONNECTION: sqlite
-          DB_DATABASE: database.sqlite
-        run: php artisan dusk
+        run: composer phpunit
