@@ -46,7 +46,6 @@
     <footer class="footer">
         <div class="container mx-auto font-light text-center">
             <small>Copyright &copy; {{ date('Y') }} Simple Pointer</small>
-            {{-- <small class="ml-12"><a href="{{ route('terms') }}">Terms & Conditions</a></small> --}}
         </div>
     </footer>
 
