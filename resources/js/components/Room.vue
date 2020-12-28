@@ -1,7 +1,7 @@
 <template>
   <div class="container">
     <div class="flex flex-col mx-auto">
-      <div v-if="hasJoined" class="mb-10">
+      <div v-if="hasJoined" class="mt-4 mb-10">
         <Cards
           v-if="this.user.type == 1"
           :roomid="this.roomid"
@@ -11,8 +11,7 @@
         ></Cards>
       </div>
 
-      <div class="grid grid-cols-3 gap-2">
-        <div class="m-auto w-300 h-250">&nbsp;</div>
+      <div class="grid grid-cols-1">
 
         <div v-if="hasJoined">
           <Players :api="api" :roomid="roomid" :users="users" :channel="this.channel"></Players>
@@ -24,7 +23,6 @@
           <join :api="api" :roomid="roomid" @joined="handleJoin"></join>
         </div>
 
-        <div class="m-auto w-300 h-250">&nbsp;</div>
       </div>
     </div>
   </div>

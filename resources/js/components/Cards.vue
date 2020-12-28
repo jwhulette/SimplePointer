@@ -1,10 +1,10 @@
 <template>
-  <div class="flex justify-center">
+  <div class="px-2 md:flex md:justify-center">
     <div class="inline w-auto pr-4" col v-for="card in this.cards" :key="card">
       <button
         dusk="vote"
         type="button"
-        class="w-16 px-1 py-1 font-semibold text-green-700 bg-transparent border border-green-500 rounded hover:bg-green-500 hover:text-white hover:border-transparent"
+        class="w-16 px-1 py-1 mb-2 font-semibold text-green-700 bg-transparent border border-green-500 rounded md:mb-0 hover:bg-green-500 hover:text-white hover:border-transparent"
         @click="vote(card)"
       >{{ card }}</button>
     </div>

@@ -15,8 +15,9 @@
         </div>
     </a>
 
-    <div class="block lg:hidden">
+    <div class="block md:hidden">
         <button
+            id="hamburgerbtn"
             class="flex items-center px-3 py-2 text-white border border-teal-400 rounded hover:text-white hover:border-white">
             <svg class="w-3 h-3 fill-current" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
                 <title>Menu</title>
@@ -24,23 +25,39 @@
             </svg>
         </button>
     </div>
-    <div class="flex-grow block w-full lg:flex lg:items-center lg:w-auto">
+
+    <div class="flex-grow hidden block w-full md:flex md:items-center md:w-auto md:pb-2 lg:pb-0" id="mobileMenu">
         <div class="text-sm lg:flex-grow">
-            <a href="{{ route('home') }}" class="block mt-4 mr-4 text-white lg:inline-block lg:mt-0 hover:text-white">
+            <a href="{{ route('home') }}" class="block mt-4 mr-4 text-white md:inline-block lg:mt-0 hover:text-white">
                 Home
             </a>
-            <a href="{{ route('what') }}" class="block mt-4 mr-4 text-white lg:inline-block lg:mt-0 hover:text-white">
+            <a href="{{ route('what') }}" class="block mt-4 mr-4 text-white md:inline-block lg:mt-0 hover:text-white">
                 What is it?
             </a>
-            <a href="{{ route('about') }}" class="block mt-4 mr-4 text-white lg:inline-block lg:mt-0 hover:text-white">
+            <a href="{{ route('about') }}" class="block mt-4 mr-4 text-white md:inline-block lg:mt-0 hover:text-white">
                 About
             </a>
-            {{-- <a href="{{ route('ads') }}" class="block mt-4 mr-4 text-white lg:inline-block lg:mt-0 hover:text-white">
-            Why Ads
-            </a> --}}
-            <a href="{{ route('terms') }}" class="block mt-4 text-white lg:inline-block lg:mt-0 hover:text-white">
+
+            <a href="{{ route('terms') }}" class="block mt-4 mr-4 text-white md:inline-block lg:mt-0 hover:text-white">
                 Terms
+            </a>
+
+            <a href="https://github.com/jwhulette/SimplePointer"
+                class="block mt-4 mr-4 text-white md:inline-block lg:mt-0 hover:text-white">
+                Github
             </a>
         </div>
     </div>
+
 </nav>
+
+@push('js')
+ <script>
+    let hamburger = document.getElementById('hamburgerbtn');
+    let mobileMenu = document.getElementById('mobileMenu');
+    hamburger.addEventListener('click', function(){
+        console.log('click')
+        mobileMenu.classList.toggle('hidden');
+    });
+</script>
+@endpush

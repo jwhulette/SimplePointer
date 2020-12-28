@@ -6,14 +6,14 @@
 
 @section('content')
 
-<div class="container">
-    <div class="flex flex-col mx-auto xl:mt-8 md:mt-4 sm:mt-2 ">
-        <div class="grid grid-cols-4 gap-2">
+    <div class="flex flex-col mx-auto xl:mt-8 md:mt-4">
 
-            <div class="m-auto w-300 h-250">&nbsp;</div>
+        <div class="grid gap-2 lg:grid-cols-4">
 
-            <div class="p-3">
-                <h1 class="text-2xl underline">Welcome to Simple Pointer</h1>
+            <div class="m-auto lg:w-300 lg:h-250">&nbsp;</div>
+
+            <div class="px-3 md:max-w-md md:mx-auto">
+                <h1 class="text-2xl text-center underline">Welcome to Simple Pointer</h1>
 
                 <p class="mt-4 text-sm">
                     Simple Pointer is an agile pointing poker web app.
@@ -30,7 +30,7 @@
 
             </div>
 
-            <div class="p-6 border-2 border-green-300 rounded-md">
+            <div class="p-6 border-2 border-green-300 rounded-md md:max-w-sm md:mx-auto">
                 <form action="{{ route('rooms_index') }}" method="post">
                     @csrf
                     <div class="my-6">
@@ -80,10 +80,10 @@
 
             </div>
 
-            <div class="m-auto w-300 h-250">&nbsp;</div>
+            <div class="m-auto lg:w-300 lg:h-250">&nbsp;</div>
 
         </div>
     </div>
-</div>
+
 
 @endsection

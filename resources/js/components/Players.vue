@@ -16,7 +16,7 @@
         >Show Votes</button>
       </div>
     </div>
-    <div class="grid grid-cols-1">
+    <div class="grid grid-cols-1 mx-auto md:w-3/4 lg:1/2">
       <table class="w-full p-6 border table-fixed border-grey-300">
         <thead>
           <tr class="h-12">

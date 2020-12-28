@@ -5,6 +5,12 @@
 /* purgecss end ignore */
 @tailwind utilities;
 
+html, body {
+    margin: 0;
+    height: 100%;
+    overflow: hidden
+}
+
 /* Sticky footer styles
 -------------------------------------------------- */
 html {
@@ -37,6 +43,7 @@ select optgroup {
 .w-300 {
     width: 300px;
 }
+
 .h-250 {
     height: 250px;
 }
