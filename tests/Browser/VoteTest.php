@@ -51,7 +51,7 @@ class VoteTest extends DuskTestCase
             $browser1->press('3');
 
             $text = $browser2->press('3')
-                    ->pause(1000)
+                    ->pause(1500)
                     ->text('@avg-vote');
 
             $this->assertEquals($text, 3);
