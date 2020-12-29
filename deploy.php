@@ -22,37 +22,11 @@ set('git_tty', true);
 // Speedup the native ssh client.
 set('ssh_multiplexing', true);
 
-// Shared files/dirs between deploys
-set('shared_files', [
-    '.env',
-    'storage/database.sqlite',
-]);
-
-// Laravel shared dirs
-set('shared_dirs', [
-    'storage/app',
-    'storage/framework/cache',
-    'storage/framework/sessions',
-    'storage/framework/views',
-    'storage/logs',
-    'storage/storage',
-]);
-
-// Writable dirs by web server
-set('writable_dirs', [
-    'storage',
-    'vendor',
-]);
-
 // Hosts
 host('simplepointer.com')
     ->set('deploy_path', '/usr/local/www/{{application}}/html');
 
 // Tasks
-task('build', function () {
-    run('cd {{release_path}} && build');
-});
-
 task('supervisor:restart', function () {
     run('sudo service supervisord restart');
 });
