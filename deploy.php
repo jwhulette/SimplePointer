@@ -24,7 +24,8 @@ set('ssh_multiplexing', true);
 
 // Hosts
 host('simplepointer.com')
-    ->set('deploy_path', '/usr/local/www/{{application}}/html');
+    ->set('deploy_path', '/usr/local/www/{{application}}/html')
+    ->stage('prod');
 
 // Tasks
 task('supervisor:restart', function () {

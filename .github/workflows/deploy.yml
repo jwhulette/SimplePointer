@@ -1,9 +1,8 @@
 name: Deploy
 
 on:
-  push:
-    branches:
-      - "releases/*"
+  release:
+    types: [published]
 
 jobs:
   build:
@@ -17,4 +16,4 @@ jobs:
         with:
           args: deploy prod
         env:
-          SSH_PRIVATE_KEY: ${{ secrets.PRIVATE_KEY }}
+          SSH_PRIVATE_KEY: ${{ secrets.LIGHTHSAIL_PRIVATE_KEY }}
