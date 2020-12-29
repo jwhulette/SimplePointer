@@ -10,6 +10,7 @@ RUN apk --update add curl \
     zlib-dev \
     libzip-dev \
     zip \
+    sqlite \
     && docker-php-ext-install zip
 
 RUN rm /var/cache/apk/* && \

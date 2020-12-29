@@ -25,6 +25,8 @@ class Kernel extends ConsoleKernel
     protected function schedule(Schedule $schedule)
     {
         $schedule->command('queue:restart')->hourly();
+
+        $schedule->command('database:backup')->weekly();
     }
 
     /**
