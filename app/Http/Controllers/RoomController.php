@@ -26,7 +26,7 @@ class RoomController extends Controller
         Room::create([
             'uuid' => $roomUuid,
             'name' => $request->name,
-            'card_id'=> $request->card_set,
+            'card_id' => $request->card_set,
         ]);
 
         // Redirect to the created room
@@ -53,7 +53,7 @@ class RoomController extends Controller
 
         return view('room', [
             'name' => $room->name,
-            'cardset'=> $room->cardSet->card_set,
+            'cardset' => $room->cardSet->card_set,
             'id' => $roomId,
             'routes' => $routes,
         ]);

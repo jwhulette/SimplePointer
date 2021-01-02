@@ -38,7 +38,7 @@ class PhpstanCommand extends Command
      */
     public function handle()
     {
-        $phpstan = new Process(["composer", "phpstan"]);
+        $phpstan = new Process(['composer', 'phpstan']);
 
         $phpstan->run();
 
