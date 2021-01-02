@@ -26,7 +26,7 @@
         </button>
     </div>
 
-    <div class="flex-grow hidden block w-full md:flex md:items-center md:w-auto md:pb-2 lg:pb-0" id="mobileMenu">
+    <div class="flex-grow hidden w-full md:flex md:items-center md:w-auto md:pb-2 lg:pb-0" id="mobileMenu">
         <div class="text-sm lg:flex-grow">
             <a href="{{ route('home') }}" class="block mt-4 mr-4 text-white md:inline-block lg:mt-0 hover:text-white">
                 Home

@@ -28,7 +28,6 @@ jobs:
         run: composer install
 
       - name: Setup Deployer
-      - name: Deploy
         uses: atymic/deployer-php-action@0.2.0
         with:
           ssh-private-key: ${{ secrets.LIGHTHSAIL_PRIVATE_KEY }}
