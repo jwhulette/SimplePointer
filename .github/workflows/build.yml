@@ -52,6 +52,12 @@ jobs:
           npm install
           npm run prod
 
+      - name: Put built assets in Artifacts # Save the compiled assets
+        uses: actions/upload-artifact@v1
+        with:
+          name: assets
+          path: public
+
       - name: Create DB and schemas
         run: |
           mkdir -p storage
