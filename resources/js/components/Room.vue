@@ -1,5 +1,4 @@
 <template>
-  <div class="container">
     <div class="flex flex-col mx-auto">
       <div v-if="hasJoined" class="mt-4 mb-10">
         <Cards
@@ -25,7 +24,6 @@
 
       </div>
     </div>
-  </div>
 </template>
 
 <script>
