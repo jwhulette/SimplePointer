@@ -31,24 +31,19 @@
 
 </head>
 
-<body>
+<body class="flex flex-col min-h-screen">
 
     <header>
         @include('nav')
     </header>
 
 
-    <div class="container mx-auto page-content">
+    <main id="app" class="flex-1">
+        @yield('content')
+    </main>
 
-        <div id="app">
-            @yield('content')
-        </div>
-
-
-    </div>
-
-    <footer class="footer">
-        <div class="container mx-auto font-light text-center">
+    <footer class="w-full leading-10 bg-gray-100 h-40px">
+        <div class="flex justify-center">
             <small>Copyright &copy; {{ date('Y') }} Simple Pointer</small>
         </div>
     </footer>
