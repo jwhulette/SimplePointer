@@ -18,7 +18,7 @@ jobs:
         run: cp .env.dusk.local .env
 
       - name: Setup PHP Action
-        uses: shivammathur/setup-php@2.7.0 #https://github.com/shivammathur/setup-php
+        uses: shivammathur/setup-php@2.9.0 #https://github.com/shivammathur/setup-php
         with:
           php-version: ${{ matrix.php-versions }}
           Extensions: dom, curl, libxml, mbstring, zip, pcntl, pdo, sqlite, pdo_sqlite
@@ -52,6 +52,12 @@ jobs:
           npm install
           npm run prod
 
+      - name: Put built assets in Artifacts # Save the compiled assets
+        uses: actions/upload-artifact@v1
+        with:
+          name: assets
+          path: public
+
       - name: Create DB and schemas
         run: |
           mkdir -p storage
@@ -66,3 +72,18 @@ jobs:
             DB_CONNECTION: sqlite
             DB_DATABASE: database.sqlite
         run: composer phpunit
+
+      - name: Upgrade chrome driver
+        run: php artisan dusk:chrome-driver
+
+      - name: Start Chrome Driver
+        run: ./vendor/laravel/dusk/bin/chromedriver-linux > /dev/null 2>&1 &
+
+      - name: Run Laravel Server
+        run: php artisan serve > /dev/null 2>&1 &
+
+      - name: Run Websockets Server
+        run: php artisan websockets:serve > /dev/null 2>&1 &
+
+      - name: Run dusk tests
+        run: php artisan dusk
