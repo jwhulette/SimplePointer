@@ -44,20 +44,20 @@ class JoinRoomTest extends DuskTestCase
             $browser1->visit("$roomUuid/room")
                 ->type('name', $userOne->name)
                 ->press('Player')
-                ->waitForText($userOne->name, 20)
+                ->waitForText($userOne->name)
                 ->assertSee($userOne->name);
 
             $browser2->visit("$roomUuid/room")
                 ->type('name', $userTwo->name)
                 ->press('Player')
-                ->waitForText($userTwo->name, 20)
+                ->waitForText($userTwo->name)
                 ->assertSee($userOne->name)
                 ->assertSee($userTwo->name);
 
             $browser3->visit("$roomUuid/room")
                 ->type('name', $observer->name)
                 ->press('Observer')
-                ->waitForText($observer->name, 20)
+                ->waitForText($observer->name)
                 ->assertSee($userOne->name)
                 ->assertSee($userTwo->name)
                 ->assertSee($observer->name);
