@@ -39,22 +39,22 @@ class VoteTest extends DuskTestCase
             $userTwo = $users->get(1);
 
             $browser1->visit("$roomUuid/room")
-                    ->type('name', $userOne->name)
-                    ->press('Player')
-                    ->waitForText($userOne->name);
+                ->type('name', $userOne->name)
+                ->press('Player')
+                ->waitForText($userOne->name);
 
             $browser2->visit("$roomUuid/room")
-                    ->type('name', $userTwo->name)
-                    ->press('Player')
-                    ->waitForText($userTwo->name);
+                ->type('name', $userTwo->name)
+                ->press('Player')
+                ->waitForText($userTwo->name);
 
             $browser1->press('3');
 
             $text = $browser2->press('3')
-                    ->pause(1500)
-                    ->text('@avg-vote');
+                ->waitFor('@avg-vote')
+                ->text('@avg-vote');
 
-            $this->assertEquals($text, 3);
+            $this->assertEquals($text, '3.0');
         });
     }
 }

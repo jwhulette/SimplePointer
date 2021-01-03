@@ -2,18 +2,19 @@
 
 namespace App\Events;
 
-use Illuminate\Broadcasting\Channel;
 use Illuminate\Queue\SerializesModels;
-use Illuminate\Broadcasting\PrivateChannel;
 use Illuminate\Broadcasting\PresenceChannel;
 use Illuminate\Foundation\Events\Dispatchable;
 use Illuminate\Broadcasting\InteractsWithSockets;
-use Illuminate\Contracts\Broadcasting\ShouldBroadcast;
 use Illuminate\Contracts\Broadcasting\ShouldBroadcastNow;
 
 class ShowVotesEvent implements ShouldBroadcastNow
 {
-    use Dispatchable, InteractsWithSockets, SerializesModels;
+    use Dispatchable;
+
+    use InteractsWithSockets;
+
+    use SerializesModels;
 
     public string $roomId;
 
@@ -34,6 +35,6 @@ class ShowVotesEvent implements ShouldBroadcastNow
      */
     public function broadcastOn()
     {
-        return new PresenceChannel('room'.$this->roomId);
+        return new PresenceChannel('room' . $this->roomId);
     }
 }
