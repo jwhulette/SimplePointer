@@ -60,12 +60,6 @@ jobs:
           npm install
           npm run prod
 
-      # - name: Put built assets in Artifacts # Save the compiled assets
-      #   uses: actions/upload-artifact@v1
-      #   with:
-      #     name: assets
-      #     path: public
-
       - name: Create DB and schemas
         run: |
           mkdir -p storage
@@ -99,6 +93,13 @@ jobs:
       - name: Run dusk tests
         run: php artisan dusk
 
+      - name: Upload Logs on failure
+        if: failure()
+        uses: actions/upload-artifact@v2
+        with:
+          name: logs
+          path: storage/logs
+
       - name: Upload Dusk Screenshots on error
         if: failure()
         uses: actions/upload-artifact@v2
@@ -106,7 +107,7 @@ jobs:
           name: screenshots
           path: tests/Browser/screenshots
 
-      - name: Upload Dusk Console Logs
+      - name: Upload Dusk Console Logs on error
         if: failure()
         uses: actions/upload-artifact@v2
         with:
