@@ -99,16 +99,22 @@ jobs:
       - name: Run dusk tests
         run: php artisan dusk
 
-      - name: Upload Dusk Screenshots on error
+      - name: Upload Logs
         if: failure()
         uses: actions/upload-artifact@v2
         with:
-          name: screenshots
-          path: tests/Browser/screenshots
+          name: logs
+          path: storage/logs
+      # - name: Upload Dusk Screenshots on error
+      #   if: failure()
+      #   uses: actions/upload-artifact@v2
+      #   with:
+      #     name: screenshots
+      #     path: tests/Browser/screenshots
 
-      - name: Upload Dusk Console Logs
-        if: failure()
-        uses: actions/upload-artifact@v2
-        with:
-          name: console
-          path: tests/Browser/console
+      # - name: Upload Dusk Console Logs
+      #   if: failure()
+      #   uses: actions/upload-artifact@v2
+      #   with:
+      #     name: console
+      #     path: tests/Browser/console
