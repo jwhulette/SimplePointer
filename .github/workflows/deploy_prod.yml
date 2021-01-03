@@ -12,11 +12,18 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v1
 
-      - name: Fetch built assets from Artifacts # Rsync the compiled assests over using deployer
-        uses: actions/download-artifact@v1
+      - name: Get npm cache directory
+        uses: actions/cache@v2
         with:
-          name: assets
-          path: public
+          path: ~/.npm
+          key: ${{ runner.os }}-node-${{ hashFiles('**/package-lock.json') }}
+          restore-keys: |
+            ${{ runner.os }}-node-
+
+      - name: Install front-end dependencies
+        run: |
+          npm install
+          npm run prod
 
       - name: Setup PHP
         uses: shivammathur/setup-php@master
@@ -28,7 +35,6 @@ jobs:
         run: composer install
 
       - name: Setup Deployer
-      - name: Deploy
         uses: atymic/deployer-php-action@0.2.0
         with:
           ssh-private-key: ${{ secrets.LIGHTHSAIL_PRIVATE_KEY }}

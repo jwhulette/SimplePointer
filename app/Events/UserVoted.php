@@ -7,14 +7,18 @@ use Illuminate\Console\Scheduling\Event;
 use Illuminate\Broadcasting\PresenceChannel;
 use Illuminate\Foundation\Events\Dispatchable;
 use Illuminate\Broadcasting\InteractsWithSockets;
-use Illuminate\Contracts\Broadcasting\ShouldBroadcast;
 use Illuminate\Contracts\Broadcasting\ShouldBroadcastNow;
 
 class UserVoted extends Event implements ShouldBroadcastNow
 {
-    use Dispatchable, InteractsWithSockets, SerializesModels;
+    use Dispatchable;
+
+    use InteractsWithSockets;
+
+    use SerializesModels;
 
     public array $vote;
+
     public string $roomId;
 
     /**
@@ -28,7 +32,7 @@ class UserVoted extends Event implements ShouldBroadcastNow
 
         $this->vote = [
             'userid' => $userid,
-            'vote'=> $vote,
+            'vote' => $vote,
         ];
     }
 
@@ -39,6 +43,6 @@ class UserVoted extends Event implements ShouldBroadcastNow
      */
     public function broadcastOn()
     {
-        return new PresenceChannel('room'.$this->roomId);
+        return new PresenceChannel('room' . $this->roomId);
     }
 }
