@@ -22,7 +22,6 @@ class VotesController extends Controller
      */
     public function vote(Request $request): JsonResponse
     {
-        Log::info('user vote');
         try {
             event(new UserVoted($request->roomid, $request->userid, (int) $request->vote));
 
