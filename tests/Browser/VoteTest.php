@@ -51,7 +51,7 @@ class VoteTest extends DuskTestCase
             $browser1->press('3');
 
             $text = $browser2->press('3')
-                ->waitFor('@avg-vote')
+                ->waitFor('@avg-vote', 10)
                 ->text('@avg-vote');
 
             $this->assertEquals($text, '3.0');
