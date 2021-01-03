@@ -28,6 +28,8 @@ class UserVoted extends Event implements ShouldBroadcastNow
      */
     public function __construct(string $roomId, int $userid, int $vote)
     {
+        Log::info('user voted event');
+
         $this->roomId = $roomId;
 
         $this->vote = [
@@ -43,6 +45,8 @@ class UserVoted extends Event implements ShouldBroadcastNow
      */
     public function broadcastOn()
     {
+        Log::info('user voted event broadcast');
+
         return new PresenceChannel('room' . $this->roomId);
     }
 }
