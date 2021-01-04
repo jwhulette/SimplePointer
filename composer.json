@@ -25,6 +25,7 @@
         "barryvdh/laravel-debugbar": "^3.2",
         "barryvdh/laravel-ide-helper": "^2.8",
         "deployer/deployer": "^6.8",
+        "deployer/recipes": "^6.2",
         "facade/ignition": "^2.3.6",
         "fzaninotto/faker": "^1.9.1",
         "laravel/dusk": "^6.4",
