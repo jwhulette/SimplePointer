@@ -21,7 +21,8 @@ set('ssh_multiplexing', true);
 host('simplepointer.com')
     ->hostname('34.195.156.190')
     ->stage('production')
-    ->set('deploy_path', '/usr/local/www/{{application}}/html');
+    ->set('deploy_path', '/usr/local/www/{{application}}/html')
+    ->user('ec2-user');
 
 set('rsync_src', function () {
     return __DIR__; // If your project isn't in the root, you'll need to change this.
