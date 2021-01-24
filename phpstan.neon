@@ -11,8 +11,7 @@ parameters:
 
     ignoreErrors:
 
-    excludes_analyse:
-        - ./*/*/FileToBeExcluded.php
+    excludePaths:
         - app/Http/Middleware/*
 
     checkMissingIterableValueType: false
