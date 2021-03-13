@@ -38,22 +38,30 @@ class VoteTest extends DuskTestCase
 
             $userTwo = $users->get(1);
 
+            // userOne joins
             $browser1->visit("$roomUuid/room")
                 ->type('name', $userOne->name)
                 ->press('Player')
                 ->waitForText($userOne->name);
 
+            // userTwo joins
             $browser2->visit("$roomUuid/room")
                 ->type('name', $userTwo->name)
                 ->press('Player')
                 ->waitForText($userTwo->name);
 
+            // userOne casts their vote
+            $browser1->press('5');
+
+            // userOne changes their mind
             $browser1->press('3');
 
+            // userTwo votes and cards are shown
             $text = $browser2->press('3')
                 ->waitFor('@avg-vote')
                 ->text('@avg-vote');
 
+            // if userOne was able to change their mind the average will be three
             $this->assertEquals($text, '3.0');
         });
     }

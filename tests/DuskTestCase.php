@@ -50,12 +50,25 @@ abstract class DuskTestCase extends BaseTestCase
             '--no-sandbox',
         ]);
 
-        return RemoteWebDriver::create(
-            'http://localhost:9515',
-            DesiredCapabilities::chrome()->setCapability(
-                ChromeOptions::CAPABILITY,
-                $options
-            )
-        );
+        // if env file says to use Docker stuff
+        if (env('USE_CONTAINER_BROWSER', 'false') == 'true')
+        {
+            return RemoteWebDriver::create(
+                'http://chrome:3000/webdriver',
+                DesiredCapabilities::chrome()->setCapability(
+                    ChromeOptions::CAPABILITY,
+                    $options
+                )
+            );
+        }
+        else {
+            return RemoteWebDriver::create(
+                'http://localhost:9515',
+                DesiredCapabilities::chrome()->setCapability(
+                    ChromeOptions::CAPABILITY,
+                    $options
+                )
+            );
+        }
     }
 }
