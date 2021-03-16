@@ -1,4 +1,4 @@
-# if you just cloned this repository, you can use this to setup some basicsd
+# if you just cloned this repository, you can use this to setup some basics
 
 # get to this script so commands run right
 cd $(dirname $0)
