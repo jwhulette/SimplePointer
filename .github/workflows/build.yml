@@ -15,7 +15,7 @@ jobs:
         uses: actions/checkout@v2
 
       - name: Setup .env
-        run: grep -v 'USE_CONTAINER_BROWSER' .env.dusk.local && sed -e 's/planningpoker\.test/localhost/' > .env
+        run: grep -v 'USE_CONTAINER_BROWSER' .env.dusk.local | sed -e 's/planningpoker\.test/localhost:8000/' > .env
 
       - name: Setup PHP Action
         uses: shivammathur/setup-php@2.9.0 #https://github.com/shivammathur/setup-php
