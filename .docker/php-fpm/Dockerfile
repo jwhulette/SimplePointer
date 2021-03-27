@@ -11,9 +11,9 @@ RUN apk --update add curl \
     libzip-dev \
     zip \
     sqlite \
+    composer \
+    npm \
     && docker-php-ext-install zip
 
 RUN rm /var/cache/apk/* && \
     mkdir -p /var/www
-
-COPY --from=composer:latest /usr/bin/composer /usr/bin/composer

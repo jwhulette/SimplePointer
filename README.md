@@ -14,3 +14,8 @@ Create a room and then share the room link with your team.
 Each member can log in as a player or an observer.
 
 You can reuse the room link.
+
+
+#### Dev Quick Start
+
+If you just cloned the repo, run .dev-init.sh to stand up the rest of the app.
