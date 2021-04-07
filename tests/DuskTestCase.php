@@ -51,8 +51,7 @@ abstract class DuskTestCase extends BaseTestCase
         ]);
 
         // if env file says to use Docker stuff
-        if (env('USE_CONTAINER_BROWSER', 'false') == 'true')
-        {
+        if (env('USE_CONTAINER_BROWSER', 'false') === 'true') {
             return RemoteWebDriver::create(
                 'http://chrome:3000/webdriver',
                 DesiredCapabilities::chrome()->setCapability(
@@ -60,8 +59,7 @@ abstract class DuskTestCase extends BaseTestCase
                     $options
                 )
             );
-        }
-        else {
+        } else {
             return RemoteWebDriver::create(
                 'http://localhost:9515',
                 DesiredCapabilities::chrome()->setCapability(
