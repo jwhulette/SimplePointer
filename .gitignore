@@ -13,3 +13,5 @@ yarn-error.log
 .phpstorm.meta.php
 _ide_helper.php
 storage/dumps/simplepointer_dump.sql
+public/css
+public/js
