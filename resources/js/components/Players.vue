@@ -109,23 +109,29 @@ export default {
       });
     },
 
+    // when someone tries to vote
     vote: function (data) {
+
       // Register a players vote
+      // If everyone hasn't voted yet, let someone changed it.
       let voters = this.players.map((user) => {
-        // Only allow voting once
-        if (user.userid === data.userid && user.voted === false) {
+        // find the user
+        if (user.userid === data.userid
+            // and accept their choice so long as voting is still going on
+            && this.showVote === false) {
           user.vote = data.vote;
           user.voted = true;
         }
         return user;
       });
 
-      // Check if all users have voted
-      let allUsersVoted = voters.filter((player) => {
+      // find who hasn't voted yet
+      let votersLeft = voters.filter((player) => {
         return player.voted === false;
       });
 
-      if (voters.length > 1 && allUsersVoted.length === 0) {
+      // if everyone has voted, show votes.
+      if (voters.length > 1 && votersLeft.length === 0) {
         let equal = voters.every(function (val, i, arr) {
           return val.vote === arr[0].vote;
         });
