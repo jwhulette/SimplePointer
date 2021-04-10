@@ -34,12 +34,9 @@ services:
 
   nginx:
     image: nginx:stable-alpine
-    #depends_on:
-    #  - app
     container_name: nginx
-    # the app will reside at port 80
     ports:
-      - "80:80"
+      - "8000:80"
     volumes:
       - ./public:/var/www/html/public:delegated
       - ./.docker/nginx/nginx.conf:/etc/nginx/conf.d/default.conf
@@ -58,5 +55,7 @@ services:
       - "3000:3000"
     links:
       - "nginx:planningpoker.test"
+    # needs a little breathing room when running tests
+    shm_size: '512mb'
     networks:
       - laravel
