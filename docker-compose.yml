@@ -39,16 +39,14 @@ services:
     container_name: nginx
     # the app will reside at port 80
     ports:
-      - "80:80"
+      - "8000:80"
     volumes:
       - ./public:/var/www/html/public:delegated
       - ./.docker/nginx/nginx.conf:/etc/nginx/conf.d/default.conf
     networks:
       - laravel
 
-  # used when running tests
-  # have USE_CONTAINER_BROWSER = true in .env file
-  # docker-compose exec php artisan dusk
+  # Used when running dusk tests
   chrome:
     image: browserless/chrome
     depends_on:

@@ -6,7 +6,6 @@ use App\Room;
 use App\User;
 use Tests\TestCase;
 use App\Events\UserVoted;
-use Illuminate\Support\Str;
 use App\Events\ShowVotesEvent;
 use App\Events\ClearVotesEvent;
 use Illuminate\Support\Facades\Event;
@@ -32,10 +31,10 @@ class VotesControllerTest extends TestCase
         Event::fake();
 
         $response = $this->put(route('vote'), [
-                'roomid'=> $room->uuid,
-                'userid' => $user->id,
-                'vote' => 3,
-            ]);
+            'roomid' => $room->uuid,
+            'userid' => $user->id,
+            'vote' => 3,
+        ]);
 
         $response->assertStatus(200);
 
@@ -49,8 +48,8 @@ class VotesControllerTest extends TestCase
         $room = Room::factory()->create();
 
         $response = $this->put(route('show'), [
-                'roomid'=> $room->uuid,
-            ]);
+            'roomid' => $room->uuid,
+        ]);
 
         $response->assertStatus(200);
 
@@ -64,8 +63,8 @@ class VotesControllerTest extends TestCase
         $room = Room::factory()->create();
 
         $response = $this->put(route('clear'), [
-                'roomid'=> $room->uuid,
-            ]);
+            'roomid' => $room->uuid,
+        ]);
 
         $response->assertStatus(200);
 

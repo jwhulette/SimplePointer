@@ -12,7 +12,7 @@ jobs:
         uses: actions/checkout@v2
 
       - name: Copy .env
-        run: cp .env.dusk.local .env
+        run: cp .env.example .env
 
       - name: Setup PHP Action
         uses: shivammathur/setup-php@2.9.0 #https://github.com/shivammathur/setup-php
