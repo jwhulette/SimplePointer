@@ -51,10 +51,9 @@ abstract class DuskTestCase extends BaseTestCase
         ]);
 
         /**
-         * Use Chrome docker image for dusk tests
-         * when developing.
+         * Use Selenium docker image for dusk tests when developing.
          */
-        if (env('APP_ENV') === 'testing') {
+        if (env('APP_URL') === 'http://planningpoker.test') {
             return RemoteWebDriver::create(
                 'http://selenium:4444/wd/hub',
                 DesiredCapabilities::chrome()->setCapability(
@@ -64,6 +63,9 @@ abstract class DuskTestCase extends BaseTestCase
             );
         }
 
+        /**
+         * Used in Github Actions
+         */
         return RemoteWebDriver::create(
             'http://localhost:9515',
             DesiredCapabilities::chrome()->setCapability(
