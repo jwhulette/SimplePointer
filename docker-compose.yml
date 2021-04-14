@@ -34,10 +34,7 @@ services:
 
   nginx:
     image: nginx:stable-alpine
-    #depends_on:
-    #  - app
     container_name: nginx
-    # the app will reside at port 80
     ports:
       - "8000:80"
     volumes:
@@ -47,14 +44,11 @@ services:
       - laravel
 
   # Used when running dusk tests
-  chrome:
-    image: browserless/chrome
-    depends_on:
-      - app
-    container_name: chrome
-    ports:
-      - "3000:3000"
+  selenium:
+    image: 'selenium/standalone-chrome'
+    volumes:
+        - '/dev/shm:/dev/shm'
     links:
-      - "nginx:planningpoker.test"
+      - 'nginx:planningpoker.test'
     networks:
       - laravel

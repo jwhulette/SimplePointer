@@ -54,9 +54,9 @@ abstract class DuskTestCase extends BaseTestCase
          * Use Chrome docker image for dusk tests
          * when developing.
          */
-        if (env('USE_CONTAINER_BROWSER', false) === true) {
+        if (env('APP_ENV') === 'testing') {
             return RemoteWebDriver::create(
-                'http://chrome:3000/webdriver',
+                'http://selenium:4444/wd/hub',
                 DesiredCapabilities::chrome()->setCapability(
                     ChromeOptions::CAPABILITY,
                     $options
