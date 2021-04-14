@@ -6,7 +6,7 @@ jobs:
   build:
     runs-on: ubuntu-latest
     strategy:
-      fail-fast: false
+      fail-fast: true
       matrix:
         php-versions: ["7.4"]
 
@@ -17,11 +17,8 @@ jobs:
       - name: Setup .env
         run: cp .env.example .env
 
-      - name: Set app url
-        run: sudo sed -i 's~APP_URL=http://planningpoker.test~APP_URL="http://127.0.0.1"~g' .env
-
       - name: Setup PHP Action
-        uses: shivammathur/setup-php@2.9.0 #https://github.com/shivammathur/setup-php
+        uses: shivammathur/setup-php@2 #https://github.com/shivammathur/setup-php
         with:
           php-version: ${{ matrix.php-versions }}
           Extensions: dom, curl, libxml, mbstring, zip, pcntl, pdo, sqlite, pdo_sqlite
@@ -48,7 +45,7 @@ jobs:
         run: php artisan key:generate
 
       - name: Run CS Fixer
-        uses: OskarStark/php-cs-fixer-ga@2.16.4
+        uses: OskarStark/php-cs-fixer-ga@v2
 
       - name: Get npm cache directory
         uses: actions/cache@v2
@@ -93,6 +90,9 @@ jobs:
         run: php artisan websockets:serve > /dev/null 2>&1 &
 
       - name: Run dusk tests
+        env:
+          APP_URL: "http://127.0.0.1"
+          DOCKER_DUSK: false
         run: php artisan dusk
 
       - name: Upload Logs on failure
