@@ -81,7 +81,7 @@
         "phpstan": [
             "./vendor/bin/phpstan analyse --memory-limit=2G"
         ],
-        "test-suite": [
+        "tests": [
             "./vendor/bin/phpstan analyse --memory-limit=2G",
             "./vendor/bin/phpunit --color=always",
             "@php artisan dusk"
