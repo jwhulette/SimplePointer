@@ -52,8 +52,9 @@ abstract class DuskTestCase extends BaseTestCase
 
         /**
          * Use Selenium docker image for dusk tests when developing.
+         * APP_URL = http://planningpoker.test for docker
          */
-        if (env('DOCKER_DUSK') === true) {
+        if (env('APP_URL') === 'http://planningpoker.test') {
             return RemoteWebDriver::create(
                 'http://selenium:4444/wd/hub',
                 DesiredCapabilities::chrome()->setCapability(
