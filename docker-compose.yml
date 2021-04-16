@@ -14,7 +14,7 @@ services:
     ports:
       - "9000:9000"
     links:
-      - 'nginx:planningpoker.test'
+      - 'nginx:simplepointer.test'
     networks:
       - laravel
 
@@ -49,6 +49,6 @@ services:
     volumes:
         - '/dev/shm:/dev/shm'
     links:
-      - 'nginx:planningpoker.test'
+      - 'nginx:simplepointer.test'
     networks:
       - laravel
