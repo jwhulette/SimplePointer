@@ -19,7 +19,7 @@ class RoomRequestTest extends TestCase
      */
     public function test_valid_request(array $data)
     {
-        $request = new RoomRequest;
+        $request = new RoomRequest();
 
         $validator = Validator::make($data, $request->rules());
 
@@ -47,7 +47,7 @@ class RoomRequestTest extends TestCase
      */
     public function test_invalid_request(array $data)
     {
-        $request = new RoomRequest;
+        $request = new RoomRequest();
 
         $validator = Validator::make($data, $request->rules());
 

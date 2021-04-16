@@ -50,25 +50,29 @@ abstract class DuskTestCase extends BaseTestCase
             '--no-sandbox',
         ]);
 
-        // if env file says to use Docker stuff
-        if (env('USE_CONTAINER_BROWSER', 'false') == 'true')
-        {
+        /**
+         * Use Selenium docker image for dusk tests when developing.
+         * APP_URL = http://planningpoker.test for docker
+         */
+        if (env('APP_URL') === 'http://planningpoker.test') {
             return RemoteWebDriver::create(
-                'http://chrome:3000/webdriver',
+                'http://selenium:4444/wd/hub',
                 DesiredCapabilities::chrome()->setCapability(
                     ChromeOptions::CAPABILITY,
                     $options
                 )
             );
         }
-        else {
-            return RemoteWebDriver::create(
-                'http://localhost:9515',
-                DesiredCapabilities::chrome()->setCapability(
-                    ChromeOptions::CAPABILITY,
-                    $options
-                )
-            );
-        }
+
+        /**
+         * Used in Github Actions
+         */
+        return RemoteWebDriver::create(
+            'http://localhost:9515',
+            DesiredCapabilities::chrome()->setCapability(
+                ChromeOptions::CAPABILITY,
+                $options
+            )
+        );
     }
 }

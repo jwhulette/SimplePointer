@@ -34,29 +34,21 @@ services:
 
   nginx:
     image: nginx:stable-alpine
-    #depends_on:
-    #  - app
     container_name: nginx
-    # the app will reside at port 80
     ports:
-      - "80:80"
+      - "8000:80"
     volumes:
       - ./public:/var/www/html/public:delegated
       - ./.docker/nginx/nginx.conf:/etc/nginx/conf.d/default.conf
     networks:
       - laravel
 
-  # used when running tests
-  # have USE_CONTAINER_BROWSER = true in .env file
-  # docker-compose exec php artisan dusk
-  chrome:
-    image: browserless/chrome
-    depends_on:
-      - app
-    container_name: chrome
-    ports:
-      - "3000:3000"
+  # Used when running dusk tests
+  selenium:
+    image: 'selenium/standalone-chrome'
+    volumes:
+        - '/dev/shm:/dev/shm'
     links:
-      - "nginx:planningpoker.test"
+      - 'nginx:planningpoker.test'
     networks:
       - laravel
