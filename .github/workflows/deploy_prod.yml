@@ -10,7 +10,7 @@ jobs:
     strategy:
       fail-fast: true
       matrix:
-        php-versions: ["7.4"]
+        php-versions: [7.4, 8.0]
 
     steps:
       - name: Checkout
@@ -121,7 +121,7 @@ jobs:
         run: composer install
 
       - name: Setup Deployer
-        uses: atymic/deployer-php-action@0.3.1
+        uses: atymic/deployer-php-action@master
         with:
           ssh-private-key: ${{ secrets.LIGHTHSAIL_PRIVATE_KEY }}
           ssh-known-hosts: ${{ secrets.SSH_KNOWN_HOSTS }}
