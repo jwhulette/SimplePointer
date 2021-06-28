@@ -2,8 +2,8 @@
 
 namespace Deployer;
 
-require 'recipe/laravel.php';
-require 'recipe/rsync.php';
+require 'contrib/laravel.php';
+require 'contrib/rsync.php';
 
 // Releases to keep
 set('keep_releases', 3);

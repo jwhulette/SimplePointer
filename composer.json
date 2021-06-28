@@ -8,7 +8,7 @@
     ],
     "license": "MIT",
     "require": {
-        "php": "^7.4|^8.0",
+        "php": "^7.3|^8.0",
         "beyondcode/laravel-websockets": "^1.4",
         "dyrynda/laravel-efficient-uuid": "^4.0",
         "dyrynda/laravel-model-uuid": "^6.1",
@@ -24,7 +24,7 @@
     "require-dev": {
         "barryvdh/laravel-debugbar": "^3.2",
         "barryvdh/laravel-ide-helper": "^2.8",
-        "deployer/deployer": "^6.0",
+        "deployer/deployer": "^7.0",
         "facade/ignition": "^2.3.6",
         "fakerphp/faker": "^1.14",
         "laravel/dusk": "^6.4",
