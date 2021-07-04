@@ -17,15 +17,17 @@ use App\Http\Controllers\PlayerController;
 |
 */
 
-Route::get('/', [HomeController::class, 'index'])->name('home');
+Route::get('/', [HomeController::class, '__invoke'])->name('home');
 
 Route::view('/about', 'about')->name('about');
 
 Route::view('/what-is-planning-poker', 'what')->name('what');
 
+Route::view('/gdpr', 'gdpr')->name('gdpr');
+
 Route::view('/terms', 'terms')->name('terms');
 
-Route::view('/why-ads', 'ads')->name('ads');
+// Route::view('/why-ads', 'ads')->name('ads');
 
 Route::post('/room', [RoomController::class, 'index'])->name('rooms_index');
 
