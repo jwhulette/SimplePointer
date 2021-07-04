@@ -45,6 +45,7 @@
     <footer class="w-full leading-10 bg-gray-100 h-40px">
         <div class="flex justify-center">
             <small>Copyright &copy; {{ date('Y') }} Simple Pointer</small>
+            &nbsp;&nbsp;&nbsp;&nbsp;<small><a href="{{ route('gdpr') }}">GDPR</a></small>
         </div>
     </footer>
 

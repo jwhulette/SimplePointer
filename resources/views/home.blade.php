@@ -76,13 +76,13 @@
 
         </div>
 
-        <div class="px-4 py-2 mt-4 mb-4 text-white bg-green-500 border-0 rounded md:max-w-md md:mx-auto">
+        {{-- <div class="px-4 py-2 mt-4 mb-4 text-white bg-green-500 border-0 rounded md:max-w-md md:mx-auto">
             <span class="inline-block mr-8 text-sm align-middle">
                 <b>Note:</b> <br />
                 <p>I'm updating the site and trying to implement a CI/CD pipeline.</p>
                 <p>I appolgize if you lose your room, just create a new room if needed.</p>
             </span>
-        </div>
+        </div> --}}
 
     </div>
 </div>
