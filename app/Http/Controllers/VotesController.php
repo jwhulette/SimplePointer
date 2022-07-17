@@ -4,11 +4,11 @@ declare(strict_types=1);
 
 namespace App\Http\Controllers;
 
-use App\Events\UserVoted;
-use Illuminate\Http\Request;
-use App\Events\ShowVotesEvent;
 use App\Events\ClearVotesEvent;
+use App\Events\ShowVotesEvent;
+use App\Events\UserVoted;
 use Illuminate\Http\JsonResponse;
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Log;
 
 class VotesController extends Controller
@@ -23,7 +23,13 @@ class VotesController extends Controller
     public function vote(Request $request): JsonResponse
     {
         try {
-            event(new UserVoted($request->roomid, $request->userid, (int) $request->vote));
+            event(
+                new UserVoted(
+                    strval($request->roomid),
+                    intval($request->userid),
+                    intval($request->vote)
+                )
+            );
 
             return response()->json(['success']);
         } catch (\Throwable $th) {
@@ -42,7 +48,7 @@ class VotesController extends Controller
     public function show(Request $request): JsonResponse
     {
         try {
-            event(new ShowVotesEvent($request->roomid));
+            event(new ShowVotesEvent(strval($request->roomid)));
 
             return response()->json(['success']);
         } catch (\Throwable $th) {
@@ -61,7 +67,7 @@ class VotesController extends Controller
     public function clear(Request $request): JsonResponse
     {
         try {
-            event(new ClearVotesEvent($request->roomid));
+            event(new ClearVotesEvent(strval($request->roomid)));
 
             return response()->json(['success']);
         } catch (\Throwable $th) {

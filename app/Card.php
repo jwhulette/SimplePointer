@@ -39,15 +39,11 @@ class Card extends Model
 
     /**
      * The attributes that aren't mass assignable.
-     *
-     * @var array
      */
     protected $guarded = [];
 
     /**
      * Cast the return values.
-     *
-     * @var array
      */
     protected $casts = [
         'card_set'   => 'collection',
@@ -56,7 +52,7 @@ class Card extends Model
     /**
      * Get the rooms associated to the card set.
      *
-     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany<Room>
      */
     public function rooms(): HasMany
     {

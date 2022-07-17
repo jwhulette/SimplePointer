@@ -5,11 +5,11 @@ declare(strict_types=1);
 namespace App\Http\Controllers;
 
 use App\User;
-use Ramsey\Uuid\Uuid;
-use Illuminate\Http\Request;
 use Illuminate\Http\JsonResponse;
-use Illuminate\Support\Facades\Log;
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Log;
+use Ramsey\Uuid\Uuid;
 
 class PlayerController extends Controller
 {
@@ -30,7 +30,7 @@ class PlayerController extends Controller
                 [
                     'name' => $request->name,
                     'type' => $request->type,
-                    'room_id' => Uuid::fromString($request->roomid),
+                    'room_id' => Uuid::fromString(strval($request->roomid)),
                 ]
             );
         } catch (\Throwable $th) {

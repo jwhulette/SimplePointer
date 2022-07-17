@@ -1,11 +1,11 @@
 <!-- Global site tag (gtag.js) - Google Analytics -->
-<script async src="https://www.googletagmanager.com/gtag/js?id=UA-168725062-1"></script>
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-EX5KZJFW4R"></script>
 <script>
-    window.dataLayer = window.dataLayer || [];
+  window.dataLayer = window.dataLayer || [];
   function gtag(){dataLayer.push(arguments);}
   gtag('js', new Date());
 
-  gtag('config', 'UA-168725062-1');
+  gtag('config', 'G-EX5KZJFW4R');
 </script>
 
 {{-- Google Ads  --}}

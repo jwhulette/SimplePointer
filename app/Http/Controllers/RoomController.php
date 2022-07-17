@@ -4,11 +4,11 @@ declare(strict_types=1);
 
 namespace App\Http\Controllers;
 
-use App\Room;
-use Ramsey\Uuid\Uuid;
-use Illuminate\View\View;
 use App\Http\Requests\RoomRequest;
+use App\Room;
 use Illuminate\Http\RedirectResponse;
+use Illuminate\View\View;
+use Ramsey\Uuid\Uuid;
 
 class RoomController extends Controller
 {
@@ -53,7 +53,7 @@ class RoomController extends Controller
 
         return view('room', [
             'name' => $room->name,
-            'cardset' => $room->cardSet->card_set,
+            'cardset' => $room->cardSet?->card_set,
             'id' => $roomId,
             'routes' => $routes,
         ]);
