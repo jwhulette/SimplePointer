@@ -1,10 +1,12 @@
 <?php
 
-use Illuminate\Support\Facades\Route;
+declare(strict_types=1);
+
 use App\Http\Controllers\HomeController;
+use App\Http\Controllers\PlayerController;
 use App\Http\Controllers\RoomController;
 use App\Http\Controllers\VotesController;
-use App\Http\Controllers\PlayerController;
+use Illuminate\Support\Facades\Route;
 
 /*
 |--------------------------------------------------------------------------
@@ -31,7 +33,7 @@ Route::view('/terms', 'terms')->name('terms');
 
 Route::post('/room', [RoomController::class, 'index'])->name('rooms_index');
 
-Route::get('/{roomId}/room', [RoomController::class, 'room'])->name('room');
+Route::get('/room/{roomId}', [RoomController::class, 'room'])->name('room');
 
 Route::put('/join', [PlayerController::class, 'store'])->name('join');
 

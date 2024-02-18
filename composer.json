@@ -1,40 +1,47 @@
 {
-    "name": "laravel/laravel",
+    "name": "jwhulette/simplepointer",
     "type": "project",
-    "description": "The Laravel Framework.",
+    "description": "A simple pointing poker application.",
     "keywords": [
-        "framework",
-        "laravel"
+        "Pointing Poker",
+        "Scrum",
+        "Agile"
     ],
     "license": "MIT",
     "require": {
-        "php": "^8.3",
-        "beyondcode/laravel-websockets": "^1.14.1",
-        "dyrynda/laravel-efficient-uuid": "^5.0.0",
-        "dyrynda/laravel-model-uuid": "^7.1.1",
-        "guzzlehttp/guzzle": "^7.8.1",
-        "laravel/framework": "^10.44",
-        "pusher/pusher-php-server": "^7.2.4",
-        "spatie/db-dumper": "^3.4.2"
+        "php": "^8.5",
+        "guzzlehttp/guzzle": "^7.10.0",
+        "laravel/framework": "^12.44.0",
+        "laravel/reverb": "^1.6.3",
+        "spatie/db-dumper": "^3.8.2"
     },
     "require-dev": {
-        "barryvdh/laravel-debugbar": "^3.10.5",
-        "barryvdh/laravel-ide-helper": "^2.15.1",
-        "deployer/deployer": "^7.3.3",
-        "spatie/laravel-ignition": "^2.4.2",
-        "fakerphp/faker": "^1.23.1",
-        "friendsofphp/php-cs-fixer": "^3.49",
-        "laravel/dusk": "^v7.12.3",
-        "mockery/mockery": "^1.6.7",
-        "nunomaduro/collision": "^7.10",
-        "larastan/larastan": "^v2.9.0",
-        "phpunit/phpunit": "^10.5.10",
-        "staudenmeir/dusk-updater": "^1.4"
+        "driftingly/rector-laravel": "^2.1.8",
+        "barryvdh/laravel-debugbar": "^3.16.2",
+        "barryvdh/laravel-ide-helper": "^3.6.1",
+        "deployer/deployer": "^7.5.12",
+        "fakerphp/faker": "^1.24.1",
+        "friendsofphp/php-cs-fixer": "^3.92.3",
+        "larastan/larastan": "^3.8.1",
+        "laravel/boost": "^1.8.7",
+        "laravel/dusk": "^8.3.4",
+        "mockery/mockery": "^1.6.12",
+        "nunomaduro/collision": "^8.8.3",
+        "phpstan/extension-installer": "^1.4.3",
+        "phpstan/phpstan-deprecation-rules": "^2.0.3",
+        "phpstan/phpstan-mockery": "^2.0",
+        "phpstan/phpstan-phpunit": "^2.0.11",
+        "phpunit/phpunit": "^12.5.4",
+        "rector/rector": "^2.2.14",
+        "spatie/laravel-ignition": "^2.9.1"
     },
     "config": {
         "optimize-autoloader": true,
         "preferred-install": "dist",
-        "sort-packages": true
+        "sort-packages": true,
+        "allow-plugins": {
+            "phpstan/extension-installer": true
+        }
     },
     "extra": {
         "laravel": {
@@ -61,9 +68,6 @@
             "@php artisan package:discover --ansi"
         ],
         "post-update-cmd": [
-            "@php artisan ide-helper:generate",
-            "@php artisan ide-helper:meta",
-            "@php artisan ide-helper:model -N"
         ],
         "post-root-package-install": [
             "@php -r \"file_exists('.env') || copy('.env.example', '.env');\""
@@ -71,16 +75,40 @@
         "post-create-project-cmd": [
             "@php artisan key:generate --ansi"
         ],
+        "ide": [
+            "@php artisan ide-helper:generate",
+            "@php artisan ide-helper:meta",
+            "@php artisan ide-helper:model -W"
+        ],
+        "build": [
+            "cd .docker/local; docker-compose up --build --force-recreate -d"
+        ],
         "phpunit": [
             "./vendor/bin/phpunit --color=always"
         ],
         "phpstan": [
             "./vendor/bin/phpstan analyse --memory-limit=2G"
         ],
-        "test": [
-            "./vendor/bin/phpstan analyse --memory-limit=2G",
-            "./vendor/bin/phpunit --color=always",
+        "rector": [
+            "./vendor/bin/rector"
+        ],
+        "cs-fix": [
+            "./vendor/bin/php-cs-fixer fix"
+        ],
+        "dusk": [
+            "@php artisan reverb:start > /dev/null 2>&1 &",
             "@php artisan dusk"
+        ],
+        "test": [
+            "@php artisan test --compact"
+        ],
+        "ts": [
+            "@phpstan",
+            "@rector",
+            "@cs-fix",
+            "@phpunit",
+            "@test",
+            "@dusk"
         ]
     }
 }

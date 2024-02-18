@@ -1,17 +1,18 @@
 <?php
 
-use Illuminate\Support\Facades\Schema;
-use Illuminate\Database\Schema\Blueprint;
-use Illuminate\Database\Migrations\Migration;
+declare(strict_types=1);
 
-class CreateWebSocketsStatisticsEntriesTable extends Migration
-{
+use Illuminate\Database\Migrations\Migration;
+use Illuminate\Database\Schema\Blueprint;
+use Illuminate\Support\Facades\Schema;
+
+return new class extends Migration {
     /**
      * Run the migrations.
      */
-    public function up()
+    public function up(): void
     {
-        Schema::create('websockets_statistics_entries', function (Blueprint $table) {
+        Schema::create('websockets_statistics_entries', function (Blueprint $table): void {
             $table->increments('id');
             $table->string('app_id');
             $table->integer('peak_connection_count');
@@ -24,8 +25,8 @@ class CreateWebSocketsStatisticsEntriesTable extends Migration
     /**
      * Reverse the migrations.
      */
-    public function down()
+    public function down(): void
     {
         Schema::dropIfExists('websockets_statistics_entries');
     }
-}
+};

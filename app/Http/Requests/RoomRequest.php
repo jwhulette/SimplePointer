@@ -1,19 +1,17 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
+use Override;
 
 class RoomRequest extends FormRequest
 {
-    public const ROOM_NAME_LENGTH = 255;
+    public const int ROOM_NAME_LENGTH = 255;
 
-    /**
-     * Determine if the user is authorized to make this request.
-     *
-     * @return bool
-     */
-    public function authorize()
+    public function authorize(): bool
     {
         return true;
     }
@@ -21,26 +19,27 @@ class RoomRequest extends FormRequest
     /**
      * Get the validation rules that apply to the request.
      *
-     * @return array
+     * @return array<string,string|array<int,string>>
      */
-    public function rules()
+    public function rules(): array
     {
         return [
-            'name' => 'required|string|max:'.self::ROOM_NAME_LENGTH,
-            'card_set' => 'required|string',
+            'name'     => 'required|string|max:' . self::ROOM_NAME_LENGTH,
+            'card_set' => ['required', 'string'],
         ];
     }
 
     /**
      * Get the error messages for the defined validation rules.
      *
-     * @return array
+     * @return array<string,string>
      */
-    public function messages()
+    #[Override]
+    public function messages(): array
     {
         return [
-        'name.required' => 'A room name is required',
-        'card_set.required'  => 'A card set is required',
-    ];
+            'name.required'     => 'A room name is required',
+            'card_set.required' => 'A card set is required',
+        ];
     }
 }

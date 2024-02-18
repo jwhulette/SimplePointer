@@ -1,8 +1,9 @@
 <?php
 
-use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Route;
+declare(strict_types=1);
+
 use App\Http\Controllers\PlayerController;
+use Illuminate\Support\Facades\Route;
 
 /*
 |--------------------------------------------------------------------------
@@ -15,9 +16,9 @@ use App\Http\Controllers\PlayerController;
 |
 */
 // Limit all api calls to 20 calls per minute
-Route::middleware('throttle:20,1')->prefix('v1')->group(function () {
+Route::middleware('throttle:20,1')->prefix('v1')->group(function (): void {
     // Player routes
-    Route::namespace('Player')->group(function () {
+    Route::namespace('Player')->group(function (): void {
         Route::put('/player/join', [PlayerController::class, 'store'])->name('player_join');
     });
 });

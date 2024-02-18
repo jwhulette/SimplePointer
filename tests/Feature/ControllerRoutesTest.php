@@ -1,17 +1,16 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Tests\Feature;
 
+use PHPUnit\Framework\Attributes\Test;
 use Tests\TestCase;
 
 class ControllerRoutesTest extends TestCase
 {
-    public function setUp(): void
-    {
-        parent::setUp();
-    }
-
-    public function test_home_page()
+    #[Test]
+    public function home_page(): void
     {
         $response = $this->get(route('home'));
 
@@ -22,7 +21,8 @@ class ControllerRoutesTest extends TestCase
         $response->assertViewHas('cards');
     }
 
-    public function test_about_page()
+    #[Test]
+    public function about_page(): void
     {
         $response = $this->get(route('about'));
 
@@ -31,7 +31,8 @@ class ControllerRoutesTest extends TestCase
         $response->assertViewIs('about');
     }
 
-    public function test_what_page()
+    #[Test]
+    public function what_page(): void
     {
         $response = $this->get(route('what'));
 
@@ -40,7 +41,8 @@ class ControllerRoutesTest extends TestCase
         $response->assertViewIs('what');
     }
 
-    public function test_terms_page()
+    #[Test]
+    public function terms_page(): void
     {
         $response = $this->get(route('terms'));
 
@@ -49,14 +51,12 @@ class ControllerRoutesTest extends TestCase
         $response->assertViewIs('terms');
     }
 
-    public function test_ads_page()
-    {
-        $this->markTestSkipped('TODO');
-
-        $response = $this->get(route('ads'));
-
-        $response->assertStatus(200);
-
-        $response->assertViewIs('ads');
-    }
+//    public function test_ads_page(): void
+//    {
+//        $response = $this->get(route('ads'));
+//
+//        $response->assertStatus(200);
+//
+//        $response->assertViewIs('ads');
+//    }
 }

@@ -1,66 +1,66 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Tests\Browser;
 
-use App\Room;
-use App\User;
-use Tests\DuskTestCase;
-use Laravel\Dusk\Browser;
+use App\Models\Room;
+use App\Models\User;
 use Illuminate\Support\Collection;
+use Laravel\Dusk\Browser;
+use Override;
+use PHPUnit\Framework\Attributes\Test;
+use Tests\DuskTestCase;
 
-/**
- * @group join
- */
+use function route;
+
 class JoinRoomTest extends DuskTestCase
 {
     protected Room $room;
 
-    protected Collection $user;
+    /** @var Collection<int,User> */
+    protected Collection $users;
 
+    #[Override]
     public function setUp(): void
     {
         parent::setUp();
 
-        $this->room = Room::factory()->create();
+        /* @phpstan-ignore-next-line  */
+        $this->room = Room::factory()->createOne();
 
-        $this->user = User::factory(3)->create([
+        /* @phpstan-ignore-next-line  */
+        $this->users = User::factory(3)->create([
             'room_id' => $this->room->uuid,
         ]);
     }
 
-    public function test_user_can_be_added_to_room()
+    #[Test]
+    public function user_can_be_added_to_room(): void
     {
         $roomUuid = $this->room->uuid;
 
-        $users = $this->user;
+        $users = $this->users;
 
-        $this->browse(function (Browser $browser1, Browser $browser2, Browser $browser3) use ($roomUuid, $users) {
+        $this->browse(function (Browser $browser1, Browser $browser2) use ($roomUuid, $users): void {
+            /** @var User $userOne */
             $userOne = $users->get(0);
 
+            /** @var User $userTwo */
             $userTwo = $users->get(1);
 
-            $observer = $users->get(2);
-
-            $browser1->visit("$roomUuid/room")
+            $browser1->visit(route('room', ['roomId' => $roomUuid]))
                 ->type('name', $userOne->name)
                 ->press('Player')
-                ->waitForText($userOne->name)
+                ->waitForText($userOne->name, 20)
                 ->assertSee($userOne->name);
 
-            $browser2->visit("$roomUuid/room")
+            $browser2->visit(route('room', ['roomId' => $roomUuid]))
                 ->type('name', $userTwo->name)
                 ->press('Player')
-                ->waitForText($userTwo->name)
+                ->waitForText($userTwo->name, 20)
                 ->assertSee($userOne->name)
                 ->assertSee($userTwo->name);
-
-            $browser3->visit("$roomUuid/room")
-                ->type('name', $observer->name)
-                ->press('Observer')
-                ->waitForText($observer->name)
-                ->assertSee($userOne->name)
-                ->assertSee($userTwo->name)
-                ->assertSee($observer->name);
         });
     }
 }

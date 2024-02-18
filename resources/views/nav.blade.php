@@ -1,6 +1,6 @@
 <nav class="flex flex-wrap items-center justify-between p-3 bg-green-500">
     <a href="{{ route('home') }}">
-        <div class="flex items-center flex-shrink-0 mr-6 text-white">
+        <div class="flex items-center shrink-0 mr-6 text-white">
             <svg class="w-8 h-8 mr-2 fill-current" xmlns="http://www.w3.org/2000/svg" width="54" height="54"
                 viewBox="0 0 54 54">
                 <path
@@ -18,7 +18,7 @@
     <div class="block md:hidden">
         <button
             id="hamburgerbtn"
-            class="flex items-center px-3 py-2 text-white border border-teal-400 rounded hover:text-white hover:border-white">
+            class="flex items-center px-3 py-2 text-white border border-teal-400 rounded-sm hover:text-white hover:border-white">
             <svg class="w-3 h-3 fill-current" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
                 <title>Menu</title>
                 <path d="M0 3h20v2H0V3zm0 6h20v2H0V9zm0 6h20v2H0v-2z" />
@@ -26,8 +26,8 @@
         </button>
     </div>
 
-    <div class="flex-grow hidden w-full md:flex md:items-center md:w-auto md:pb-2 lg:pb-0" id="mobileMenu">
-        <div class="text-sm lg:flex-grow">
+    <div class="grow hidden w-full md:flex md:items-center md:w-auto md:pb-2 lg:pb-0" id="mobileMenu">
+        <div class="text-sm lg:grow">
             <a href="{{ route('home') }}" class="block mt-4 mr-4 text-white md:inline-block lg:mt-0 hover:text-white">
                 Home
             </a>

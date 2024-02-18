@@ -17,3 +17,7 @@ storage/dumps/simplepointer_dump.sql
 public/css
 public/js
 .php-cs-fixer.cache
+/.phpunit.cache
+/public/build
+/.claude/
+/.junie/

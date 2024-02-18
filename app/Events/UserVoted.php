@@ -1,47 +1,35 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Events;
 
-use Illuminate\Queue\SerializesModels;
-use Illuminate\Console\Scheduling\Event;
-use Illuminate\Broadcasting\PresenceChannel;
-use Illuminate\Foundation\Events\Dispatchable;
+use Illuminate\Broadcasting\Channel;
 use Illuminate\Broadcasting\InteractsWithSockets;
+use Illuminate\Broadcasting\PresenceChannel;
+use Illuminate\Console\Scheduling\Event;
 use Illuminate\Contracts\Broadcasting\ShouldBroadcastNow;
+use Illuminate\Foundation\Events\Dispatchable;
+use Illuminate\Queue\SerializesModels;
 
 class UserVoted extends Event implements ShouldBroadcastNow
 {
     use Dispatchable;
-
     use InteractsWithSockets;
-
     use SerializesModels;
 
+    /** @var array<string,string|int> */
     public array $vote;
 
-    public string $roomId;
-
-    /**
-     * Create a new event instance.
-     *
-     * @return void
-     */
-    public function __construct(string $roomId, int $userid, int $vote)
+    public function __construct(public string $roomId, int $userid, int $vote)
     {
-        $this->roomId = $roomId;
-
         $this->vote = [
             'userid' => $userid,
-            'vote' => $vote,
+            'vote'   => $vote,
         ];
     }
 
-    /**
-     * Get the channels the event should broadcast on.
-     *
-     * @return \Illuminate\Broadcasting\Channel|array
-     */
-    public function broadcastOn()
+    public function broadcastOn(): Channel
     {
         return new PresenceChannel('room' . $this->roomId);
     }

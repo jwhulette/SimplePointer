@@ -1,0 +1,33 @@
+name: Code Styling
+on:
+  push:
+    branches-ignore:
+      - main
+
+jobs:
+  php-cs-fixer:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+        with:
+          ref: ${{ github.head_ref }}
+
+      - name: Run PHP CS Fixer
+        uses: docker://oskarstark/php-cs-fixer-ga
+        with:
+          path: .php-cs-fixer.cache
+          key: ${{ runner.temp }}-${{ github.repository }}-phpcsfixer-${{ github.sha }}
+          restore-keys: |
+            ${{ runner.temp }}-${{ github.repository }}-phpcsfixer-
+          args: --config=.php-cs-fixer.dist.php --allow-risky=yes
+
+      - name: Commit changes
+        id: auto_commit_action
+        uses: stefanzweifel/git-auto-commit-action@v5
+        with:
+          commit_message: (ignore) Apply style fixes
+          commit_user_name: GitHub Action
+          commit_user_email: actions@github.com

@@ -1,10 +1,12 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Console\Commands;
 
-use App\Room;
-use Carbon\Carbon;
+use App\Models\Room;
 use Illuminate\Console\Command;
+use Illuminate\Support\Facades\Date;
 
 class ClearRoomsCommand extends Command
 {
@@ -22,22 +24,7 @@ class ClearRoomsCommand extends Command
      */
     protected $description = 'Clear rooms';
 
-    /**
-     * Create a new command instance.
-     *
-     * @return void
-     */
-    public function __construct()
-    {
-        parent::__construct();
-    }
-
-    /**
-     * Execute the console command.
-     *
-     * @return mixed
-     */
-    public function handle()
+    public function handle(): void
     {
         $days = 30;
 
@@ -47,6 +34,6 @@ class ClearRoomsCommand extends Command
             $days = 0;
         }
 
-        Room::where('last_used_at', '<', Carbon::now()->subDays($days))->delete();
+        Room::query()->where('last_used_at', '<', Date::now()->subDays($days))->delete();
     }
 }

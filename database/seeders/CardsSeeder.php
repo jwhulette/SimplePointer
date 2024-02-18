@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Database\Seeders;
 
 use Illuminate\Database\Seeder;
@@ -12,12 +14,12 @@ class CardsSeeder extends Seeder
      *
      * @return void
      */
-    public function run()
+    public function run(): void
     {
         foreach ($this->cardSets() as $set) {
             DB::table('cards')->insert([
                 'description' => $set['desc'],
-                'card_set' => collect($set['set'])->toJson(),
+                'card_set'    => collect($set['set'])->toJson(),
             ]);
         }
     }
@@ -27,23 +29,23 @@ class CardsSeeder extends Seeder
         return [
             [
                 'desc' => 'Fibonacci Short',
-                'set' => ['1', '2', '3', '5', '8', '13'],
+                'set'  => ['1', '2', '3', '5', '8', '13'],
             ],
             [
                 'desc' => 'Standard Fibonacci ',
-                'set' => ['1', '2', '3', '5', '8', '13', '20', '40', '100'],
+                'set'  => ['1', '2', '3', '5', '8', '13', '20', '40', '100'],
             ],
             [
                 'desc' => 'Standard Fibonacci with \'?\' for unclear stories',
-                'set' => ['1', '2', '3', '5', '8', '13', '20', '40', '?'],
+                'set'  => ['1', '2', '3', '5', '8', '13', '20', '40', '?'],
             ],
             [
                 'desc' => 'Powers of two',
-                'set' => ['0', '1', '2', '4', '8', '16', '32', '64'],
+                'set'  => ['0', '1', '2', '4', '8', '16', '32', '64'],
             ],
             [
                 'desc' => 'Estimate hours',
-                'set' => ['1', '2', '4', '8', '12', '16', '24', '32', '40'],
+                'set'  => ['1', '2', '4', '8', '12', '16', '24', '32', '40'],
             ],
             // [
             //     'desc' => 'T-shirt Size',

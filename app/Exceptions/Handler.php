@@ -7,6 +7,7 @@ namespace App\Exceptions;
 use Exception;
 use Illuminate\Foundation\Exceptions\Handler as ExceptionHandler;
 use Illuminate\Http\Request;
+use Override;
 use Symfony\Component\HttpFoundation\Response;
 use Throwable;
 
@@ -40,6 +41,7 @@ class Handler extends ExceptionHandler
      *
      * @throws Exception
      */
+    #[Override]
     public function report(Throwable $exception): void
     {
         parent::report($exception);
@@ -55,6 +57,7 @@ class Handler extends ExceptionHandler
      *
      * @throws Throwable
      */
+    #[Override]
     public function render($request, Throwable $exception)
     {
         return parent::render($request, $exception);

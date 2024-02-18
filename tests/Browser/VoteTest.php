@@ -1,51 +1,60 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Tests\Browser;
 
-use App\Room;
-use App\User;
-use Tests\DuskTestCase;
-use Laravel\Dusk\Browser;
+use App\Models\Room;
+use App\Models\User;
 use Illuminate\Support\Collection;
+use Laravel\Dusk\Browser;
+use Override;
+use PHPUnit\Framework\Attributes\Test;
+use Tests\DuskTestCase;
 
-/**
- * @group vote
- */
+use function route;
+
 class VoteTest extends DuskTestCase
 {
     protected Room $room;
+
+    /** @var Collection<int,User> */
     protected Collection $user;
 
+    #[Override]
     public function setUp(): void
     {
         parent::setUp();
 
+        /* @phpstan-ignore-next-line  */
         $this->room = Room::factory()->create();
 
+        /* @phpstan-ignore-next-line  */
         $this->user = User::factory(2)->create([
             'room_id' => $this->room->uuid,
         ]);
     }
 
-    public function test_users_can_vote()
+    #[Test]
+    public function users_can_vote(): void
     {
         $roomUuid = $this->room->uuid;
 
         $users = $this->user;
 
-        $this->browse(function (Browser $browser1, Browser $browser2) use ($roomUuid, $users) {
+        $this->browse(function (Browser $browser1, Browser $browser2) use ($roomUuid, $users): void {
             $userOne = $users->get(0);
 
             $userTwo = $users->get(1);
 
             // userOne joins
-            $browser1->visit("$roomUuid/room")
+            $browser1->visit(route('room', ['roomId' => $roomUuid]))
                 ->type('name', $userOne->name)
                 ->press('Player')
                 ->waitForText($userOne->name);
 
             // userTwo joins
-            $browser2->visit("$roomUuid/room")
+            $browser2->visit(route('room', ['roomId' => $roomUuid]))
                 ->type('name', $userTwo->name)
                 ->press('Player')
                 ->waitForText($userTwo->name);
@@ -59,29 +68,30 @@ class VoteTest extends DuskTestCase
                 ->text('@avg-vote');
 
             // if userOne was able to change their mind the average will be three
-            $this->assertEquals($text, '3.0');
+            $this->assertEquals('3.0', $text);
         });
     }
 
-    public function test_users_can_change_vote_before_reveal()
+    #[Test]
+    public function users_can_change_vote_before_reveal(): void
     {
         $roomUuid = $this->room->uuid;
 
         $users = $this->user;
 
-        $this->browse(function (Browser $browser1, Browser $browser2) use ($roomUuid, $users) {
+        $this->browse(function (Browser $browser1, Browser $browser2) use ($roomUuid, $users): void {
             $userOne = $users->get(0);
 
             $userTwo = $users->get(1);
 
             // userOne joins
-            $browser1->visit("$roomUuid/room")
+            $browser1->visit(route('room', ['roomId' => $roomUuid]))
                 ->type('name', $userOne->name)
                 ->press('Player')
                 ->waitForText($userOne->name);
 
             // userTwo joins
-            $browser2->visit("$roomUuid/room")
+            $browser2->visit(route('room', ['roomId' => $roomUuid]))
                 ->type('name', $userTwo->name)
                 ->press('Player')
                 ->waitForText($userTwo->name);
@@ -98,7 +108,7 @@ class VoteTest extends DuskTestCase
                 ->text('@avg-vote');
 
             // if userOne was able to change their mind the average will be three
-            $this->assertEquals($text, '3.0');
+            $this->assertEquals('3.0', $text);
         });
     }
 }

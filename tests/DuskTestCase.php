@@ -1,72 +1,48 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Tests;
 
-use Faker\Factory;
-use Faker\Generator;
-use Illuminate\Support\Facades\Artisan;
-use Laravel\Dusk\TestCase as BaseTestCase;
 use Facebook\WebDriver\Chrome\ChromeOptions;
-use Facebook\WebDriver\Remote\RemoteWebDriver;
 use Facebook\WebDriver\Remote\DesiredCapabilities;
+use Facebook\WebDriver\Remote\RemoteWebDriver;
+use Illuminate\Support\Sleep;
+use Laravel\Dusk\TestCase as BaseTestCase;
+use Override;
+use PHPUnit\Framework\Attributes\BeforeClass;
+
+use function uniqid;
 
 abstract class DuskTestCase extends BaseTestCase
 {
     use CreatesApplication;
 
-    protected Generator $faker;
-
-    public function setUp(): void
-    {
-        parent::setUp();
-
-        Artisan::call('migrate:fresh --seed');
-
-        $this->faker = Factory::create(Factory::DEFAULT_LOCALE);
-    }
-
     /**
      * Prepare for Dusk test execution.
-     *
-     * @beforeClass
-     * @return void
      */
-    public static function prepare()
+    #[BeforeClass]
+    public static function prepare(): void
     {
-        static::startChromeDriver();
+        static::startChromeDriver(['--port=9515']);
+
+        // Give ChromeDriver time to bind to port 9515
+        Sleep::sleep(2);
     }
 
     /**
      * Create the RemoteWebDriver instance.
-     *
-     * @return \Facebook\WebDriver\Remote\RemoteWebDriver
      */
-    protected function driver()
+    #[Override]
+    protected function driver(): RemoteWebDriver
     {
-        $options = (new ChromeOptions())->addArguments([
+        $options = (new ChromeOptions)->addArguments([
             '--disable-gpu',
             '--headless',
-            '--window-size=1920,1080',
             '--no-sandbox',
+            '--user-data-dir=' . sys_get_temp_dir() . '/dusk-user-data-dir-' . uniqid(),
         ]);
 
-        /**
-         * Use Selenium docker image for dusk tests when developing.
-         * APP_URL = http://simplepointer.test for docker
-         */
-        if (env('APP_URL') === 'http://simplepointer.test') {
-            return RemoteWebDriver::create(
-                'http://selenium:4444/wd/hub',
-                DesiredCapabilities::chrome()->setCapability(
-                    ChromeOptions::CAPABILITY,
-                    $options
-                )
-            );
-        }
-
-        /**
-         * Used in Github Actions
-         */
         return RemoteWebDriver::create(
             'http://localhost:9515',
             DesiredCapabilities::chrome()->setCapability(

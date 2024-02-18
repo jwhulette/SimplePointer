@@ -1,10 +1,15 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Database\Factories;
 
-use App\Room;
+use App\Models\Room;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
+/**
+ * @extends Factory<Room>
+ */
 class RoomFactory extends Factory
 {
     /**
@@ -22,9 +27,9 @@ class RoomFactory extends Factory
     public function definition()
     {
         return [
-            'uuid' => $this->faker->uuid,
-            'name' => $this->faker->word,
-            'card_id'=> 1,
+            'uuid'    => fake()->uuid,
+            'name'    => fake()->word,
+            'card_id' => 1,
         ];
     }
 }

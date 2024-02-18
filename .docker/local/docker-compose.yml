@@ -1,0 +1,56 @@
+services:
+  simple_pointer:
+    entrypoint: tail -f /dev/null
+    build:
+      context: ../..
+      dockerfile: ./.docker/local/Dockerfile
+    container_name: simple_pointer
+    volumes:
+      - ~/Sites/Projects/SimplePointer:/var/www/html:delegated
+    ports:
+      - 80:80
+      - 443:443
+    networks:
+      - laravel
+
+  #  supervisor:
+  #    build:
+  #      context: ../..
+  #      dockerfile: ../supervisor/Dockerfile
+  #    container_name: supervisor
+  #    volumes:
+  #      - ./:/var/www/html:delegated
+  #    depends_on:
+  #      - app
+  #    ports:
+  #      - "6001:6001"
+  #    networks:
+  #      - laravel
+
+  #  nginx:
+  #    image: nginx:stable-alpine
+  #    container_name: nginx
+  #    ports:
+  #      - 80:80
+  #      - 9515:9515
+  #      - 8080:8080
+  #      - 5173:5173
+  #    volumes:
+  #      - ./public:/var/www/html/public:delegated
+  #      - ./.docker/nginx/nginx.conf:/etc/nginx/conf.d/default.conf
+  #    networks:
+  #      - laravel
+
+  # Used when running dusk tests
+#  selenium:
+#    image: 'selenium/standalone-chrome'
+#    container_name: selenium
+#    volumes:
+#      - '/dev/shm:/dev/shm'
+#    links:
+#      - 'nginx:simplepointer.test'
+#    networks:
+#      - laravel
+
+networks:
+  laravel:
