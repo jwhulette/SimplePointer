@@ -4,6 +4,7 @@
 /storage
 /vendor
 .env
+/.idea
 .env.backup
 .phpunit.result.cache
 Homestead.json
@@ -15,3 +16,4 @@ _ide_helper.php
 storage/dumps/simplepointer_dump.sql
 public/css
 public/js
+.php-cs-fixer.cache

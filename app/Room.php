@@ -4,17 +4,32 @@ declare(strict_types=1);
 
 namespace App;
 
-use Illuminate\Database\Eloquent\Model;
 use Dyrynda\Database\Casts\EfficientUuid;
 use Dyrynda\Database\Support\GeneratesUuid;
-use Illuminate\Database\Eloquent\Relations\HasOne;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\HasOne;
 
 class Room extends Model
 {
     use GeneratesUuid;
     use HasFactory;
 
+    /**
+     * Indicates if the IDs are auto-incrementing.
+     *
+     * @var bool
+     */
+    public $incrementing = false;
+
+    /**
+     * Indicates if the model should be timestamped.
+     *
+     * @var bool
+     */
+    public $timestamps = false;
+
+    /** @var array<string,string> */
     protected $casts = [
         'uuid' => EfficientUuid::class,
     ];
@@ -34,29 +49,16 @@ class Room extends Model
     protected $primaryKey = 'uuid';
 
     /**
-     * Indicates if the IDs are auto-incrementing.
-     *
-     * @var bool
-     */
-    public $incrementing = false;
-
-    /**
-     * Indicates if the model should be timestamped.
-     *
-     * @var bool
-     */
-    public $timestamps = false;
-
-    /**
      * The attributes that aren't mass assignable.
      *
-     * @var array
+     * @var array<int,string>
      */
     protected $guarded = [];
 
     /**
      * Get the cardset record associated with the room.
-     * @return \Illuminate\Database\Eloquent\Relations\HasOne
+     *
+     * @return HasOne<Card>
      */
     public function cardSet(): HasOne
     {

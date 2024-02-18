@@ -1,6 +1,7 @@
 <?php
 
 // @formatter:off
+// phpcs:ignoreFile
 /**
  * A helper file for your Eloquent Models
  * Copy the phpDocs from this file to the correct Model,
@@ -17,7 +18,7 @@ namespace App{
  * @property int $id
  * @property string $description
  * @property \Illuminate\Support\Collection $card_set
- * @property-read \Illuminate\Database\Eloquent\Collection|\App\Room[] $rooms
+ * @property-read \Illuminate\Database\Eloquent\Collection<int, \App\Room> $rooms
  * @property-read int|null $rooms_count
  * @method static \Illuminate\Database\Eloquent\Builder|Card newModelQuery()
  * @method static \Illuminate\Database\Eloquent\Builder|Card newQuery()
@@ -38,7 +39,7 @@ namespace App{
  * @property int $card_id
  * @property string $last_used_at
  * @property-read \App\Card|null $cardSet
- * @method static \Database\Factories\RoomFactory factory(...$parameters)
+ * @method static \Database\Factories\RoomFactory factory($count = null, $state = [])
  * @method static \Illuminate\Database\Eloquent\Builder|Room newModelQuery()
  * @method static \Illuminate\Database\Eloquent\Builder|Room newQuery()
  * @method static \Illuminate\Database\Eloquent\Builder|Room query()
@@ -60,7 +61,7 @@ namespace App{
  * @property mixed $room_id
  * @property \Illuminate\Support\Carbon|null $created_at
  * @property \Illuminate\Support\Carbon|null $updated_at
- * @method static \Database\Factories\UserFactory factory(...$parameters)
+ * @method static \Database\Factories\UserFactory factory($count = null, $state = [])
  * @method static \Illuminate\Database\Eloquent\Builder|User newModelQuery()
  * @method static \Illuminate\Database\Eloquent\Builder|User newQuery()
  * @method static \Illuminate\Database\Eloquent\Builder|User query()
