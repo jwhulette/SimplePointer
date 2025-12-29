@@ -1,0 +1,11 @@
+{
+    "mcpServers": {
+        "laravel-boost": {
+            "command": "/Users/wes/Library/Application Support/Herd/bin/php84",
+            "args": [
+                "/Users/wes/Projects/SimplePointer/artisan",
+                "boost:mcp"
+            ]
+        }
+    }
+}

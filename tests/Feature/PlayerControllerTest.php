@@ -1,25 +1,19 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Tests\Feature;
 
-use App\Room;
-use App\User;
-use Tests\TestCase;
+use App\Models\Room;
+use App\Models\User;
 use Illuminate\Support\Facades\Auth;
+use PHPUnit\Framework\Attributes\Test;
+use Tests\TestCase;
 
 class PlayerControllerTest extends TestCase
 {
-    public function setUp(): void
-    {
-        parent::setUp();
-    }
-
-    /**
-     * A basic feature test example.
-     *
-     * @return void
-     */
-    public function test_new_player_join()
+    #[Test]
+    public function new_player_join(): void
     {
         $room = Room::factory()->create();
 
@@ -28,8 +22,8 @@ class PlayerControllerTest extends TestCase
         ]);
 
         $response = $this->put(route('join'), [
-            'name' => $user->name,
-            'type' => 1,
+            'name'   => $user->name,
+            'type'   => 1,
             'roomid' => $user->room_id,
         ]);
 
@@ -40,7 +34,8 @@ class PlayerControllerTest extends TestCase
         $this->assertTrue(Auth::check());
     }
 
-    public function test_existing_player_join()
+    #[Test]
+    public function existing_player_join(): void
     {
         $room = Room::factory()->create();
 
@@ -50,17 +45,17 @@ class PlayerControllerTest extends TestCase
 
         $response = $this->put(route('join'), [
             'userid' => $user->id,
-            'name' => $user->name,
-            'type' => 1,
+            'name'   => $user->name,
+            'type'   => 1,
             'roomid' => $user->room_id,
         ]);
 
         $response->assertStatus(200);
 
         $response->assertJsonFragment([
-            'id' => $user->id,
-            'name' => $user->name,
-            'type' => 1,
+            'id'      => $user->id,
+            'name'    => $user->name,
+            'type'    => 1,
             'room_id' => $user->room_id,
         ]);
 

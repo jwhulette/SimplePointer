@@ -1,10 +1,15 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Database\Factories;
 
-use App\User;
+use App\Models\User;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
+/**
+ * @extends Factory<User>
+ */
 class UserFactory extends Factory
 {
     /**
@@ -22,9 +27,9 @@ class UserFactory extends Factory
     public function definition()
     {
         return [
-            'name' => $this->faker->firstname,
-            'type' => 1,
-            'room_id' => $this->faker->uuid,
+            'name'    => fake()->firstname,
+            'type'    => 1,
+            'room_id' => fake()->uuid,
         ];
     }
 }

@@ -1,5 +1,10 @@
 <?php
 
+declare(strict_types=1);
+
+use Illuminate\Database\Eloquent\Builder;
+use Illuminate\Session\Store;
+
 return [
 
     /*
@@ -11,8 +16,8 @@ return [
     |
     */
 
-    'filename'  => '_ide_helper',
-    'format'    => 'php',
+    'filename'      => '_ide_helper',
+    'format'        => 'php',
     'meta_filename' => '.phpstorm.meta.php',
 
     /*
@@ -36,7 +41,7 @@ return [
     |
     */
 
-    'include_factory_builders' => false,
+    'include_factory_builders' => true,
 
     /*
     |--------------------------------------------------------------------------
@@ -62,7 +67,7 @@ return [
     |
     */
 
-    'write_eloquent_model_mixins' => false,
+    'write_eloquent_model_mixins' => true,
 
     /*
     |--------------------------------------------------------------------------
@@ -77,7 +82,7 @@ return [
     'include_helpers' => true,
 
     'helper_files' => [
-        base_path().'/vendor/laravel/framework/src/Illuminate/Support/helpers.php',
+        base_path() . '/vendor/laravel/framework/src/Illuminate/Support/helpers.php',
     ],
 
     /*
@@ -117,8 +122,8 @@ return [
     */
 
     'extra' => [
-        'Eloquent' => ['Illuminate\Database\Eloquent\Builder', 'Illuminate\Database\Query\Builder'],
-        'Session' => ['Illuminate\Session\Store'],
+        'Eloquent' => [Builder::class, Illuminate\Database\Query\Builder::class],
+        'Session'  => [Store::class],
     ],
 
     'magic' => [],
@@ -133,7 +138,7 @@ return [
     |
     */
 
-    'interfaces' => [
+    'interfaces'                  => [
 
     ],
 
@@ -163,7 +168,7 @@ return [
     |  ),
     |
     */
-    'custom_db_types' => [
+    'custom_db_types'             => [
 
     ],
 
@@ -201,7 +206,7 @@ return [
     | Cast the given "real type" to the given "type".
     |
     */
-    'type_overrides' => [
+    'type_overrides'              => [
         'integer' => 'int',
         'boolean' => 'bool',
     ],
@@ -215,6 +220,6 @@ return [
     | magic methods and properties.
     |
     */
-    'include_class_docblocks' => true,
+    'include_class_docblocks'     => true,
 
 ];

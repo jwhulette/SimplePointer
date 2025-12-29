@@ -1,11 +1,12 @@
-FROM php:7.4-fpm-alpine
+FROM php:8.4-cli-alpine
 
 WORKDIR /var/www/html
 
 RUN apk --update add supervisor \
     libzip-dev \
     zip \
-    && docker-php-ext-install zip
+    && docker-php-ext-install zip \
+    pcntl
 
 RUN rm /var/cache/apk/* && \
     mkdir -p /var/www/html

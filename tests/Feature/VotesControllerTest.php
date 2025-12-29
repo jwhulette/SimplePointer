@@ -1,26 +1,22 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Tests\Feature;
 
-use App\Room;
-use App\User;
-use Tests\TestCase;
-use App\Events\UserVoted;
-use App\Events\ShowVotesEvent;
 use App\Events\ClearVotesEvent;
+use App\Events\ShowVotesEvent;
+use App\Events\UserVoted;
+use App\Models\Room;
+use App\Models\User;
 use Illuminate\Support\Facades\Event;
+use PHPUnit\Framework\Attributes\Test;
+use Tests\TestCase;
 
-/**
- * @group votes
- */
 class VotesControllerTest extends TestCase
 {
-    public function setUp(): void
-    {
-        parent::setUp();
-    }
-
-    public function test_user_votes_route()
+    #[Test]
+    public function user_votes_route(): void
     {
         $room = Room::factory()->create();
 
@@ -33,7 +29,7 @@ class VotesControllerTest extends TestCase
         $response = $this->put(route('vote'), [
             'roomid' => $room->uuid,
             'userid' => $user->id,
-            'vote' => 3,
+            'vote'   => 3,
         ]);
 
         $response->assertStatus(200);
@@ -41,7 +37,8 @@ class VotesControllerTest extends TestCase
         Event::assertDispatched(UserVoted::class);
     }
 
-    public function test_show_votes_route()
+    #[Test]
+    public function show_votes_route(): void
     {
         Event::fake();
 
@@ -56,7 +53,8 @@ class VotesControllerTest extends TestCase
         Event::assertDispatched(ShowVotesEvent::class);
     }
 
-    public function test_clear_votes_route()
+    #[Test]
+    public function clear_votes_route(): void
     {
         Event::fake();
 

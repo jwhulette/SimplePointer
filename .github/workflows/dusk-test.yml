@@ -1,0 +1,113 @@
+name: Dusk Test
+
+on: [push]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    env:
+      APP_URL: "http://127.0.0.1:8000"
+
+    strategy:
+      fail-fast: true
+      matrix:
+        php-versions: [8.5]
+
+    steps:
+      - name: Check out repository code
+        uses: actions/checkout@v4
+
+      - name: Cache Dependencies
+        uses: actions/cache@v4
+        with:
+          path: ~/.composer/cache/files
+          key: dependencies-php-composer-${{ hashFiles('composer.lock') }}-${{ matrix.php }}
+
+      - name: Setup PHP
+        uses: shivammathur/setup-php@v2
+        with:
+          php-version: ${{ matrix.php }}
+          extensions: json, dom, curl, libxml, mbstring, zip
+          tools: composer:v2
+          coverage: none
+
+      - name: Install PHP dependencies
+        run: composer install --no-interaction --no-progress --ansi
+
+      - name: Set up Node & NPM
+        uses: actions/setup-node@v4
+        with:
+          node-version: "22.x"
+
+      - name: Setup Problem Matches
+        run: |
+          echo "::add-matcher::${{ runner.tool_cache }}/php.json"
+          echo "::add-matcher::${{ runner.tool_cache }}/phpunit.json"
+
+      - name: Cache dependencies
+        id: cache-modules
+        uses: actions/cache@v4
+        with:
+          path: ./node_modules
+          key: modules-${{ hashFiles('package-lock.json') }}
+
+      - name: Install dependencies
+        if: steps.cache-modules.outputs.cache-hit != 'true'
+        run: npm install
+
+      - name: Copy .env
+        run: cp .env.dusk.ci .env
+
+      - name: Build dependencies
+        run: npm run build
+
+      - name: Generate key
+        run: php artisan key:generate
+
+      - name: Setup database
+        run: touch storage/database.sqlite
+
+      - name: Run migrations
+        run: php artisan migrate --seed
+
+      - name: Permissions for Chrome Driver
+        run: |
+          chmod -R 0755 vendor/laravel/dusk/bin/
+
+      - name: Detect Chrome Driver
+        run: |
+          php artisan dusk:chrome-driver --detect
+
+      - name: Start Chrome Driver
+        run: vendor/laravel/dusk/bin/chromedriver-linux &
+
+      - name: Run Laravel Server
+        run: |
+          php artisan serve --no-reload &
+
+      - name: Execute dusk tests
+        run: |
+          php artisan reverb:start > /dev/null 2>&1 &
+          php artisan dusk
+
+      - name: Upload Failed Screenshots
+        uses: actions/upload-artifact@v4
+        if: failure()
+        with:
+          name: "screenshots-php${{ matrix.php }}"
+          path: tests/Browser/screenshots/*
+
+      - name: Upload Console Errors
+        uses: actions/upload-artifact@v4
+        if: failure()
+        with:
+          name: "console-php${{ matrix.php }}"
+          path: tests/Browser/console/*
+
+      - name: Upload Laravel Logs
+        uses: actions/upload-artifact@v4
+        if: failure()
+        with:
+          name: "log-php${{ matrix.php }}"
+          path: storage/logs/*

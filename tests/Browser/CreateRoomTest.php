@@ -1,25 +1,25 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Tests\Browser;
 
-use Tests\DuskTestCase;
+use Illuminate\Foundation\Testing\WithFaker;
 use Laravel\Dusk\Browser;
+use PHPUnit\Framework\Attributes\Test;
+use Tests\DuskTestCase;
 
 class CreateRoomTest extends DuskTestCase
 {
-    public function setUp(): void
-    {
-        parent::setUp();
-    }
+    use WithFaker;
 
-    public function test_user_can_create_new_room()
+    #[Test]
+    public function user_can_create_new_room(): void
     {
-        $faker = $this->faker;
-
-        $this->browse(function (Browser $browser) use ($faker) {
+        $this->browse(function (Browser $browser): void {
             $browser->visit('/')
                 ->assertSee('Simple Pointer')
-                ->type('name', $faker->word)
+                ->type('name', fake()->word())
                 ->select('card_set')
                 ->press('Create Room')
                 ->assertPathIsNot('/home');
