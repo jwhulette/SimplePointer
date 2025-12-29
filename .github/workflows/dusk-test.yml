@@ -91,10 +91,6 @@ jobs:
         run: |
           chmod -R 0755 vendor/laravel/dusk/bin/
 
-      - name: Renaming Chrome chromedriver-linux64 to chromedriver-linux
-        run: |
-          mv vendor/laravel/dusk/bin/chromedriver-linux64 vendor/laravel/dusk/bin/chromedriver-linux
-
       - name: Detect Chrome Driver
         run: |
           php artisan dusk:chrome-driver --detect
