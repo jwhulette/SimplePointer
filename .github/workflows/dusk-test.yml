@@ -81,11 +81,33 @@ jobs:
       - name: Run migrations
         run: php artisan migrate --seed
 
-      - name: Install chrome
-        run: php artisan dusk:chrome-driver --detect
+#      - name: Install chrome
+#        run: php artisan dusk:chrome-driver --detect
+#
+#      - name: Start Chrome Driver
+#        run: vendor/laravel/dusk/bin/chromedriver-linux &
+
+      - name: Permissions for Chrome Driver
+        run: |
+          chmod -R 0755 vendor/laravel/dusk/bin/
+
+      - name: Renaming Chrome chromedriver-linux64 to chromedriver-linux
+        run: |
+          mv vendor/laravel/dusk/bin/chromedriver-linux64 vendor/laravel/dusk/bin/chromedriver-linux
+
+      - name: Detect Chrome Driver
+        run: |
+          php artisan dusk:chrome-driver --detect
 
       - name: Start Chrome Driver
-        run: vendor/laravel/dusk/bin/chromedriver-linux &
+        run: ./vendor/laravel/dusk/bin/chromedriver-linux/chromedriver --port=9515 &
+
+      - name: Run Laravel Server
+        run: |
+          php artisan serve --no-reload &
+
+      - name: Wait for Server
+        run: sleep 5
 
       - name: Execute dusk tests
         run: |
