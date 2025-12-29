@@ -27,7 +27,7 @@ jobs:
           php-version: ${{ matrix.php }}
           extensions: json, dom, curl, libxml, mbstring, zip
           tools: composer:v2
-          coverage: none
+          coverage: pcov
 
       - name: Copy .env
         run: php -r "file_exists('.env') || copy('.env.example', '.env');"
