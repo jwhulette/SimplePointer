@@ -2257,16 +2257,16 @@
         },
         {
             "name": "paragonie/sodium_compat",
-            "version": "v1.16.1",
+            "version": "v1.24.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/paragonie/sodium_compat.git",
-                "reference": "2e856afe80bfc968b47da1f4a7e1ea8f03d06b38"
+                "reference": "2cb48f26130919f92f30650bdcc30e6f4ebe45ac"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/paragonie/sodium_compat/zipball/2e856afe80bfc968b47da1f4a7e1ea8f03d06b38",
-                "reference": "2e856afe80bfc968b47da1f4a7e1ea8f03d06b38",
+                "url": "https://api.github.com/repos/paragonie/sodium_compat/zipball/2cb48f26130919f92f30650bdcc30e6f4ebe45ac",
+                "reference": "2cb48f26130919f92f30650bdcc30e6f4ebe45ac",
                 "shasum": ""
             },
             "require": {
@@ -2337,9 +2337,9 @@
             ],
             "support": {
                 "issues": "https://github.com/paragonie/sodium_compat/issues",
-                "source": "https://github.com/paragonie/sodium_compat/tree/v1.16.1"
+                "source": "https://github.com/paragonie/sodium_compat/tree/v1.24.0"
             },
-            "time": "2021-05-25T12:58:14+00:00"
+            "time": "2025-12-30T16:16:35+00:00"
         },
         {
             "name": "phpoption/phpoption",
@@ -11027,12 +11027,12 @@
     ],
     "aliases": [],
     "minimum-stability": "dev",
-    "stability-flags": [],
+    "stability-flags": {},
     "prefer-stable": true,
     "prefer-lowest": false,
     "platform": {
         "php": "^7.3|^8.0"
     },
-    "platform-dev": [],
-    "plugin-api-version": "2.3.0"
+    "platform-dev": {},
+    "plugin-api-version": "2.6.0"
 }
